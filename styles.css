@@ -255,49 +255,6 @@ body {
     .nav-dropdown:focus-within .nav-dropdown-menu {
         display: block;
     }
-
-    .nav-dropdown-group {
-        padding: 0;
-        width: 100%;
-    }
-    .nav-links > a::after,
-    .nav-dropdown > a::after {
-        content: '';
-        transform-origin: bottom right;
-        transition: transform 0.3s ease;
-    }
-    .nav-dropdown > a::before {
-        content: '▶';
-        transition: transform 0.2s ease;
-    }
-    .nav-dropdown-menu a {
-        padding-left: 22px;
-        border-bottom: 1px solid rgba(74, 55, 40, 0.08);
-        background: var(--warm-white);
-        text-align: left;
-    }
-
-    .nav-submenu {
-        position: static;
-        left: auto;
-        top: auto;
-        border: none;
-        box-shadow: none;
-        background: transparent;
-        padding: 0;
-        width: 100%;
-    }
-
-    .nav-submenu a {
-        padding-left: 28px;
-        border-bottom: 1px solid rgba(74, 55, 40, 0.08);
-        background: var(--warm-white);
-        text-align: left;
-    }
-
-    .nav-dropdown-group.open .nav-submenu {
-        display: flex;
-    }
 }
 
 .nav-dropdown-group {
@@ -387,7 +344,6 @@ body {
 .nav-twitter::after {
     display: none !important; /* Twitter link tidak menggunakan active underline */
 }
-
 /* ── PAGE ── */
 .page {
     max-width: 100%;
