@@ -6,21 +6,21 @@ function toggleCh(header) {
     tog.textContent = isOpen ? '+' : '−';
 }
 function toggleFaq(header) {
-  const body = header.nextElementSibling;
-  const tog = header.querySelector('.faq-tog');
-  const isOpen = body.classList.contains('open');
-  body.classList.toggle('open', !isOpen);
-  tog.textContent = isOpen ? '+' : '−';
+    const body = header.nextElementSibling;
+    const tog = header.querySelector('.faq-tog');
+    const isOpen = body.classList.contains('open');
+    body.classList.toggle('open', !isOpen);
+    tog.textContent = isOpen ? '+' : '−';
 }
 
 function openFab() {
-  document.getElementById('fab-open').parentElement.style.display = 'none';
-  document.getElementById('fab-card').classList.add('open');
+    document.getElementById('fab-open').parentElement.style.display = 'none';
+    document.getElementById('fab-card').classList.add('open');
 }
 
 function closeFab() {
-  document.getElementById('fab-card').classList.remove('open');
-  document.getElementById('fab-open').parentElement.style.display = 'block';
+    document.getElementById('fab-card').classList.remove('open');
+    document.getElementById('fab-open').parentElement.style.display = 'block';
 }
 
 
@@ -58,7 +58,7 @@ function showAbout(event) {
     if (event) event.preventDefault();
 
     const page = document.querySelector('.page[id="musim"]');
-    const about = document.querySelector('.page[id="about-731chapters"]');   
+    const about = document.querySelector('.page[id="about-731chapters"]');
 
     if (about) {
         about.classList.remove('hidden');
@@ -80,14 +80,14 @@ function showAbout(event) {
 document.addEventListener('DOMContentLoaded', function () {
     const page = document.querySelector('.page[id="musim"]');
     const about = document.querySelector('.page[id="about-731chapters"]');
-    
+
     const currentHash = window.location.hash;
-    
+
     if (currentHash === '#musim' || (currentHash && document.querySelector(currentHash) && document.querySelector(currentHash).closest('.page[id="musim"]'))) {
         if (page) page.classList.remove('hidden');
         if (about) about.classList.add('hidden');
         updateActiveNav('#musim');
-        
+
         setTimeout(() => {
             const targetSec = document.querySelector(currentHash);
             if (targetSec) {
@@ -101,7 +101,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
         updateActiveNav('#about-731chapters');
     }
-    
+
     const aboutLink = document.querySelector('a[href="#about-731chapters"]');
     if (aboutLink) {
         aboutLink.addEventListener('click', showAbout);
@@ -111,19 +111,31 @@ document.addEventListener('DOMContentLoaded', function () {
     navLinks.forEach(link => {
         link.addEventListener('click', function (event) {
             const href = link.getAttribute('href');
-            
+
             if (href.startsWith('#')) {
                 event.preventDefault();
-                
+
+                if (link.classList.contains('nav-drop-toggle')) {
+                    event.stopPropagation();
+                    if (navDropdown) {
+                        navDropdown.classList.toggle('open');
+                    }
+                    if (page) page.classList.remove('hidden');
+                    if (about) about.classList.add('hidden');
+                    updateActiveNav('#musim');
+                    window.history.replaceState(null, '', href);
+                    return;
+                }
+
                 if (href === '#about-731chapters') {
                     showAbout(event);
                 } else {
                     if (page) page.classList.remove('hidden');
                     if (about) about.classList.add('hidden');
-                    
+
                     updateActiveNav('#musim');
                     window.history.replaceState(null, '', href);
-                    
+
                     const targetElement = document.querySelector(href);
                     if (targetElement) {
                         targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -134,20 +146,23 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     const navDropdown = document.querySelector('.nav-dropdown');
-    let dropdownCloseTimeout = null;
 
-    if (navDropdown) {
-        navDropdown.addEventListener('mouseenter', () => {
-            clearTimeout(dropdownCloseTimeout);
-            navDropdown.classList.add('open');
-        });
+    // Close dropdown when clicking outside
+    document.addEventListener('click', (event) => {
+        if (navDropdown && !navDropdown.contains(event.target)) {
+            navDropdown.classList.remove('open');
+        }
+    });
 
-        navDropdown.addEventListener('mouseleave', () => {
-            dropdownCloseTimeout = setTimeout(() => {
+    // Close dropdown when clicking on any link inside the dropdown menu (except submenu titles)
+    const menuLinks = document.querySelectorAll('.nav-dropdown-menu a:not(.nav-submenu-title)');
+    menuLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            if (navDropdown) {
                 navDropdown.classList.remove('open');
-            }, 250);
+            }
         });
-    }
+    });
 
     const navToggle = document.querySelector('.nav-toggle');
     const siteNav = document.querySelector('.site-nav');
@@ -163,7 +178,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const submenuTitle = document.querySelector('.nav-submenu-title');
     if (submenuTitle) {
         submenuTitle.addEventListener('click', (event) => {
-            if (window.innerWidth <= 600) {
+            if (window.innerWidth <= 900) {
                 event.preventDefault();
                 const group = submenuTitle.parentElement;
                 if (group) {
@@ -173,10 +188,10 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    const responsiveLinks = document.querySelectorAll('.nav-links a');
+    const responsiveLinks = document.querySelectorAll('.nav-links a:not(.nav-drop-toggle):not(.nav-submenu-title)');
     responsiveLinks.forEach(link => {
         link.addEventListener('click', () => {
-            if (window.innerWidth <= 600 && siteNav && siteNav.classList.contains('open')) {
+            if (window.innerWidth <= 900 && siteNav && siteNav.classList.contains('open')) {
                 siteNav.classList.remove('open');
                 if (navToggle) navToggle.setAttribute('aria-expanded', 'false');
             }
