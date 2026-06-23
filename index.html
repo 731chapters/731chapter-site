@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>731chapters site</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Chonburi&display=swap" rel="stylesheet">
     <link
         href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500&family=EB+Garamond:ital,wght@0,400;1,400&family=DM+Sans:wght@300;400&display=swap"
         rel="stylesheet">
@@ -12,8 +15,8 @@
 
 <body>
     <nav class="site-nav">
-        <a class="nav-brand" href="#about-731chapters" aria-label="731chapters home">
-            <img src="731CHAPTERS_LOGO.png" alt="731chapters logo">
+        <a class="nav-brand" href="https://x.com/731chapters" aria-label="731chapters home">
+            731chapters
         </a>
         <button class="nav-toggle" type="button" aria-expanded="false" aria-label="Open menu">Menu</button>
         <div class="nav-links">
@@ -38,8 +41,7 @@
                     <a class="nav-coming-soon" href="#about-731chapters">Cafe Event</a>
                 </div>
             </div>
-            <a class="nav-twitter" href="https://x.com/731chapters" target="_blank" rel="noopener noreferrer">Twitter /
-                X</a>
+            <a class="nav-twitter" href="https://x.com/731chapters" target="_blank" rel="noopener noreferrer"><p>Twitter</p></a>
         </div>
     </nav>
     <div class="page" id="about-731chapters">
@@ -57,11 +59,24 @@
                     culpa qui officia deserunt mollit anim id est laborum.
                 </p>
             </div>
-            <div class="btn-row">
-                <a href="https://731chapters.straw.page/" class="btn btn-primary">Straw.page</a>
-                <a href="https://x.com/731chapters" target="_blank" rel="noopener noreferrer"
-                    class="btn btn-secondary">Twitter / X</a>
+            <div class="promoted-content">
+                <div class="fanzine-doc" href="#about" onclick="showFanzineDocumentation(event)" >
+                    <a href="#about" onclick="showFanzineDocumentation(event)">Fanzine Documentation</a>
+                </div>
+               <div class="sec-head">
+                    <div class="divider"></div>
+                </div>
+                <div class="apply-text">
+                    <p>APPLY SEBAGAI KONTRIBUTOR</p>
+                    <p class="apply-subtext">Deadline: 27 Juni 2026</p>
+                </div>
+                <div class="btn-row">
+                    <a href="https://docs.google.com/forms/d/e/1FAIpQLScn3hR7xUH9U7i56pcKAs7q9G3BEKMqYuHNay9WI6u-16UrPQ/viewform?usp=publish-editor" class="btn btn-writer">Writer</a>
+                    <a href="https://docs.google.com/forms/d/e/1FAIpQLScHw2CUBk5r_SUqsOFHZCfiJBWD4Rt3UZSoFV-3OZekzSKPfg/viewform?usp=header" class="btn btn-artist">Artist</a>
+                </div>
             </div>
+            <p class="about-731chapters-meta">Terakhir diperbarui: 22 Juni 2026 &nbsp;·&nbsp; Dokumen ini dapat
+                diperbarui sewaktu-waktu.</p>
         </div>
     </div>
     <div class="page hidden" id="musim">
@@ -504,9 +519,9 @@
                         <div class="faq-q" onclick="toggleFaq(this)">
                             <span>Apa yang harus diisi di kolom <em>preferred name</em> dan <em>credit name</em>?
                                 Bedanya apa?</span>
-                            <span class="faq-tog">−</span>
+                            <span class="faq-tog">+</span>
                         </div>
-                        <div class="faq-a open">
+                        <div class="faq-a">
                             <p><strong>Preferred name</strong> adalah nama panggilan yang kamu prefer untuk kami gunakan
                                 dalam komunikasi dengan kamu nantinya — bukan nama karakter.</p>
                             <p><strong>Credit name</strong> adalah nama yang akan kami cantumkan pada credit karya kamu
@@ -519,9 +534,9 @@
                     <div class="faq-item">
                         <div class="faq-q" onclick="toggleFaq(this)">
                             <span>Apakah boleh untuk menulis karyanya pakai bahasa Inggris?</span>
-                            <span class="faq-tog">−</span>
+                            <span class="faq-tog">+</span>
                         </div>
-                        <div class="faq-a open">
+                        <div class="faq-a">
                             <p>Diperbolehkan, namun kami sangat menyarankan untuk menggunakan bahasa Indonesia.</p>
                         </div>
                     </div>
@@ -529,9 +544,9 @@
                     <div class="faq-item">
                         <div class="faq-q" onclick="toggleFaq(this)">
                             <span>Social media handles — isi apa, dan platform apa saja?</span>
-                            <span class="faq-tog">−</span>
+                            <span class="faq-tog">+</span>
                         </div>
-                        <div class="faq-a open">
+                        <div class="faq-a">
                             <p>Bisa sertakan link ke Instagram, Twitter, atau TikTok milik kamu, atau akun yang kamu
                                 pakai untuk berkarya. Senyaman kamu saja untuk memberikannya ke kami.</p>
                             <p>Ini hanya akan kami pakai jika pada periode 29 Juni – 31 Juli, akun Twitter kamu tidak
@@ -542,9 +557,9 @@
                     <div class="faq-item">
                         <div class="faq-q" onclick="toggleFaq(this)">
                             <span>Online portofolio wajib diisi?</span>
-                            <span class="faq-tog">−</span>
+                            <span class="faq-tog">+</span>
                         </div>
-                        <div class="faq-a open">
+                        <div class="faq-a">
                             <p>Sebisa mungkin iya. Jika kamu mengunggah karya di tempat lain seperti Ao3, Wattpad, atau
                                 Medium, link tersebut bisa dibagi di section ini. Bisa juga upload ke Google Drive dan
                                 beri linknya sebagai online portofolio.</p>
@@ -555,9 +570,9 @@
                     <div class="faq-item">
                         <div class="faq-q" onclick="toggleFaq(this)">
                             <span>Prompts: Apakah harus pakai semuanya? Bisa pilih beberapa saja?</span>
-                            <span class="faq-tog">−</span>
+                            <span class="faq-tog">+</span>
                         </div>
-                        <div class="faq-a open">
+                        <div class="faq-a">
                             <p>Tidak harus menggunakan semua prompts. Prompts tidak dibuat untuk membatasi ide atau
                                 kreativitas contributor, kamu boleh pakai satu, dua, atau tidak sama sekali jika sudah
                                 punya arah cerita sendiri yang tetap sesuai tema chapter-nya.</p>
@@ -568,9 +583,9 @@
                         <div class="faq-q" onclick="toggleFaq(this)">
                             <span>Kalau di tengah jalan ada ide prompt lain yang beda dari yang diusulkan di awal,
                                 boleh?</span>
-                            <span class="faq-tog">−</span>
+                            <span class="faq-tog">+</span>
                         </div>
-                        <div class="faq-a open">
+                        <div class="faq-a">
                             <p>Boleh! Selama tetap sesuai tema chapter-nya dan moderator fanzine diberi tahu. Yang tidak
                                 disarankan adalah mengubah chapternya. Hubungi moderator sebelum mengubah arah karya
                                 kamu ya.</p>
@@ -580,9 +595,9 @@
                     <div class="faq-item">
                         <div class="faq-q" onclick="toggleFaq(this)">
                             <span>Check-in 1, 2, 3 — harus submit draft pada waktu itu?</span>
-                            <span class="faq-tog">−</span>
+                            <span class="faq-tog">+</span>
                         </div>
-                        <div class="faq-a open">
+                        <div class="faq-a">
                             <p>Bukan. Check-in hanya berupa pengingat dari moderator untuk memastikan progres karya kamu
                                 berjalan lancar, bukan pengumpulan draft. Deadline final tetap di <strong>31 Juli
                                     2026</strong>.</p>
@@ -592,9 +607,9 @@
                     <div class="faq-item">
                         <div class="faq-q" onclick="toggleFaq(this)">
                             <span>Boleh ikut fanzine tapi tidak menghadiri main event-nya?</span>
-                            <span class="faq-tog">−</span>
+                            <span class="faq-tog">+</span>
                         </div>
-                        <div class="faq-a open">
+                        <div class="faq-a">
                             <p>Boleh! Semua fan creators diperbolehkan untuk berpartisipasi sebagai kontributor fanzine
                                 meskipun tidak mengikuti eventnya nanti.</p>
                         </div>
@@ -603,9 +618,9 @@
                     <div class="faq-item">
                         <div class="faq-q" onclick="toggleFaq(this)">
                             <span>Bagaimana sistem pembagian chapter ke kontributor?</span>
-                            <span class="faq-tog">−</span>
+                            <span class="faq-tog">+</span>
                         </div>
-                        <div class="faq-a open">
+                        <div class="faq-a">
                             <p>Setelah deadline apply (27 Juni 2026), moderator akan melakukan assignment — setiap
                                 kontributor akan di-assign ke chapter berdasarkan pilihan dan pitch idea yang disubmit.
                                 Satu kontributor bisa mendapat satu chapter atau lebih, tergantung jumlah pendaftar dan
@@ -621,9 +636,9 @@
                     <div class="faq-item">
                         <div class="faq-q" onclick="toggleFaq(this)">
                             <span>Apakah adegan ciuman termasuk konten 18+?</span>
-                            <span class="faq-tog">−</span>
+                            <span class="faq-tog">+</span>
                         </div>
-                        <div class="faq-a open">
+                        <div class="faq-a">
                             <p>Tidak selalu. Panduan singkatnya:</p>
                             <p><strong>Tidak perlu label 18+:</strong> ciuman romantis yang lembut, kecupan singkat.</p>
                             <p><strong>Perlu label 18+:</strong> ciuman yang sangat eksplisit, berlangsung lama, atau
@@ -638,7 +653,7 @@
         </div>
 
         <footer class="footer">
-            <p class="footer-title"><a href="x.com/731chapters">731chapters</a></p>
+            <p class="footer-title">731chapters</p>
         </footer>
     </div>
 
