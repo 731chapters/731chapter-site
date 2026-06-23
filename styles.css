@@ -56,7 +56,7 @@ body {
     align-items: center;
     justify-content: space-between;
     gap: 16px;
-    padding: 10px 500px 10px 500px;
+    padding: 10px 80px;
     background: rgba(253, 250, 244, 0.92);
     backdrop-filter: blur(8px);
     border-bottom: 1px solid var(--parchment);
@@ -68,8 +68,8 @@ body {
     font-weight: 460;
     letter-spacing: -0.07em;
     text-decoration: none;
-    color: var(--isabeline);
-    -webkit-text-stroke: 0.6px var(--text);
+    color: var(--mauve-light);
+    -webkit-text-stroke: 0.3px var(--text);
     text-shadow: 2px 3px 10px var(--brown-light);
 }
 
@@ -191,17 +191,12 @@ body {
 }
 @media (max-width: 1080px) {
     .site-nav {
-        padding: 10px 10px 10px 10px;
+        padding: 10px 40px;
     }
 }
 @media (max-width: 1503px) {
     .site-nav {
-        padding: 10px 150px 10px 150px;
-    }
-}
-@media (max-width: 600px) {
-    .site-nav {
-        padding: 0 10px 0 10px;
+        padding: 10px 150px;
     }
 }
 @media (max-width: 900px) {
@@ -407,6 +402,7 @@ body {
     transition: color 0.3s ease;
 }
 .nav-twitter p{
+    
     color: var(--warm-white);
     font-size: 11px;
     letter-spacing: 0.18em;
@@ -1589,6 +1585,9 @@ body {
 }
 
 @media (max-width: 600px) {
+    .site-nav {
+        padding: 0 10px;
+    }
     .page {
         padding: 0 20px 72px;
     }
@@ -1614,117 +1613,33 @@ body {
     .roles-grid {
         grid-template-columns: 1fr;
     }
+
 }
 
-@media (max-width: 900px) {
-
-    .site-nav {
-        flex-wrap: wrap;
-        padding: 10px 18px;
-
+@media (max-width: 600px) OR (max-width: 900px){
+    
+    .nav-twitter p{
+        padding: 6px 12px;
     }
-
-    .nav-toggle {
-        display: inline-flex;
-    }
-
-    .nav-links {
-        display: none;
-        width: 100%;
-        flex-direction: column;
-        gap: 0;
-        background: var(--warm-white);
-        border-top: 1px solid var(--parchment);
-        align-items: center;
-        text-align: center;
-    }
-
-    .site-nav.open .nav-links {
-        display: flex;
-    }
-
-    .nav-links a,
-    .nav-dropdown>a,
-    .nav-coming-soon,
-    .nav-submenu-title,
-    .nav-submenu a {
-        width: 100%;
-        margin: 6px auto;
-        padding: 12px 18px;
-        text-align: center;
-        display: block;
-    }
-
-    .nav-links a {
-        border-bottom: 1px solid rgba(74, 55, 40, 0.08);
-    }
-
-    .nav-dropdown>a {
-        display: flex;
-        justify-content: flex-start;
-        align-items: center;
-        gap: 6px;
-    }
-
-    .nav-dropdown-menu {
+    .nav-twitter, .nav-twitter p {    
+        background: var(--brown);
+        display: center;
+        width: 85px;
+        border-radius: 4px; 
+        transition: color 0.3s ease;        
+        color: var(--warm-white);
+        font-size: 11px;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        text-decoration: none;
         position: relative;
-        top: auto;
-        left: auto;
-        transform: none;
-        width: 100%;
-        margin: 6px auto 0 auto;
-        border: 1px solid var(--parchment);
-        border-radius: 6px;
-        box-shadow: 0 8px 24px rgba(74, 55, 40, 0.08);
-        padding: 8px 0;
-        background: var(--warm-white);
-        display: none;
-        min-width: 250px;
-        max-width: 420px;
+        transition: color 0.3s ease;
     }
-
-    .nav-dropdown.open .nav-dropdown-menu {
-        display: block;
+    .nav-twitter:hover, .nav-twitter:focus{
+        background: none;
     }
-
-    .nav-dropdown-group {
-        padding: 0;
-        width: 100%;
-    }
-
-    .nav-dropdown-menu a {
-        padding: 10px 18px;
-        border-bottom: 1px solid rgba(74, 55, 40, 0.08);
-        background: var(--warm-white);
-        text-align: center;
-        display: inline-flex;
-    }
-
-    .nav-submenu {
-        position: relative;
-        top: auto;
-        left: auto;
-        transform: none;
-        width: 100%;
-        background: transparent;
-        border: none;
-        box-shadow: none;
-        padding: 0;
-        display: none;
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .nav-submenu a {
-        padding: 10px 18px;
-        border-bottom: 1px solid rgba(74, 55, 40, 0.08);
-        background: var(--warm-white);
-        text-align: center;
-        display: inline-flex;
-        justify-content: center;
-    }
-
-    .nav-dropdown-group.open .nav-submenu {
-        display: flex;
+    .nav-twitter p:hover, .nav-twitter p:focus {
+        background: var(--brown-light);
     }
 }
+    
