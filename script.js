@@ -8,8 +8,10 @@ function toggleCh(header) {
 function toggleFaq(header) {
     const body = header.nextElementSibling;
     const tog = header.querySelector('.faq-tog');
+
     const isOpen = body.classList.contains('open');
-    body.classList.toggle('open', !isOpen);
+
+    body.classList.toggle('open');
     tog.textContent = isOpen ? '+' : '−';
 }
 
