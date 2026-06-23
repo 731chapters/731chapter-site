@@ -229,7 +229,7 @@ body {
     .nav-dropdown > a {
         justify-content: space-between;
         display: inline-flex;
-        align-items: center;
+        align-items: left;
     }
 
     .nav-dropdown-menu {
