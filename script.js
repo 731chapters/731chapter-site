@@ -80,14 +80,14 @@ function showAbout(event) {
 document.addEventListener('DOMContentLoaded', function () {
     const page = document.querySelector('.page[id="musim"]');
     const about = document.querySelector('.page[id="about-731chapters"]');
-
+    
     const currentHash = window.location.hash;
-
+    
     if (currentHash === '#musim' || (currentHash && document.querySelector(currentHash) && document.querySelector(currentHash).closest('.page[id="musim"]'))) {
         if (page) page.classList.remove('hidden');
         if (about) about.classList.add('hidden');
         updateActiveNav('#musim');
-
+        
         setTimeout(() => {
             const targetSec = document.querySelector(currentHash);
             if (targetSec) {
@@ -101,31 +101,31 @@ document.addEventListener('DOMContentLoaded', function () {
         }
         updateActiveNav('#about-731chapters');
     }
-
+    
     const aboutLink = document.querySelector('a[href="#about-731chapters"]');
     if (aboutLink) {
         aboutLink.addEventListener('click', showAbout);
     }
+
+    const navDropdown = document.querySelector('.nav-dropdown');
+    let dropdownCloseTimeout = null;
 
     const navLinks = document.querySelectorAll('.nav-links a');
     navLinks.forEach(link => {
         link.addEventListener('click', function (event) {
             const href = link.getAttribute('href');
 
-            if (href.startsWith('#')) {
+            if (link.classList.contains('nav-drop-toggle')) {
                 event.preventDefault();
-
-                if (link.classList.contains('nav-drop-toggle')) {
-                    event.stopPropagation();
-                    if (navDropdown) {
-                        navDropdown.classList.toggle('open');
-                    }
-                    if (page) page.classList.remove('hidden');
-                    if (about) about.classList.add('hidden');
-                    updateActiveNav('#musim');
-                    window.history.replaceState(null, '', href);
-                    return;
+                if (navDropdown) {
+                    const isOpen = navDropdown.classList.toggle('open');
+                    link.setAttribute('aria-expanded', String(isOpen));
                 }
+                return;
+            }
+
+            if (href && href.startsWith('#')) {
+                event.preventDefault();
 
                 if (href === '#about-731chapters') {
                     showAbout(event);
@@ -145,24 +145,22 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-    const navDropdown = document.querySelector('.nav-dropdown');
-
-    // Close dropdown when clicking outside
-    document.addEventListener('click', (event) => {
-        if (navDropdown && !navDropdown.contains(event.target)) {
-            navDropdown.classList.remove('open');
-        }
-    });
-
-    // Close dropdown when clicking on any link inside the dropdown menu (except submenu titles)
-    const menuLinks = document.querySelectorAll('.nav-dropdown-menu a:not(.nav-submenu-title)');
-    menuLinks.forEach(link => {
-        link.addEventListener('click', () => {
-            if (navDropdown) {
-                navDropdown.classList.remove('open');
+    if (navDropdown) {
+        navDropdown.addEventListener('mouseenter', () => {
+            clearTimeout(dropdownCloseTimeout);
+            if (window.innerWidth > 600) {
+                navDropdown.classList.add('open');
             }
         });
-    });
+
+        navDropdown.addEventListener('mouseleave', () => {
+            if (window.innerWidth > 600) {
+                dropdownCloseTimeout = setTimeout(() => {
+                    navDropdown.classList.remove('open');
+                }, 250);
+            }
+        });
+    }
 
     const navToggle = document.querySelector('.nav-toggle');
     const siteNav = document.querySelector('.site-nav');
@@ -175,25 +173,55 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    const submenuTitle = document.querySelector('.nav-submenu-title');
-    if (submenuTitle) {
-        submenuTitle.addEventListener('click', (event) => {
-            if (window.innerWidth <= 900) {
+    const submenuTitles = document.querySelectorAll('.nav-submenu-title');
+    submenuTitles.forEach((title) => {
+        title.addEventListener('click', (event) => {
+            if (window.innerWidth <= 600) {
                 event.preventDefault();
-                const group = submenuTitle.parentElement;
+                const group = title.parentElement;
                 if (group) {
                     group.classList.toggle('open');
                 }
             }
         });
-    }
+    });
 
-    const responsiveLinks = document.querySelectorAll('.nav-links a:not(.nav-drop-toggle):not(.nav-submenu-title)');
-    responsiveLinks.forEach(link => {
+    const submenuLinks = document.querySelectorAll('.nav-submenu a');
+    submenuLinks.forEach((link) => {
         link.addEventListener('click', () => {
-            if (window.innerWidth <= 900 && siteNav && siteNav.classList.contains('open')) {
+            if (window.innerWidth <= 600 && siteNav && siteNav.classList.contains('open')) {
                 siteNav.classList.remove('open');
                 if (navToggle) navToggle.setAttribute('aria-expanded', 'false');
+                if (navDropdown) {
+                    navDropdown.classList.remove('open');
+                }
+
+                const openSubmenuGroup = document.querySelector('.nav-dropdown-group.open');
+                if (openSubmenuGroup) {
+                    openSubmenuGroup.classList.remove('open');
+                }
+            }
+        });
+    });
+
+    const responsiveLinks = document.querySelectorAll('.nav-links a');
+    responsiveLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            if (window.innerWidth <= 600 && siteNav && siteNav.classList.contains('open')) {
+                if (link.classList.contains('nav-drop-toggle') || link.classList.contains('nav-submenu-title')) {
+                    return;
+                }
+
+                siteNav.classList.remove('open');
+                if (navToggle) navToggle.setAttribute('aria-expanded', 'false');
+                if (navDropdown) {
+                    navDropdown.classList.remove('open');
+                }
+
+                const openSubmenuGroup = document.querySelector('.nav-dropdown-group.open');
+                if (openSubmenuGroup) {
+                    openSubmenuGroup.classList.remove('open');
+                }
             }
         });
     });
