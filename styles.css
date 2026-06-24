@@ -6,6 +6,11 @@
     padding: 0;
 }
 
+html {
+    width: 100%;
+    overflow-x: hidden;
+}
+
 :root {
     --warm-white: #FDFAF4;
     --isabeline: #f1c8cb;
@@ -43,6 +48,11 @@ body {
     font-family: 'EB Garamond', serif;
     font-size: 16px;
     line-height: 1.8;
+    width: 100%;
+    min-width: 0;
+    overflow-x: hidden;
+    margin: 0;
+    padding: 0;
 }
 
 /* ── NAVBAR ── */
@@ -50,8 +60,9 @@ body {
     position: sticky;
     top: 0;
     z-index: 1000;
-    max-width: 100%;
-    margin: 0 auto;
+    width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -469,7 +480,6 @@ body {
     background: var(--brown-light);
 }
 
-.fanzine-doc:hover,
 .btn-writer:hover,
 .btn-artist:hover {
     filter: brightness(0.9);
@@ -1543,9 +1553,40 @@ body {
     }
 }
 
-@media (max-width: 391px) {
+@media (max-width: 390px) {
+    .site-nav {
+        width: 100%;
+        box-sizing: border-box;
+        padding: 8px 14px;
+        gap: 8px;
+        display: flex;
+        flex-wrap: nowrap;
+        justify-content: space-between;
+        align-items: center;
+    }
+
     .nav-brand {
-        font-size: 24px;
+        flex: 1 1 auto;
+        min-width: 0;
+        margin-left: 0;
+        overflow: hidden;
+    }
+
+    .nav-brand img {
+        height: 38px;
+        width: auto;
+        max-width: 100%;
+        display: block;
+        object-fit: contain;
+    }
+
+    .nav-toggle {
+        flex: 0 0 auto;
+        white-space: nowrap;
+        padding: 8px 12px;
+        font-size: 10px;
+        letter-spacing: 0.14em;
+        margin: 0;
     }
 
     .page {
@@ -1563,11 +1604,10 @@ body {
     .promoted-content {
         width: 100%;
         padding: 18px 16px;
-        margin-bottom: 24px;
     }
 
     .btn-row {
-        gap: 10px;
+        grid-template-columns: 1fr;
     }
 
     .btn-row a {
@@ -1590,16 +1630,29 @@ body {
 
 @media (max-width: 360px) {
     .site-nav {
-        padding: 10px 12px;
+        width: 100%;
+        box-sizing: border-box;
+        padding: 8px 12px;
+        gap: 6px;
+        flex-wrap: nowrap;
     }
 
     .nav-brand {
-        font-size: 22px;
+        flex: 1 1 auto;
+        min-width: 0;
+        margin-left: 0;
+    }
+
+    .nav-brand img {
+        height: 34px;
     }
 
     .nav-toggle {
-        padding: 8px 12px;
-        font-size: 10px;
+        flex: 0 0 auto;
+        white-space: nowrap;
+        padding: 7px 10px;
+        font-size: 9.5px;
+        letter-spacing: 0.12em;
     }
 
     .page {
@@ -1612,24 +1665,19 @@ body {
         padding-right: 12px;
         padding-top: 58px;
         padding-bottom: 36px;
-        margin-left: 0;
-        margin-right: 0;
     }
 
     .promoted-content {
-        width: 100%;
-        padding: 18px 16px;
-        margin-bottom: 24px;
+        padding: 14px;
+    }
+
+    .apply-text {
+        font-size: 15px;
     }
 
     .fanzine-doc {
         padding: 10px 14px;
         font-size: 11px;
-    }
-
-    .apply-text {
-        font-size: 16px;
-        line-height: 1.2;
     }
 
     .apply-subtext {
@@ -1696,15 +1744,27 @@ body {
 
 @media (max-width: 330px) {
     .site-nav {
-        padding: 8px 10px;
+        width: 100%;
+        box-sizing: border-box;
+        padding: 7px 10px;
+        gap: 5px;
+        flex-wrap: nowrap;
     }
 
     .nav-brand {
-        font-size: 20px;
+        flex: 1 1 auto;
+        min-width: 0;
+        margin-left: 0;
+    }
+
+    .nav-brand img {
+        height: 30px;
     }
 
     .nav-toggle {
-        padding: 7px 10px;
+        flex: 0 0 auto;
+        white-space: nowrap;
+        padding: 6px 9px;
         font-size: 9px;
     }
 
@@ -1753,16 +1813,29 @@ body {
 
 @media (max-width: 300px) {
     .site-nav {
-        padding: 8px 10px;
+        width: 100%;
+        box-sizing: border-box;
+        padding: 6px 8px;
+        gap: 4px;
+        flex-wrap: nowrap;
     }
 
     .nav-brand {
-        font-size: 20px;
+        flex: 1 1 auto;
+        min-width: 0;
+        margin-left: 0;
+    }
+
+    .nav-brand img {
+        height: 28px;
     }
 
     .nav-toggle {
-        padding: 7px 10px;
-        font-size: 9px;
+        flex: 0 0 auto;
+        white-space: nowrap;
+        padding: 5px 8px;
+        font-size: 8.5px;
+        letter-spacing: 0.10em;
     }
 
     .nav-links a,
