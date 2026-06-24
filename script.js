@@ -80,6 +80,27 @@ function showAbout(event) {
 }
 
 document.addEventListener('DOMContentLoaded', function () {
+    // ── Hide FAB when footer is visible ──
+    const fabEl = document.querySelector('.fab');
+    const fabCardEl = document.getElementById('fab-card');
+    const footerEl = document.querySelector('.footer');
+
+    if (fabEl && footerEl) {
+        const observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        fabEl.classList.add('fab-hidden');
+                        if (fabCardEl) fabCardEl.classList.remove('open');
+                    } else {
+                        fabEl.classList.remove('fab-hidden');
+                    }
+                });
+            },
+            { threshold: 0.01 }
+        );
+        observer.observe(footerEl);
+    }
     const page = document.querySelector('.page[id="musim"]');
     const about = document.querySelector('.page[id="about-731chapters"]');
     
