@@ -10,6 +10,7 @@ html {
     width: 100%;
 }
 
+
 :root {
     --warm-white: #FDFAF4;
     --isabeline: #f1c8cb;
@@ -80,7 +81,7 @@ body {
 .nav-brand img {
     display: block;
     width: auto;
-    height: 56px;
+    height: 40px;
     object-fit: contain;
 }
 
@@ -308,8 +309,7 @@ body {
 .nav-twitter:focus,
 .nav-twitter p:hover,
 .nav-twitter p:focus {
-    background: var(--brown-light);
-
+    filter: brightness(1.2);
 }
 
 /* ── PAGE ── */
@@ -478,7 +478,7 @@ body {
 .btn-artist {
     background: var(--brown-light);
 }
-
+.fanzine-doc:hover,
 .btn-writer:hover,
 .btn-artist:hover {
     filter: brightness(0.9);
@@ -1151,10 +1151,25 @@ body {
 
 /* ── FOOTER ── */
 .footer {
-    margin-top: 60px;
-    padding-top: 32px;
-    border-top: 2px solid var(--sage-light);
+    margin-top: 40px;
+    padding: 16px 0;
+    border-top: 1px solid var(--brown-light);
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
     text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.footer-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 13px;
+    font-weight: 300;
+    font-style: italic;
+    color: var(--muted);
+    letter-spacing: 0.12em;
 }
 
 .footer-title a {
@@ -1164,8 +1179,12 @@ body {
     font-style: italic;
     color: var(--muted);
     letter-spacing: 0.12em;
+    text-decoration: none;
 }
-
+.footer-title a:hover{
+    filter: brightness(0.9);
+    text-shadow: 0 0 10px var(--brown-mid);;
+}
 /* ── CTA ── */
 .cta-block {
     text-align: center;
@@ -1266,7 +1285,7 @@ body {
 }
 
 .fab-btn:hover {
-    background: var(--brown-light);
+    filter: brightness(1.2);
 }
 
 .fab-btn-main {
