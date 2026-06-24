@@ -1152,7 +1152,7 @@ body {
 /* ── FOOTER ── */
 .footer {
     margin-top: 40px;
-    padding: 16px 0;
+    padding: 16px 0 80px;
     border-top: 1px solid var(--brown-light);
     width: 90%;
     margin-left: auto;
@@ -1266,6 +1266,14 @@ body {
     bottom: 28px;
     right: 28px;
     z-index: 200;
+    transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s ease;
+}
+
+.fab.fab-hidden {
+    opacity: 0;
+    transform: translateY(12px);
+    visibility: hidden;
+    pointer-events: none;
 }
 
 .fab-btn {
