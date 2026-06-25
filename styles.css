@@ -375,12 +375,9 @@ body {
     color: var(--sage);
     margin-bottom: 24px;
 }
-
 .about-731chapters .section {
     max-width: 480px;
     margin: 24px auto 20px;
-}
-.about-731chapters-content p{
     text-align: justify;
 }
 .promoted-content {
