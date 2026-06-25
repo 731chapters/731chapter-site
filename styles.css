@@ -380,7 +380,9 @@ body {
     max-width: 480px;
     margin: 24px auto 20px;
 }
-
+.about-731chapters-content{
+    text-align: justify;
+}
 .promoted-content {
     position: relative;
     z-index: 200;
