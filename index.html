@@ -14,27 +14,6 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <style>
-    *,
-    *::before,
-    *::after {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
-    }
-
-    html,
-    body {
-        width: 100%;
-        max-width: 100%;
-        overflow-x: hidden;
-        padding-top: 20px;
-        color: var(--text);
-        background: url('https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExejgxanU3M2Z4NHU4a2ZjeWJoMzRzODFkb2FzanhiZTFlaGhkY3Q3MSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/xThtawJ5higNRr1pq8/giphy.gif') center/cover no-repeat fixed,
-            linear-gradient(180deg, var(--warm-white) 0%, var(--isabeline) 38%, var(--isabeline) 75%);
-        font-family: 'EB Garamond', serif;
-        font-size: 16px;
-        line-height: 1.8;
-    }
 
     :root {
         --warm-white: #FDFAF4;
@@ -66,7 +45,27 @@
         --text-ch-: #3A2C20;
         --muted-ch: #9A8070;
     }
+    
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
 
+    html,
+    body {
+        width: 100%;
+        max-width: 100%;
+        overflow-x: hidden;
+        padding-top: 20px;
+        color: var(--text);
+        background: url('https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExejgxanU3M2Z4NHU4a2ZjeWJoMzRzODFkb2FzanhiZTFlaGhkY3Q3MSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/xThtawJ5higNRr1pq8/giphy.gif') center/cover no-repeat fixed,
+            linear-gradient(180deg, var(--warm-white) 0%, var(--warm-white) 38%, var(--isabeline) 75%);
+        font-family: 'EB Garamond', serif;
+        font-size: 16px;
+        line-height: 1.8;
     /* ── NAVBAR ── */
     .site-nav {
         position: fixed;
