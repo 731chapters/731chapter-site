@@ -1,0 +1,1573 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="icon" href="MMR-LOGO.png" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <title>Arrange nidjae memories</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jersey+15&display=swap" rel="stylesheet">
+</head>
+<style>
+    :root {
+        --warm-white: #FDFAF4;
+        --isabeline: #f1c8cb;
+        --parchment: #f6b0bb;
+        --brown: #8f5a63;
+        --brown-mid: #b06a73;
+        --brown-light: #d8a8ad;
+        --sage: #9fac90;
+        --sage-light: #818a6d;
+        --sage-bg: #E8EBDC;
+        --mauve: #ecb3bc;
+        --mauve-light: #f6c9cf;
+        --mauve-bg: #fff0f2;
+        --text: #3A2C20;
+        --muted: #a17379;
+
+        --isabeline-ch: #F2ECD8;
+        --parchment-ch: #E8DFCA;
+        --brown-ch: #4A3728;
+        --brown-mid-ch: #7A5C48;
+        --brown-light-ch: #B09080;
+        --sage-ch: #7A8560;
+        --sage-light-ch: #A8B894;
+        --sage-bg-ch: #E8EBDC;
+        --mauve-ch: #C28B96;
+        --mauve-light-ch: #E8C4CC;
+        --mauve-bg-ch: #FAEFF1;
+        --text-ch-: #3A2C20;
+        --muted-ch: #9A8070;
+
+        --tile-gap: 8px;
+        --board-bg: var(--parchment);
+        --tile-bg: var(--warm-white);
+        --tile-border: var(--brown-light);
+        --tile-text: var(--text);
+        --accent: var(--mauve);
+        --empty-bg: rgba(176, 144, 128, 0.25);
+    }
+
+
+    * {
+        box-sizing: border-box;
+        font-family: "Jersey 15", sans-serif;
+    }
+
+    body {
+        padding-top: 25px;
+        background: url('https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExejgxanU3M2Z4NHU4a2ZjeWJoMzRzODFkb2FzanhiZTFlaGhkY3Q3MSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/xThtawJ5higNRr1pq8/giphy.gif') center/cover no-repeat fixed,
+            linear-gradient(180deg, var(--warm-white) 0%, var(--warm-white) 38%, var(--isabeline) 75%);
+        background-blend-mode: overlay;
+
+        min-height: 100vh;
+        color: var(--text);
+    }
+
+
+    /* ── NAVBAR ── */
+    .site-nav {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1000;
+        width: 100%;
+        max-width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px 24px;
+        background: rgba(253, 250, 244, 0.92);
+        backdrop-filter: blur(8px);
+        border-bottom: 1px solid var(--parchment);
+        box-sizing: border-box;
+    }
+
+    .nav-brand {
+        display: inline-block;
+        margin-left: 10px;
+    }
+
+    .nav-brand img {
+        display: block;
+        width: auto;
+        height: 40px;
+        object-fit: contain;
+    }
+
+    .nav-toggle {
+        display: none;
+        border: 1px solid var(--parchment);
+        background: var(--warm-white);
+        color: var(--brown);
+        font-family: 'DM Sans', sans-serif;
+        font-size: 11px;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        padding: 10px 14px;
+        border-radius: 6px;
+        cursor: pointer;
+    }
+
+    .nav-toggle:hover,
+    .nav-toggle:focus-visible {
+        border-color: var(--brown);
+        outline: none;
+    }
+
+    .nav-links {
+        display: flex;
+        align-items: center;
+        gap: 34px;
+        /* flex-wrap: wrap; */
+    }
+
+    .nav-links a {
+        font-family: 'DM Sans', sans-serif;
+        font-size: 11px;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        text-decoration: none;
+        color: var(--brown-mid);
+        position: relative;
+        display: inline-block;
+        transition: color 0.3s ease;
+    }
+
+    .nav-btn {
+        padding-bottom: 4px;
+    }
+
+    .nav-drop-toggle {
+        padding-bottom: 6px;
+        border-bottom: 2px solid var(--brown-mid);
+        transition: transform .25s ease;
+    }
+
+    .nav-links a:hover {
+        color: var(--brown-mid-ch);
+    }
+
+    .nav-links>a::after,
+    .nav-dropdown>a::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        background-color: var(--brown);
+        transform: scaleX(0);
+        transform-origin: bottom right;
+        transition: transform 0.3s ease;
+    }
+
+    .nav-links>a::after,
+    .nav-drop-toggle::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: 8px;
+        width: 100%;
+        height: 2px;
+        background: var(--brown);
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform .25s ease;
+    }
+
+    .nav-links>a.active::after,
+    .nav-dropdown>a.active::after {
+        transform: scaleX(1);
+        transform-origin: bottom left;
+    }
+
+    .nav-links>a.active,
+    .nav-dropdown>a.active {
+        color: var(--brown) !important;
+    }
+
+    .nav-dropdown {
+        position: relative;
+    }
+
+    .nav-dropdown>a {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+    }
+
+    .nav-dropdown>a::before {
+        content: '▶';
+        font-size: 9px;
+        order: 2;
+        transition: transform 0.3s ease;
+    }
+
+    .nav-dropdown.open>a::before,
+    .nav-dropdown:hover>a::before {
+        transform: rotate(90deg);
+    }
+
+    .nav-dropdown-menu {
+        position: absolute;
+        top: calc(100% + 10px);
+        left: 0;
+        min-width: 280px;
+        background: var(--warm-white);
+        border: 1px solid var(--parchment);
+        border-radius: 6px;
+        padding: 12px 0;
+        box-shadow: 0 10px 24px rgba(74, 55, 40, 0.08);
+        display: none;
+    }
+
+    .nav-dropdown.open .nav-dropdown-menu,
+    .nav-dropdown:hover .nav-dropdown-menu,
+    .nav-dropdown:focus-within .nav-dropdown-menu {
+        display: block;
+    }
+
+    .nav-dropdown-group {
+        padding: 0 0 8px;
+        position: relative;
+    }
+
+    .nav-dropdown-group a:hover,
+    .nav-dropdown-menu a:hover {
+        color: var(--brown-mid-ch);
+        border-left-color: var(--brown);
+        padding-left: 20px;
+    }
+
+    /* SUBMENU */
+    .nav-submenu-title,
+    .nav-photobooth {
+        display: block;
+        padding: 8px 18px;
+    }
+
+    .nav-submenu-title {
+        position: relative;
+        padding-right: 28px;
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+    }
+
+    .nav-submenu-title::after {
+        content: '▶';
+        position: absolute;
+        right: 12px;
+        font-size: 9px;
+        transition: transform 0.2s ease;
+    }
+
+    .nav-submenu {
+        display: none;
+        position: static;
+        top: auto;
+        left: auto;
+        min-width: 100%;
+        width: 100%;
+        background: var(--warm-white);
+        border: none;
+        border-radius: 0 0 4px 4px;
+        padding: 0;
+        box-shadow: none;
+        flex-direction: column;
+        gap: 0;
+        z-index: auto;
+    }
+
+    .nav-submenu a {
+        position: relative;
+        display: inline-block;
+        width: calc(100% - 36px);
+        padding: 10px 18px;
+        font-size: 10px;
+        letter-spacing: 0.12em;
+        text-transform: none;
+        color: var(--brown-mid);
+        background: var(--warm-white);
+        border-bottom: 1px solid rgba(74, 55, 40, .08);
+        transition: all .25s ease;
+    }
+
+    .nav-submenu a::after {
+        content: "";
+        position: absolute;
+        left: 18px;
+        right: 18px;
+        bottom: 6px;
+        height: 2px;
+        background: var(--brown);
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform .25s ease;
+    }
+
+    .nav-submenu a:hover {
+        color: var(--mauve-dark);
+        border-left-color: var(--brown);
+        padding-left: 20px;
+    }
+
+    .nav-submenu a.active {
+        color: inherit;
+        background: transparent;
+    }
+
+    .nav-submenu a.active::after {
+        content: "";
+        position: absolute;
+        left: 18px;
+        right: 18px;
+        bottom: 6px;
+        height: 2px;
+        background: var(--brown);
+    }
+
+    .nav-dropdown-group:hover .nav-submenu {
+        display: flex;
+    }
+
+    .nav-dropdown-group:hover .nav-submenu-title::after {
+        transform: rotate(90deg);
+    }
+
+    .nav-twitter {
+        display: center;
+        background: var(--brown);
+        padding: 0px 12px;
+        border-radius: 4px;
+        transition: color 0.3s ease;
+    }
+
+    .nav-twitter p {
+        color: var(--warm-white);
+        font-size: 11px;
+        font-family: 'DM Sans', sans-serif;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        text-decoration: none;
+        position: relative;
+        transition: color 0.3s ease;
+    }
+
+    .nav-twitter:hover,
+    .nav-twitter:focus,
+    .nav-twitter p:hover,
+    .nav-twitter p:focus {
+        filter: brightness(1.2);
+    }
+
+    /* ── NAVBAR RESPONSIVE ── */
+    @media (max-width: 700px) {
+        .site-nav {
+            flex-wrap: wrap;
+            padding: 10px 18px;
+        }
+
+        .nav-toggle {
+            display: inline-flex;
+        }
+
+        .nav-brand {
+            margin-left: 0;
+        }
+
+        .nav-links {
+            display: none;
+            width: 100%;
+            flex-direction: column;
+            gap: 0;
+            background: var(--warm-white);
+            border-top: 1px solid var(--parchment);
+            align-items: stretch;
+        }
+
+        .site-nav.open .nav-links {
+            display: flex;
+        }
+
+        .nav-links a,
+        .nav-dropdown>a,
+        .nav-photobooth,
+        .nav-submenu-title,
+        .nav-submenu a,
+        .nav-dropdown-menu a {
+            width: 100%;
+            padding: 12px 18px;
+            text-align: left;
+            border-bottom: 1px solid rgba(74, 55, 40, 0.08);
+            background: var(--warm-white);
+        }
+
+        .nav-dropdown>a {
+            justify-content: space-between;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .nav-dropdown-menu {
+            position: static;
+            top: 100%;
+            margin-top: 12px;
+            left: auto;
+            min-width: auto;
+            border: 1px solid var(--parchment);
+            border-radius: 6px;
+            box-shadow: 0 10px 24px rgba(74, 55, 40, 0.08);
+            padding: 8px 0;
+            background: var(--warm-white);
+            display: none;
+            width: auto;
+            margin: 8px 18px;
+            overflow: hidden;
+        }
+
+        .nav-dropdown-menu .nav-photobooth {
+            border-bottom: none;
+        }
+
+        .nav-dropdown.open .nav-dropdown-menu,
+        .nav-dropdown:hover .nav-dropdown-menu,
+        .nav-dropdown:focus-within .nav-dropdown-menu {
+            display: block;
+        }
+
+        .nav-dropdown-group {
+            padding: 0;
+            width: 100%;
+        }
+
+        .nav-links>a::after,
+        .nav-dropdown>a::after {
+            content: '';
+            transform-origin: bottom right;
+            transition: transform 0.3s ease;
+        }
+
+        .nav-dropdown>a::before {
+            content: '▶';
+            transition: transform 0.2s ease;
+        }
+
+        .nav-dropdown::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 100%;
+            width: 100%;
+            height: 14px;
+        }
+
+        .nav-dropdown-menu a {
+            padding-left: 22px;
+        }
+
+        .nav-submenu {
+            position: static;
+            left: auto;
+            top: auto;
+            border: none;
+            box-shadow: none;
+            background: transparent;
+            padding: 0;
+            width: 100%;
+        }
+
+        .nav-submenu a {
+            padding-left: 28px;
+        }
+
+        .nav-dropdown-group.open .nav-submenu {
+            display: flex;
+        }
+
+        .nav-twitter p {
+            padding: 6px 12px;
+        }
+
+        .nav-twitter,
+        .nav-twitter p {
+            background: var(--brown);
+            display: center;
+            width: 85px;
+            border-radius: 4px;
+            color: var(--warm-white);
+            font-size: 11px;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            text-decoration: none;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .nav-twitter:hover,
+        .nav-twitter:focus {
+            background: none;
+        }
+
+        .nav-twitter p:hover,
+        .nav-twitter p:focus {
+            background: var(--brown-light);
+        }
+    }
+
+    .wrapper {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 6px 12px 6px;
+        /* reduce top padding */
+    }
+
+    .logo img {
+        margin-top: 5vh;
+        display: block;
+        object-fit: contain;
+        pointer-events: none;
+        height: 200px;
+        filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.2));
+    }
+
+
+    .in-game .wrapper>.logo {
+        display: none !important;
+    }
+
+    .startscreen {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    #start-btn {
+        margin-top: 5vh;
+    }
+
+    #startButton {
+        padding: 10px 50px;
+        border: 2px solid var(--brown-light);
+        background: var(--mauve-light);
+        color: var(--text);
+        font-size: 2rem;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background 0.2s, border-color 0.2s, transform 0.1s;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    #startButton:hover {
+        margin-top: -2px;
+        margin-bottom: 2px;
+        background: var(--mauve-bg);
+        border-color: var(--brown-mid);
+
+    }
+
+    .level-header,
+    .level-header-desc,
+    .header {
+        text-transform: uppercase;
+    }
+
+    /* ===== Level screen ===== */
+    .level-screen {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+    }
+
+    .level-screen h1 {
+        font-size: clamp(1.75rem, 5vw, 2.5rem);
+        margin: 0px 0px 8px;
+        font-weight: 500;
+    }
+
+    .level-screen>p {
+        margin: 0 0 24px;
+        opacity: 0.9;
+        font-size: 1rem;
+    }
+
+    .level-buttons {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        width: 100%;
+        max-width: 320px;
+    }
+
+    .level-btn {
+        padding: 10px 18px;
+        border: 2px solid var(--brown-light);
+        background: var(--mauve-light);
+        color: var(--text);
+        font-size: 1rem;
+        text-transform: uppercase;
+        cursor: pointer;
+        transition: background 0.2s, border-color 0.2s, transform 0.1s;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .level-btn:hover,
+    .level-btn:focus-visible {
+        margin-top: -2px;
+        margin-bottom: 2px;
+        background: var(--mauve-bg);
+        border-color: var(--brown-mid);
+    }
+
+    .level-btn:active {
+        transform: scale(0.98);
+    }
+
+    .level-name {
+        font-weight: 700;
+        font-size: 1.1rem;
+    }
+
+    .level-desc {
+        font-size: 0.85rem;
+        opacity: 0.85;
+        margin-top: 4px;
+    }
+
+    .level-header {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        margin-bottom: 8px;
+    }
+
+    .level-header h1 {
+        margin: 0;
+    }
+
+    /* ===== Game screen ===== */
+    .game-screen {
+        width: 100%;
+        max-width: 100%;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .startscreen.hidden,
+    .game-screen.hidden,
+    .level-screen.hidden {
+        display: none;
+    }
+
+    /* ===== Header ===== */
+    .header {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        gap: 20px;
+        width: 100%;
+        max-width: 720px;
+    }
+
+    .header h1,
+    .header span,
+    .header div {
+        margin-left: 12px;
+        margin-right: 12px;
+    }
+
+    .header h1 {
+        font-size: clamp(1.05em, 4vw, 1rem);
+        margin: 0;
+        font-weight: 700;
+    }
+
+    .level-badge {
+        padding: 4px 10px;
+        background: var(--sage-bg);
+        color: var(--brown);
+        font-size: 0.4rem;
+        font-weight: 600;
+    }
+
+    .in-game {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-left: 15px;
+        margin-right: 15px;
+    }
+
+    .ingame-logo img {
+        padding-top: 8px;
+        display: block;
+        object-fit: contain;
+        pointer-events: none;
+        height: 88px;
+        filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.2));
+    }
+
+    .moves {
+        font-size: 0.6rem;
+        font-weight: 600;
+    }
+
+    .header-actions {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 10px;
+        /* margin-left: auto; */
+    }
+
+    /* small centered logo inside the game header */
+    .header-logo {
+        display: none;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        pointer-events: none;
+        z-index: 150;
+    }
+
+    .header-logo img {
+        height: 36px;
+        object-fit: contain;
+    }
+
+    /* show header logo only when in-game */
+    .in-game .header-logo {
+        display: block;
+    }
+
+    .btn {
+        padding: 8px 14px;
+        border: none;
+        background: var(--mauve-bg);
+        color: var(--text);
+        text-transform: uppercase;
+        font-size: 0.6rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background 0.2s, transform 0.1s;
+    }
+
+    .btn:hover,
+    .btn:focus-visible {
+        margin-top: -2px;
+        margin-bottom: 2px;
+        background: var(--mauve-light);
+    }
+
+    .btn:active {
+        transform: scale(0.97);
+    }
+
+    .btn-ghost {
+        background: transparent;
+        border: 1px solid var(--brown-light);
+    }
+
+    .btn-ghost:hover {
+        background: var(--isabeline);
+        margin-top: -2px;
+        margin-bottom: 2px;
+    }
+
+    #changeLevelBtn:hover {
+        background: var(--brown-light);
+        margin-top: -2px;
+        margin-bottom: 2px;
+    }
+
+    .btn-large {
+        padding: 12px 24px;
+        font-size: 1rem;
+    }
+
+    /* ===== Board ===== */
+    .game-container {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        min-height: 200px;
+        /* padding: 8px 0; */
+    }
+
+    .board {
+        display: grid;
+        gap: var(--tile-gap);
+        padding: 10px;
+        background: var(--board-bg);
+        box-shadow: 0 8px 32px rgba(74, 55, 40, 0.16);
+        width: min(92vw, 720px);
+        height: min(82vh, 720px);
+        max-width: 100%;
+        max-height: min(82vh, 720px);
+        aspect-ratio: 1;
+    }
+
+    /* Board size is set inline via grid-template-columns/rows and --size */
+    .board.size-3 {
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: repeat(3, 1fr);
+    }
+
+    .board.size-4 {
+        grid-template-columns: repeat(4, 1fr);
+        grid-template-rows: repeat(4, 1fr);
+    }
+
+    .board.size-5 {
+        grid-template-columns: repeat(5, 1fr);
+        grid-template-rows: repeat(5, 1fr);
+    }
+
+    .tile {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: var(--tile-bg);
+        background-repeat: no-repeat;
+        border: 2px solid var(--tile-border);
+        color: var(--tile-text);
+        font-weight: 700;
+        cursor: pointer;
+        transition: transform 0.1s, background 0.15s;
+        min-width: 0;
+        min-height: 0;
+        overflow: hidden;
+    }
+
+    .tile:hover {
+        background-color: var(--sage-bg);
+        transform: scale(1.02);
+        margin-top: -2px;
+        margin-bottom: 2px;
+    }
+
+    .tile.tile-image:hover {
+        background-color: transparent;
+    }
+
+    .tile:active {
+        transform: scale(0.98);
+    }
+
+    .tile.empty {
+        background: var(--empty-bg);
+        border-color: transparent;
+        cursor: default;
+        box-shadow: none;
+    }
+
+    .tile.empty:hover {
+        background: var(--empty-bg);
+        transform: none;
+    }
+
+    /* Image tiles: no number, image slice only */
+    .tile.tile-image .tile-num {
+        display: none;
+    }
+
+    /* ===== Win overlay ===== */
+    .win-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(74, 55, 40, 0.7);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 200;
+        padding: 20px;
+    }
+
+    .win-overlay.hidden {
+        display: none;
+    }
+
+    .win-box {
+        background: linear-gradient(145deg, var(--warm-white) 0%, var(--parchment) 100%);
+        border: 2px solid var(--brown-light);
+        padding: 32px;
+        text-align: center;
+        max-width: 360px;
+    }
+
+    .win-box h2 {
+        margin: 0 0 8px;
+        font-size: 1.75rem;
+        color: var(--accent);
+    }
+
+    .win-box p {
+        margin: 0 0 24px;
+        opacity: 0.9;
+    }
+
+    .win-actions {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .footer {
+        display: flex;
+        align-items: center;
+        margin-top: 20px;
+        margin-bottom: 12px;
+    }
+
+    .footer a {
+        text-decoration: none;
+        color: var(--text);
+        font-size: 10px;
+        font-weight: 600;
+        letter-spacing: 0.26em;
+        text-transform: uppercase;
+        flex-shrink: 0;
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+
+    .footer a:hover {
+        color: var(--brown-mid);
+    }
+
+    .sec-rule {
+        width: 150px;
+        flex: 1;
+        height: 1px;
+        background: linear-gradient(to right, var(--sage-light), transparent);
+    }
+
+    .sec-rule-left {
+        width: 150px;
+        flex: 1;
+        height: 1px;
+        background: linear-gradient(to left, var(--sage-light), transparent);
+    }
+
+    /* ===== Mobile: keep board large, use most of viewport ===== */
+    @media (max-width: 600px) {
+        .header {
+            max-width: 100%;
+        }
+
+        .header-actions {
+            width: 100%;
+            margin-left: 0;
+            justify-content: flex-end;
+        }
+
+        .board {
+            width: min(96vw, 420px);
+            height: min(78vh, 96vw, 420px);
+            max-height: min(78vh, 96vw, 420px);
+            padding: 0px 6px;
+        }
+
+        .tile.tile-image .tile-num {
+            display: none;
+        }
+
+        .footer a {
+            margin-left: 10px;
+            margin-right: 10px;
+            font-size: 8px;
+        }
+
+        .sec-rule {
+            width: 50px;
+        }
+
+        .sec-rule-left {
+            width: 50px;
+            flex: 1;
+        }
+    }
+</style>
+
+<body>
+    <nav class="site-nav">
+        <a class="nav-brand" href="index.html" aria-label="731chapters home">
+            <img src="731chapters_text.png" alt="731chapters logo">
+        </a>
+        <button class="nav-toggle" type="button" aria-expanded="false" aria-label="Open menu">Menu</button>
+        <div class="nav-links">
+            <a class="nav-btn" href="index.html">About 731chapters</a>
+            <div class="nav-dropdown">
+                <a class="nav-drop-toggle" href="#musim">Musim Mekarnya Rasa</a>
+                <div class="nav-dropdown-menu">
+                    <div class="nav-dropdown-group">
+                        <a class="nav-submenu-title" href="#musim">Fanzine Documentation</a>
+                        <div class="nav-submenu">
+                            <a href="index.html#musim">About</a>
+                            <a href="index.html#schedule">Schedule</a>
+                            <a href="index.html#zine-specs">Zine Specs</a>
+                            <a href="index.html#tema">Tema</a>
+                            <a href="index.html#penerbitan">Penerbitan</a>
+                            <a href="index.html#panduan">Panduan Kontributor</a>
+                            <a href="index.html#peran">Peran Kontributor</a>
+                            <a href="index.html#kompensasi">Kompensasi</a>
+                            <a href="index.html#faq">FAQ</a>
+                        </div>
+                    </div>
+                    <div>
+                        <a class="nav-photobooth" href="photobooth.html">PHOTOBOOTH</a>
+                    </div>
+                    <div class="nav-dropdown-group">
+                        <a class="nav-submenu-title" href="#">GAMES</a>
+                        <div class="nav-submenu">
+                            <a href="maze.html">MAZE GAMES</a>
+                            <a class="active" href="puzzle.html ">PUZZLE GAMES</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <a class="nav-twitter" href="https://x.com/731chapters" target="_blank" rel="noopener noreferrer">
+                <p>Twitter</p>
+            </a>
+        </div>
+    </nav>
+    <div class="wrapper">
+        <!-- Level selection -->
+        <div class="logo"><img src="logo.png" alt=""></div>
+        <div class="startscreen" id="start-btn">
+            <button type="button" class="startButton" id="startButton">
+                START
+            </button>
+            <div class="footer">
+                <div class="sec-rule-left"></div>
+                <a href="https://x.com/731chapters"><i>731chapters</i></a></p>
+                <div class="sec-rule"></div>
+            </div>
+        </div>
+
+        <div id="levelScreen" class="level-screen hidden">
+            <div class="level-header">
+                <h1>Sliding Puzzle</h1>
+            </div>
+            <p class="level-header-desc">Choose difficulty</p>
+            <div class="level-buttons">
+                <button type="button" data-level="easy" class="level-btn">
+                    <span class="level-name">Easy</span>
+                    <span class="level-desc">3×3 grid · 8 tiles</span>
+                </button>
+                <button type="button" data-level="medium" class="level-btn">
+                    <span class="level-name">Medium</span>
+                    <span class="level-desc">4×4 grid · 15 tiles</span>
+                </button>
+                <button type="button" data-level="hard" class="level-btn">
+                    <span class="level-name">Hard</span>
+                    <span class="level-desc">5×5 grid · 24 tiles</span>
+                </button>
+            </div>
+            <div class="footer">
+                <div class="sec-rule-left"></div>
+                <a href="https://x.com/731chapters"><i>731chapters</i></a></p>
+                <div class="sec-rule"></div>
+            </div>
+        </div>
+
+        <!-- Game screen -->
+        <div id="gameScreen" class="game-screen hidden">
+            <header class="header">
+                <h1>Sliding Puzzle</h1>
+                <span class="level-badge" id="levelBadge">Easy</span>
+                <div class="ingame-logo" aria-hidden="true">
+                    <img src="logo.png" alt="">
+                </div>
+                <div class="header-actions">
+                    <span class="moves" id="moves">Moves: 0</span>
+                    <button type="button" id="changeLevelBtn" class="btn btn-ghost">Level</button>
+                    <button type="button" id="newGameBtn" class="btn">New Game</button>
+                </div>
+            </header>
+
+            <main class="game-container">
+                <div id="board" class="board" role="grid" aria-label="Sliding puzzle board"></div>
+            </main>
+
+            <!-- Win overlay -->
+            <div id="winOverlay" class="win-overlay hidden">
+                <div class="win-box">
+                    <h2>You solved it!</h2>
+                    <p id="winMoves">Moves: 0</p>
+                    <div class="win-actions">
+                        <button type="button" id="playAgainBtn" class="btn btn-large">Play Again</button>
+                        <button type="button" id="changeLevelFromWinBtn" class="btn btn-ghost">Change Level</button>
+                        <button type="button" id="otherGameBtn" class="btn btn-ghost">
+                            Play Other Game
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer">
+                <div class="sec-rule-left"></div>
+                <a href="https://x.com/731chapters"><i>731chapters</i></a></p>
+                <div class="sec-rule"></div>
+            </div>
+        </div>
+    </div>
+    <script>
+        const bgmAudio = new Audio('puzzle-game/BGM.mp3');
+
+
+        function updateActiveNav(targetId) {
+            const topLinks = document.querySelectorAll('.nav-links > a, .nav-dropdown > a');
+            topLinks.forEach(link => {
+                link.classList.remove('active');
+            });
+
+            if (targetId === '#about-731chapters' || targetId === 'index.html') {
+                const aboutLink = document.querySelector('.nav-links > a[href="#about-731chapters"]');
+                if (aboutLink) aboutLink.classList.add('active');
+            } else {
+                const musimLink = document.querySelector('.nav-drop-toggle');
+                if (musimLink) musimLink.classList.add('active');
+            }
+        }
+
+        const navDropdown = document.querySelector('.nav-dropdown');
+        let dropdownCloseTimeout = null;
+
+        const navLinks = document.querySelectorAll('.nav-links a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', function (event) {
+                const href = link.getAttribute('href');
+
+                if (link.classList.contains('nav-drop-toggle')) {
+                    event.preventDefault();
+                    if (navDropdown) {
+                        const isOpen = navDropdown.classList.toggle('open');
+                        link.setAttribute('aria-expanded', String(isOpen));
+                    }
+                    return;
+                }
+
+                if (href && href.startsWith('#')) {
+                    event.preventDefault();
+
+                    if (href === '#about-731chapters') {
+                        showAbout(event);
+                    } else {
+                        if (page) page.classList.remove('hidden');
+                        if (about) about.classList.add('hidden');
+
+                        updateActiveNav('#musim');
+                        window.history.replaceState(null, '', href);
+
+                        const targetElement = document.querySelector(href);
+                        if (targetElement) {
+                            targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        }
+                    }
+                }
+            });
+        });
+
+        if (navDropdown) {
+            navDropdown.addEventListener('mouseenter', () => {
+                clearTimeout(dropdownCloseTimeout);
+                if (window.innerWidth > 600) {
+                    navDropdown.classList.add('open');
+                }
+            });
+
+            navDropdown.addEventListener('mouseleave', () => {
+                if (window.innerWidth > 600) {
+                    dropdownCloseTimeout = setTimeout(() => {
+                        navDropdown.classList.remove('open');
+                    }, 250);
+                }
+            });
+        }
+
+        const navToggle = document.querySelector('.nav-toggle');
+        const siteNav = document.querySelector('.site-nav');
+
+        if (navToggle && siteNav) {
+            navToggle.addEventListener('click', () => {
+                const isOpen = siteNav.classList.toggle('open');
+                navToggle.setAttribute('aria-expanded', String(isOpen));
+
+                if (!isOpen) {
+                    if (navDropdown) navDropdown.classList.remove('open');
+                    const openSubmenuGroup = document.querySelector('.nav-dropdown-group.open');
+                    if (openSubmenuGroup) openSubmenuGroup.classList.remove('open');
+                }
+            });
+        }
+
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 600 && siteNav) {
+                siteNav.classList.remove('open');
+                if (navToggle) navToggle.setAttribute('aria-expanded', 'false');
+                document.querySelectorAll('.nav-dropdown').forEach(d => d.classList.remove('open'));
+                document.querySelectorAll('.nav-dropdown-group').forEach(g => g.classList.remove('open'));
+            }
+        });
+
+        const submenuTitles = document.querySelectorAll('.nav-submenu-title');
+        submenuTitles.forEach((title) => {
+            title.addEventListener('click', (event) => {
+                if (window.innerWidth <= 600) {
+                    event.preventDefault();
+                    const group = title.parentElement;
+                    if (group) {
+                        group.classList.toggle('open');
+                    }
+                }
+            });
+        });
+
+        const submenuLinks = document.querySelectorAll('.nav-submenu a');
+        submenuLinks.forEach((link) => {
+            link.addEventListener('click', () => {
+                if (window.innerWidth <= 600 && siteNav && siteNav.classList.contains('open')) {
+                    siteNav.classList.remove('open');
+                    if (navToggle) navToggle.setAttribute('aria-expanded', 'false');
+                    if (navDropdown) {
+                        navDropdown.classList.remove('open');
+                    }
+
+                    const openSubmenuGroup = document.querySelector('.nav-dropdown-group.open');
+                    if (openSubmenuGroup) {
+                        openSubmenuGroup.classList.remove('open');
+                    }
+                }
+            });
+        });
+
+        const responsiveLinks = document.querySelectorAll('.nav-links a');
+        responsiveLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                if (window.innerWidth <= 600 && siteNav && siteNav.classList.contains('open')) {
+                    if (link.classList.contains('nav-drop-toggle') || link.classList.contains('nav-submenu-title')) {
+                        return;
+                    }
+
+                    siteNav.classList.remove('open');
+                    if (navToggle) navToggle.setAttribute('aria-expanded', 'false');
+                    if (navDropdown) {
+                        navDropdown.classList.remove('open');
+                    }
+
+                    const openSubmenuGroup = document.querySelector('.nav-dropdown-group.open');
+                    if (openSubmenuGroup) {
+                        openSubmenuGroup.classList.remove('open');
+                    }
+                }
+            });
+        });
+
+        const page = window.location.pathname
+            .split("/")
+            .pop()
+            .toLowerCase();
+
+        document.querySelectorAll(".active").forEach(el => {
+            el.classList.remove("active");
+        });
+
+        (function () {
+            "use strict";
+
+            bgmAudio.loop = true;
+            bgmAudio.volume = 0.045
+
+            const getStart = new Audio('puzzle-game/start.mp3');
+            getStart.volume = 1.0;
+
+
+            const clickAudio = new Audio('puzzle-game/click.mp3');
+            clickAudio.volume = 1.0;
+
+            const moving = new Audio('puzzle-game/moving.mp3');
+            moving.volume = 0.3;
+
+            let bgmStarted = false;
+
+            const LEVELS = {
+                easy: 3,
+                medium: 4,
+                hard: 5,
+            };
+
+            const SHUFFLE_MOVES = {
+                easy: 300,
+                medium: 800,
+                hard: 1500,
+            };
+
+            const PUZZLE_IMAGES = [
+                "puzzle-game/lev1.jpg",
+                "puzzle-game/lev2.jpg",
+                "puzzle-game/lev3.jpg",
+                "puzzle-game/lev4.jpg",
+                "puzzle-game/lev5.jpg",
+                "puzzle-game/lev6.jpg",
+                "puzzle-game/lev7.jpg",
+                "puzzle-game/lev8.png",
+                "puzzle-game/lev1.jpg",
+            ];
+
+            const IMAGE_INDEX_BY_LEVEL = {
+                easy: [0, 1, 2],
+                medium: [3, 4, 5],
+                hard: [6, 7, 8],
+            };
+            const winAudio = new Audio('puzzle-game/win.mp3');
+            winAudio.volume = 0.9;
+            let state = {
+                level: "easy",
+                size: 4,
+                grid: [],
+                emptyIndex: 0,
+                moves: 0,
+                currentImageUrl: "",
+
+            };
+
+            const $ = (sel, el = document) => el.querySelector(sel);
+            const $$ = (sel, el = document) => el.querySelectorAll(sel);
+
+            function getNeighbors(index, size) {
+                const n = size;
+                const row = Math.floor(index / n);
+                const col = index % n;
+                const neighbors = [];
+                if (row > 0) neighbors.push(index - n);
+                if (row < n - 1) neighbors.push(index + n);
+                if (col > 0) neighbors.push(index - 1);
+                if (col < n - 1) neighbors.push(index + 1);
+                return neighbors;
+            }
+
+            function createSolvablePuzzle(size) {
+                const n = size * size;
+                const grid = [];
+                for (let i = 1; i < n; i++) grid.push(i);
+                grid.push(0);
+                let emptyIndex = n - 1;
+                const movesCount = SHUFFLE_MOVES[state.level] || 500;
+                for (let i = 0; i < movesCount; i++) {
+                    const neighbors = getNeighbors(emptyIndex, size);
+                    const next = neighbors[Math.floor(Math.random() * neighbors.length)];
+                    [grid[emptyIndex], grid[next]] = [grid[next], grid[emptyIndex]];
+                    emptyIndex = next;
+                }
+                return { grid, emptyIndex };
+            }
+
+            function startNewGame() {
+                state.size = LEVELS[state.level];
+                const indices = IMAGE_INDEX_BY_LEVEL[state.level];
+                state.currentImageUrl = PUZZLE_IMAGES[indices[Math.floor(Math.random() * indices.length)]];
+                const { grid, emptyIndex } = createSolvablePuzzle(state.size);
+                state.grid = grid;
+                state.emptyIndex = emptyIndex;
+                state.moves = 0;
+                render();
+                $("#winOverlay").classList.add("hidden");
+            }
+
+
+            function playStartSound() {
+                getStart.currentTime = 0;
+                const playPromise = getStart.play();
+                if (playPromise !== undefined) {
+                    playPromise.catch(err => console.warn('start sound failed', err));
+                }
+            }
+
+            function playClickSound() {
+                clickAudio.currentTime = 0;
+                const playPromise = clickAudio.play();
+                if (playPromise !== undefined) {
+                    playPromise.catch(err => console.warn('start sound failed', err));
+                }
+            }
+
+            function playMoveSound() {
+                moving.currentTime = 0;
+                moving.play().catch(err => console.warn('move sound failed', err));
+            }
+
+            function playWinSound() {
+                if (typeof winAudio === 'undefined') return;
+                winAudio.currentTime = 0;
+                const playPromise = winAudio.play();
+                if (playPromise !== undefined) {
+                    playPromise.catch(err => console.warn('win sound failed', err));
+                }
+            }
+
+            function tryStartBgmOnInteraction() {
+                if (bgmStarted) return;
+                const playPromise = bgmAudio.play();
+                if (playPromise !== undefined) {
+                    playPromise.catch(err => console.warn('BGM failed to start', err));
+                }
+                bgmStarted = true;
+            }
+
+            function isAdjacentToEmpty(index) {
+                return getNeighbors(state.emptyIndex, state.size).includes(index);
+            }
+
+            function moveTile(index) {
+                if (!isAdjacentToEmpty(index)) return;
+                playMoveSound();
+                const empty = state.emptyIndex;
+                [state.grid[empty], state.grid[index]] = [state.grid[index], state.grid[empty]];
+                state.emptyIndex = index;
+                state.moves += 1;
+                render();
+                if (checkWin()) {
+                    $("#winMoves").textContent = "Moves: " + state.moves;
+                    $("#winOverlay").classList.remove("hidden");
+                    playWinSound();
+                }
+            }
+
+            function checkWin() {
+                const n = state.grid.length;
+                for (let i = 0; i < n - 1; i++) {
+                    if (state.grid[i] !== i + 1) return false;
+                }
+                return state.grid[n - 1] === 0;
+            }
+
+            function render() {
+                const board = $("#board");
+                const size = state.size;
+                board.className = "board size-" + size;
+                board.innerHTML = "";
+                const n = size * size;
+                for (let i = 0; i < n; i++) {
+                    const value = state.grid[i];
+                    const tile = document.createElement("div");
+                    tile.className = "tile" + (value === 0 ? " empty" : " tile-image");
+                    tile.dataset.index = i;
+                    tile.setAttribute("role", "gridcell");
+                    if (value !== 0) {
+                        const pieceIndex = value - 1;
+                        const row = Math.floor(pieceIndex / size);
+                        const col = pieceIndex % size;
+                        tile.style.backgroundImage = "url(" + state.currentImageUrl + ")";
+                        tile.style.backgroundSize = size * 100 + "% " + size * 100 + "%";
+                        tile.style.backgroundRepeat = "no-repeat";
+                        if (size > 1) {
+                            const xPct = (col / (size - 1)) * 100;
+                            const yPct = (row / (size - 1)) * 100;
+                            tile.style.backgroundPosition = xPct + "% " + yPct + "%";
+                        } else {
+                            tile.style.backgroundPosition = "0% 0%";
+                        }
+                        tile.addEventListener("click", () => moveTile(i));
+                    }
+                    board.appendChild(tile);
+                }
+                $("#moves").textContent = "Moves: " + state.moves;
+            }
+
+            function startGame(level) {
+                state.level = level;
+                state.size = LEVELS[level];
+                playStartSound();
+                document.body.classList.add('in-game');
+                $("#levelScreen").classList.add("hidden");
+                $("#gameScreen").classList.remove("hidden");
+                $("#levelBadge").textContent = level.charAt(0).toUpperCase() + level.slice(1);
+                startNewGame();
+            }
+
+            function goToLevelScreen() {
+                document.body.classList.remove('in-game');
+                $("#gameScreen").classList.add("hidden");
+                $("#winOverlay").classList.add("hidden");
+                $("#levelScreen").classList.remove("hidden");
+            }
+
+            document.addEventListener("DOMContentLoaded", () => {
+                window.addEventListener('pointerdown', tryStartBgmOnInteraction, { once: true });
+                window.addEventListener('touchstart', tryStartBgmOnInteraction, { once: true });
+                window.addEventListener('keydown', tryStartBgmOnInteraction, { once: true });
+
+                const startScreen = $(".startscreen");
+                const levelScreen = $("#levelScreen");
+                const gameScreen = $("#gameScreen");
+
+                startScreen.classList.remove("hidden");
+                levelScreen.classList.add("hidden");
+                gameScreen.classList.add("hidden");
+
+                $("#startButton").addEventListener("click", () => {
+                    playClickSound();
+                    startScreen.classList.add("hidden");
+                    levelScreen.classList.remove("hidden");
+                });
+
+                $$(".level-btn[data-level]").forEach((btn) => {
+                    btn.addEventListener("click", () => startGame(btn.dataset.level));
+                });
+                $("#newGameBtn").addEventListener("click", () => {
+                    startNewGame();
+                    playClickSound();
+                });
+                $("#changeLevelBtn").addEventListener("click", () => {
+                    startScreen.classList.add("hidden");
+                    playClickSound();
+                    goToLevelScreen();
+                });
+                $("#playAgainBtn").addEventListener("click", () => {
+                    $("#winOverlay").classList.add("hidden");
+                    playClickSound();
+                    startNewGame();
+                });
+                $("#changeLevelFromWinBtn").addEventListener("click", () => {
+                    $("#winOverlay").classList.add("hidden");
+                    playClickSound();
+                    startScreen.classList.add("hidden");
+                    goToLevelScreen();
+                });
+                $("#otherGameBtn").addEventListener("click", () => {
+                    window.location.href = "https://mmr-nidjae-maze.netlify.app/";
+                });
+            });
+
+        })();
+    </script>
+</body>
+
+</html>

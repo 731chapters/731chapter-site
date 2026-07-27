@@ -1,0 +1,1281 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <link rel="icon" href="MMR-LOGO.png" />
+
+    <title>Bantu Nyu bertemu dengan Nje!</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+        :root {
+            --warm-white: #FDFAF4;
+            --isabeline: #f1c8cb;
+            --parchment: #f6b0bb;
+            --brown: #8f5a63;
+            --brown-mid: #b06a73;
+            --brown-light: #d8a8ad;
+
+            --parchment-ch: #E8DFCA;
+            --brown-ch: #4A3728;
+            --brown-mid-ch: #7A5C48;
+            --brown-light-ch: #B09080;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-user-select: none;
+            user-select: none;
+            -webkit-touch-callout: none;
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation
+        }
+
+        html,
+        body {
+            overflow-x: hidden;
+            height: 100%;
+
+        }
+
+        body {
+            background: linear-gradient(160deg, #f5c9d4 0%, #e8b8a0 100%);
+            min-height: 100vh;
+            padding-top: 50px;
+        }
+
+        /* Pixelated cuma untuk body game, navbar tetap normal */
+        #app,
+        #app * {
+            image-rendering: pixelated;
+            image-rendering: -moz-crisp-edges;
+            image-rendering: crisp-edges;
+        }
+
+        /* ── NAVBAR ── */
+        .site-nav {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            width: 100%;
+            max-width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 24px;
+            background: rgba(253, 250, 244, 0.92);
+            backdrop-filter: blur(8px);
+            border-bottom: 1px solid var(--parchment);
+            box-sizing: border-box;
+        }
+
+        .nav-brand {
+            display: inline-block;
+            margin-left: 10px;
+        }
+
+        .nav-brand img {
+            display: block;
+            width: auto;
+            height: 40px;
+            object-fit: contain;
+        }
+
+        .nav-toggle {
+            display: none;
+            border: 1px solid var(--parchment);
+            background: var(--warm-white);
+            color: var(--brown);
+            font-family: 'DM Sans', sans-serif;
+            font-size: 11px;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            padding: 10px 14px;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .nav-toggle:hover,
+        .nav-toggle:focus-visible {
+            border-color: var(--brown);
+            outline: none;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 34px;
+            /* flex-wrap: wrap; */
+        }
+
+        .nav-links a {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 11px;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            text-decoration: none;
+            color: var(--brown-mid);
+            position: relative;
+            display: inline-block;
+            transition: color 0.3s ease;
+        }
+
+        .nav-btn {
+            padding-bottom: 4px;
+        }
+
+        .nav-drop-toggle {
+            padding-bottom: 6px;
+            border-bottom: 2px solid var(--brown-mid);
+            transition: transform .25s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--brown-mid-ch);
+        }
+
+        .nav-links>a::after,
+        .nav-dropdown>a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: var(--brown);
+            transform: scaleX(0);
+            transform-origin: bottom right;
+            transition: transform 0.3s ease;
+        }
+
+        .nav-links>a::after,
+        .nav-drop-toggle::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: 8px;
+            width: 100%;
+            height: 2px;
+            background: var(--brown);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform .25s ease;
+        }
+
+        .nav-links>a.active::after,
+        .nav-dropdown>a.active::after {
+            transform: scaleX(1);
+            transform-origin: bottom left;
+        }
+
+        .nav-links>a.active,
+        .nav-dropdown>a.active {
+            color: var(--brown) !important;
+        }
+
+        .nav-dropdown {
+            position: relative;
+        }
+
+        .nav-dropdown>a {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .nav-dropdown>a::before {
+            content: '▶';
+            font-size: 9px;
+            order: 2;
+            transition: transform 0.3s ease;
+        }
+
+        .nav-dropdown.open>a::before,
+        .nav-dropdown:hover>a::before {
+            transform: rotate(90deg);
+        }
+
+        .nav-dropdown-menu {
+            position: absolute;
+            top: calc(100% + 10px);
+            left: 0;
+            min-width: 280px;
+            background: var(--warm-white);
+            border: 1px solid var(--parchment);
+            border-radius: 6px;
+            padding: 12px 0;
+            box-shadow: 0 10px 24px rgba(74, 55, 40, 0.08);
+            display: none;
+        }
+
+        .nav-dropdown.open .nav-dropdown-menu,
+        .nav-dropdown:hover .nav-dropdown-menu,
+        .nav-dropdown:focus-within .nav-dropdown-menu {
+            display: block;
+        }
+
+        .nav-dropdown-group {
+            padding: 0 0 8px;
+            position: relative;
+        }
+
+        .nav-dropdown-group a:hover,
+        .nav-dropdown-menu a:hover {
+            color: var(--brown-mid-ch);
+            border-left-color: var(--brown);
+            padding-left: 20px;
+        }
+
+        /* SUBMENU */
+        .nav-submenu-title,
+        .nav-photobooth {
+            display: block;
+            padding: 8px 18px;
+        }
+
+        .nav-submenu-title {
+            position: relative;
+            padding-right: 28px;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .nav-submenu-title::after {
+            content: '▶';
+            position: absolute;
+            right: 12px;
+            font-size: 9px;
+            transition: transform 0.2s ease;
+        }
+
+        .nav-submenu {
+            display: none;
+            position: static;
+            top: auto;
+            left: auto;
+            min-width: 100%;
+            width: 100%;
+            background: var(--warm-white);
+            border: none;
+            border-radius: 0 0 4px 4px;
+            padding: 0;
+            box-shadow: none;
+            flex-direction: column;
+            gap: 0;
+            z-index: auto;
+        }
+
+        .nav-submenu a {
+            position: relative;
+            display: inline-block;
+            width: calc(100% - 36px);
+            padding: 10px 18px;
+            font-size: 10px;
+            letter-spacing: 0.12em;
+            text-transform: none;
+            color: var(--brown-mid);
+            background: var(--warm-white);
+            border-bottom: 1px solid rgba(74, 55, 40, .08);
+            transition: all .25s ease;
+        }
+
+        .nav-submenu a::after {
+            content: "";
+            position: absolute;
+            left: 18px;
+            right: 18px;
+            bottom: 6px;
+            height: 2px;
+            background: var(--brown);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform .25s ease;
+        }
+
+        .nav-submenu a:hover {
+            color: var(--mauve-dark);
+            border-left-color: var(--brown);
+            padding-left: 20px;
+        }
+
+        .nav-submenu a.active {
+            color: inherit;
+            background: transparent;
+        }
+
+        .nav-submenu a.active::after {
+            content: "";
+            position: absolute;
+            left: 18px;
+            right: 18px;
+            bottom: 6px;
+            height: 2px;
+            background: var(--brown);
+        }
+
+        .nav-dropdown-group:hover .nav-submenu {
+            display: flex;
+        }
+
+        .nav-dropdown-group:hover .nav-submenu-title::after {
+            transform: rotate(90deg);
+        }
+
+        .nav-twitter {
+            display: center;
+            background: var(--brown);
+            padding: 4px 12px;
+            border-radius: 4px;
+            transition: color 0.3s ease;
+        }
+
+        .nav-twitter p {
+            color: var(--warm-white);
+            font-size: 11px;
+            font-family: 'DM Sans', sans-serif;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            text-decoration: none;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .nav-twitter:hover,
+        .nav-twitter:focus,
+        .nav-twitter p:hover,
+        .nav-twitter p:focus {
+            filter: brightness(1.2);
+        }
+
+        /* ── NAVBAR RESPONSIVE ── */
+        @media (max-width: 700px) {
+            .site-nav {
+                flex-wrap: wrap;
+                padding: 10px 18px;
+            }
+
+            .nav-toggle {
+                display: inline-flex;
+            }
+
+            .nav-brand {
+                margin-left: 0;
+            }
+
+            .nav-links {
+                display: none;
+                width: 100%;
+                flex-direction: column;
+                gap: 0;
+                background: var(--warm-white);
+                border-top: 1px solid var(--parchment);
+                align-items: stretch;
+            }
+
+            .site-nav.open .nav-links {
+                display: flex;
+            }
+
+            .nav-links a,
+            .nav-dropdown>a,
+            .nav-photobooth,
+            .nav-submenu-title,
+            .nav-submenu a,
+            .nav-dropdown-menu a {
+                width: 100%;
+                padding: 12px 18px;
+                text-align: left;
+                border-bottom: 1px solid rgba(74, 55, 40, 0.08);
+                background: var(--warm-white);
+            }
+
+            .nav-dropdown>a {
+                justify-content: space-between;
+                display: inline-flex;
+                align-items: center;
+            }
+
+            .nav-dropdown-menu {
+                position: static;
+                top: 100%;
+                margin-top: 12px;
+                left: auto;
+                min-width: auto;
+                border: 1px solid var(--parchment);
+                border-radius: 6px;
+                box-shadow: 0 10px 24px rgba(74, 55, 40, 0.08);
+                padding: 8px 0;
+                background: var(--warm-white);
+                display: none;
+                width: auto;
+                margin: 8px 18px;
+                overflow: hidden;
+            }
+
+            .nav-dropdown-menu .nav-photobooth {
+                border-bottom: none;
+            }
+
+            .nav-dropdown.open .nav-dropdown-menu,
+            .nav-dropdown:hover .nav-dropdown-menu,
+            .nav-dropdown:focus-within .nav-dropdown-menu {
+                display: block;
+            }
+
+            .nav-dropdown-group {
+                padding: 0;
+                width: 100%;
+            }
+
+            .nav-links>a::after,
+            .nav-dropdown>a::after {
+                content: '';
+                transform-origin: bottom right;
+                transition: transform 0.3s ease;
+            }
+
+            .nav-dropdown>a::before {
+                content: '▶';
+                transition: transform 0.2s ease;
+            }
+
+            .nav-dropdown::after {
+                content: "";
+                position: absolute;
+                left: 0;
+                top: 100%;
+                width: 100%;
+                height: 14px;
+            }
+
+            .nav-dropdown-menu a {
+                padding-left: 22px;
+            }
+
+            .nav-submenu {
+                position: static;
+                left: auto;
+                top: auto;
+                border: none;
+                box-shadow: none;
+                background: transparent;
+                padding: 0;
+                width: 100%;
+            }
+
+            .nav-submenu a {
+                padding-left: 28px;
+            }
+
+            .nav-dropdown-group.open .nav-submenu {
+                display: flex;
+            }
+
+            .nav-twitter p {
+                padding: 6px 12px;
+            }
+
+            .nav-twitter,
+            .nav-twitter p {
+                background: var(--brown);
+                display: center;
+                width: 85px;
+                border-radius: 4px;
+                color: var(--warm-white);
+                font-size: 11px;
+                letter-spacing: 0.18em;
+                text-transform: uppercase;
+                text-decoration: none;
+                position: relative;
+                transition: color 0.3s ease;
+            }
+
+            .nav-twitter:hover,
+            .nav-twitter:focus {
+                background: none;
+            }
+
+            .nav-twitter p:hover,
+            .nav-twitter p:focus {
+                background: var(--brown-light);
+            }
+        }
+
+        #app {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 1rem;
+            gap: 10px;
+            font-family: 'Press Start 2P', monospace;
+            min-height: 100vh;
+            width: 100%;
+        }
+
+        #title {
+            font-family: 'Press Start 2P', monospace;
+            font-size: 8px;
+            color: #5a2d1a;
+            text-align: center;
+            line-height: 2.2;
+            padding: 8px 12px;
+            background: rgba(255, 255, 255, 0.35);
+            border: 2px solid #c47a8a
+        }
+
+        #hud {
+            display: flex;
+            gap: 14px;
+            align-items: center;
+            font-family: 'Press Start 2P', monospace;
+            font-size: 7px;
+            color: #7a3d2a;
+            background: rgba(255, 255, 255, 0.3);
+            padding: 6px 12px;
+            border: 2px solid #c47a8a
+        }
+
+        .hud-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 3px
+        }
+
+        .hud-val {
+            color: #3a1a0a;
+            font-size: 9px
+        }
+
+        #canvas-wrap {
+            position: relative;
+            touch-action: none;
+            max-width: 100%;
+        }
+
+        canvas {
+            display: block;
+            border: 4px solid #5a2d1a;
+            touch-action: none;
+            max-width: 100%;
+            height: auto;
+        }
+
+        #overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(80, 20, 30, 0.88);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 12px
+        }
+
+        #overlay button {
+            font-family: 'Press Start 2P', monospace;
+            font-size: 8px;
+            background: #ffd6e0;
+            color: #5a1a2a;
+            border: none;
+            padding: 8px 16px;
+            cursor: pointer;
+            touch-action: manipulation
+        }
+
+        #overlay button:hover {
+            background: #daa9b5;
+        }
+
+        #items-bar {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            font-family: 'Press Start 2P', monospace;
+            font-size: 7px;
+            color: #7a3d2a;
+            background: rgba(255, 255, 255, 0.3);
+            padding: 6px 10px;
+            border: 2px solid #c47a8a
+        }
+
+        .item-pill {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            background: rgba(255, 255, 255, 0.4);
+            padding: 4px 8px;
+            border: 2px solid #c47a8a;
+        }
+
+        #btn-retry:hover {
+            background: rgb(201, 188, 188, 0.1);
+        }
+
+        #dpad-canvas {
+            display: block;
+            cursor: pointer;
+            image-rendering: pixelated;
+            margin-top: 6px;
+            touch-action: none;
+            -webkit-user-select: none;
+            user-select: none
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="site-nav">
+        <a class="nav-brand" href="index.html" aria-label="731chapters home">
+            <img src="731chapters_text.png" alt="731chapters logo">
+        </a>
+        <button class="nav-toggle" type="button" aria-expanded="false" aria-label="Open menu">Menu</button>
+        <div class="nav-links">
+            <a class="nav-btn" href="index.html">About 731chapters</a>
+            <div class="nav-dropdown">
+                <a class="nav-drop-toggle" href="#musim">Musim Mekarnya Rasa</a>
+                <div class="nav-dropdown-menu">
+                    <div class="nav-dropdown-group">
+                        <a class="nav-submenu-title" href="#musim">Fanzine Documentation</a>
+                        <div class="nav-submenu">
+                            <a href="index.html#musim">About</a>
+                            <a href="index.html#schedule">Schedule</a>
+                            <a href="index.html#zine-specs">Zine Specs</a>
+                            <a href="index.html#tema">Tema</a>
+                            <a href="index.html#penerbitan">Penerbitan</a>
+                            <a href="index.html#panduan">Panduan Kontributor</a>
+                            <a href="index.html#peran">Peran Kontributor</a>
+                            <a href="index.html#kompensasi">Kompensasi</a>
+                            <a href="index.html#faq">FAQ</a>
+                        </div>
+                    </div>
+                    <div>
+                        <a class="nav-photobooth" href="photobooth.html">PHOTOBOOTH</a>
+                    </div>
+                    <div class="nav-dropdown-group">
+                        <a class="nav-submenu-title" href="#">GAMES</a>
+                        <div class="nav-submenu">
+                            <a href="maze.html">MAZE GAMES</a>
+                            <a class="active" href="puzzle.html ">PUZZLE GAMES</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <a class="nav-twitter" href="https://x.com/731chapters" target="_blank" rel="noopener noreferrer">
+                <p>Twitter</p>
+            </a>
+        </div>
+    </nav>
+    <div id="app">
+        <div id="title">Bantu Nyu bertemu dengan Nje!</div>
+        <div id="hud">
+            <div class="hud-item"><span>MAZE</span><span class="hud-val" id="maze-num">1/5</span></div>
+            <div class="hud-item"><span>STEPS</span><span class="hud-val" id="steps">0</span></div>
+            <div class="hud-item"><span>ITEMS</span><span class="hud-val" id="item-count">0</span></div>
+            <div class="hud-item"><span>TIME</span><span class="hud-val" id="timer">0:00</span></div>
+        </div>
+        <div id="items-bar">
+            <div class="item-pill" id="pill-wm" style="opacity:.4">WM x<span id="wm-c">0</span></div>
+            <div class="item-pill" id="pill-cp" style="opacity:.4">CUP x<span id="cp-c">0</span></div>
+            <div class="item-pill" id="btn-retry" onclick="retryLevel()" style="cursor:pointer">RETRY</div>
+        </div>
+        <div id="canvas-wrap">
+            <canvas id="c"></canvas>
+            <div id="overlay">
+                <h2
+                    style="font-family:'Press Start 2P',monospace;font-size:9px;color:#ffd6e0;text-align:center;line-height:2.2">
+                    Bantu Nyu<br>bertemu<br>dengan Nje!</h2>
+                <p
+                    style="font-family:'Press Start 2P',monospace;font-size:7px;color:#e8b8c8;text-align:center;line-height:2">
+                    Nje menunggu<br>di bawah sakura!</p>
+                <button onclick="startGame()">START</button>
+            </div>
+        </div>
+        <canvas id="dpad-canvas" width="150" height="150"></canvas>
+    </div>
+
+    <script>
+        const bgmAudio = new Audio('maze-game/BGM.mp3');
+        bgmAudio.loop = true;
+        bgmAudio.volume = 0.05;
+
+        function updateActiveNav(targetId) {
+            const topLinks = document.querySelectorAll('.nav-links > a, .nav-dropdown > a');
+            topLinks.forEach(link => {
+                link.classList.remove('active');
+            });
+
+            if (targetId === '#about-731chapters' || targetId === 'index.html') {
+                const aboutLink = document.querySelector('.nav-links > a[href="#about-731chapters"]');
+                if (aboutLink) aboutLink.classList.add('active');
+            } else {
+                const musimLink = document.querySelector('.nav-drop-toggle');
+                if (musimLink) musimLink.classList.add('active');
+            }
+        }
+
+        const navDropdown = document.querySelector('.nav-dropdown');
+        let dropdownCloseTimeout = null;
+
+        const navLinks = document.querySelectorAll('.nav-links a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', function (event) {
+                const href = link.getAttribute('href');
+
+                if (link.classList.contains('nav-drop-toggle')) {
+                    event.preventDefault();
+                    if (navDropdown) {
+                        const isOpen = navDropdown.classList.toggle('open');
+                        link.setAttribute('aria-expanded', String(isOpen));
+                    }
+                    return;
+                }
+
+                if (href && href.startsWith('#')) {
+                    event.preventDefault();
+
+                    if (href === '#about-731chapters') {
+                        showAbout(event);
+                    } else {
+                        if (page) page.classList.remove('hidden');
+                        if (about) about.classList.add('hidden');
+
+                        updateActiveNav('#musim');
+                        window.history.replaceState(null, '', href);
+
+                        const targetElement = document.querySelector(href);
+                        if (targetElement) {
+                            targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        }
+                    }
+                }
+            });
+        });
+
+        if (navDropdown) {
+            navDropdown.addEventListener('mouseenter', () => {
+                clearTimeout(dropdownCloseTimeout);
+                if (window.innerWidth > 600) {
+                    navDropdown.classList.add('open');
+                }
+            });
+
+            navDropdown.addEventListener('mouseleave', () => {
+                if (window.innerWidth > 600) {
+                    dropdownCloseTimeout = setTimeout(() => {
+                        navDropdown.classList.remove('open');
+                    }, 250);
+                }
+            });
+        }
+
+        const navToggle = document.querySelector('.nav-toggle');
+        const siteNav = document.querySelector('.site-nav');
+
+        if (navToggle && siteNav) {
+            navToggle.addEventListener('click', () => {
+                const isOpen = siteNav.classList.toggle('open');
+                navToggle.setAttribute('aria-expanded', String(isOpen));
+
+                if (!isOpen) {
+                    if (navDropdown) navDropdown.classList.remove('open');
+                    const openSubmenuGroup = document.querySelector('.nav-dropdown-group.open');
+                    if (openSubmenuGroup) openSubmenuGroup.classList.remove('open');
+                }
+            });
+        }
+
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 600 && siteNav) {
+                siteNav.classList.remove('open');
+                if (navToggle) navToggle.setAttribute('aria-expanded', 'false');
+                document.querySelectorAll('.nav-dropdown').forEach(d => d.classList.remove('open'));
+                document.querySelectorAll('.nav-dropdown-group').forEach(g => g.classList.remove('open'));
+            }
+        });
+
+        const submenuTitles = document.querySelectorAll('.nav-submenu-title');
+        submenuTitles.forEach((title) => {
+            title.addEventListener('click', (event) => {
+                if (window.innerWidth <= 600) {
+                    event.preventDefault();
+                    const group = title.parentElement;
+                    if (group) {
+                        group.classList.toggle('open');
+                    }
+                }
+            });
+        });
+
+        const submenuLinks = document.querySelectorAll('.nav-submenu a');
+        submenuLinks.forEach((link) => {
+            link.addEventListener('click', () => {
+                if (window.innerWidth <= 600 && siteNav && siteNav.classList.contains('open')) {
+                    siteNav.classList.remove('open');
+                    if (navToggle) navToggle.setAttribute('aria-expanded', 'false');
+                    if (navDropdown) {
+                        navDropdown.classList.remove('open');
+                    }
+
+                    const openSubmenuGroup = document.querySelector('.nav-dropdown-group.open');
+                    if (openSubmenuGroup) {
+                        openSubmenuGroup.classList.remove('open');
+                    }
+                }
+            });
+        });
+
+        const responsiveLinks = document.querySelectorAll('.nav-links a');
+        responsiveLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                if (window.innerWidth <= 600 && siteNav && siteNav.classList.contains('open')) {
+                    if (link.classList.contains('nav-drop-toggle') || link.classList.contains('nav-submenu-title')) {
+                        return;
+                    }
+
+                    siteNav.classList.remove('open');
+                    if (navToggle) navToggle.setAttribute('aria-expanded', 'false');
+                    if (navDropdown) {
+                        navDropdown.classList.remove('open');
+                    }
+
+                    const openSubmenuGroup = document.querySelector('.nav-dropdown-group.open');
+                    if (openSubmenuGroup) {
+                        openSubmenuGroup.classList.remove('open');
+                    }
+                }
+            });
+        });
+
+        // Prevent ALL default touch behaviors that cause zoom/copy/callout
+        document.addEventListener('touchstart', e => { if (e.touches.length > 1) e.preventDefault(); }, { passive: false });
+        document.addEventListener('touchmove', e => e.preventDefault(), { passive: false });
+        document.addEventListener('gesturestart', e => e.preventDefault(), { passive: false });
+        document.addEventListener('gesturechange', e => e.preventDefault(), { passive: false });
+        document.addEventListener('gestureend', e => e.preventDefault(), { passive: false });
+        document.addEventListener('contextmenu', e => e.preventDefault());
+
+        const C = document.getElementById('c');
+        const ctx = C.getContext('2d');
+        ctx.imageSmoothingEnabled = false;
+
+        const CELL = 20;
+        const ROWS = 21, COLS = 21;
+        const W = COLS * CELL, H = ROWS * CELL;
+        C.width = W; C.height = H;
+        const GR = Math.floor(ROWS / 2), GC = Math.floor(COLS / 2);
+
+        let mazeIdx = 0, grid = [], player = { r: 1, c: 1 }, steps = 0, startTime = null, timerInt = null;
+        let items = [], collected = { wm: 0, cp: 0 }, running = false, married = false, frameCount = 0, winAnim = 0;
+
+        const SEEDS = [42, 137, 256, 389, 512, 613, 724, 835, 946, 1057];
+
+
+        const getYoungjaeAudio = new Audio('maze-game/get_youngjae.MP3');
+        getYoungjaeAudio.volume = 1.0;
+
+        const getStart = new Audio('maze-game/start.mp3');
+        getStart.volume = 0.5;
+
+        const getCoin = new Audio('maze-game/coin.mp3');
+        getCoin.volume = 0.3;
+
+        const moving = new Audio('maze-game/moving.mp3');
+        moving.volume = 0.2;
+
+        function seededRand(seed) {
+            let s = seed % 2147483647; if (s <= 0) s += 2147483646;
+            return () => { return s = s * 16807 % 2147483647, (s - 1) / 2147483646; };
+        }
+
+        function genMaze(seed) {
+            const rnd = seededRand(seed);
+            const g = Array.from({ length: ROWS }, () => Array(COLS).fill(1));
+            function carve(r, c) {
+                g[r][c] = 0;
+                const dirs = [[0, 2], [0, -2], [2, 0], [-2, 0]].sort(() => rnd() - .5);
+                for (const [dr, dc] of dirs) {
+                    const nr = r + dr, nc = c + dc;
+                    if (nr > 0 && nr < ROWS - 1 && nc > 0 && nc < COLS - 1 && g[nr][nc] === 1) {
+                        g[r + dr / 2][c + dc / 2] = 0; carve(nr, nc);
+                    }
+                }
+            }
+            carve(1, 1);
+            g[GR][GC] = 0;
+            const entries = [[GR - 2, GC], [GR + 2, GC], [GR, GC - 2], [GR, GC + 2]];
+            for (const [er, ec] of entries) {
+                if (er > 0 && er < ROWS - 1 && ec > 0 && ec < COLS - 1 && g[er][ec] === 0) {
+                    g[(er + GR) / 2][(ec + GC) / 2] = 0; break;
+                }
+            }
+            let hasEntry = false;
+            [[GR - 1, GC], [GR + 1, GC], [GR, GC - 1], [GR, GC + 1]].forEach(([r, c]) => { if (g[r][c] === 0) hasEntry = true; });
+            if (!hasEntry) { g[GR - 1][GC] = 0; g[GR - 2][GC] = 0; }
+            return g;
+        }
+
+        function placeItems(seed) {
+            const rnd = seededRand(seed + 777);
+            const arr = []; let tries = 0;
+            const types = ['wm', 'cp', 'cp', 'wm', 'wm', 'cp', 'wm', 'cp'];
+            while (arr.length < 8 && tries < 600) {
+                tries++;
+                const r = Math.floor(rnd() * (ROWS - 2)) + 1, c = Math.floor(rnd() * (COLS - 2)) + 1;
+                const dist = Math.abs(r - GR) + Math.abs(c - GC);
+                if (grid[r][c] === 0 && !(r <= 2 && c <= 2) && dist > 3 && !arr.find(i => i.r === r && i.c === c))
+                    arr.push({ r, c, type: types[arr.length % types.length], collected: false });
+            }
+            return arr;
+        }
+
+        function startGame() {
+            mazeIdx = 0; loadMaze();
+            document.getElementById('overlay').style.display = 'none';
+            running = true; startTime = Date.now();
+            clearInterval(timerInt);
+            timerInt = setInterval(() => {
+                if (!running) return;
+                const e = Math.floor((Date.now() - startTime) / 1000);
+                document.getElementById('timer').textContent = Math.floor(e / 60) + ':' + (e % 60 < 10 ? '0' : '') + e % 60;
+            }, 500);
+
+            if (bgmAudio.paused) {
+                bgmAudio.currentTime = 0;
+                bgmAudio.play().catch(() => {
+                    console.warn('BGM play blocked by browser autoplay policy');
+                });
+            }
+
+            loop();
+        }
+
+        function loadMaze() {
+            grid = genMaze(SEEDS[mazeIdx]);
+            player = { r: 1, c: 1 }; items = placeItems(SEEDS[mazeIdx]);
+            collected = { wm: 0, cp: 0 }; steps = 0; married = false; winAnim = 0;
+            document.getElementById('maze-num').textContent = (mazeIdx + 1) + '/10';
+            document.getElementById('steps').textContent = 0;
+            document.getElementById('item-count').textContent = 0;
+            ['wm', 'cp'].forEach(k => {
+                document.getElementById(k + '-c').textContent = 0;
+                document.getElementById('pill-' + k).style.opacity = '.4';
+            });
+        }
+
+        function retryLevel() {
+            if (!running) return;
+            startTime = Date.now();
+            document.getElementById('timer').textContent = '0:00';
+            loadMaze();
+        }
+
+        function tryMove(dr, dc) {
+            if (!running || married) return;
+            const nr = player.r + dr, nc = player.c + dc;
+            if (nr < 0 || nr >= ROWS || nc < 0 || nc >= COLS || grid[nr][nc] === 1) return;
+            player.r = nr; player.c = nc; steps++;
+            document.getElementById('steps').textContent = steps;
+            items.forEach(it => {
+                if (!it.collected && it.r === player.r && it.c === player.c) {
+                    it.collected = true;
+                    getCoin.currentTime = 0;
+                    getCoin.play().catch(() => { });
+                    collected[it.type]++;
+                    document.getElementById(it.type + '-c').textContent = collected[it.type];
+                    document.getElementById('pill-' + it.type).style.opacity = '1';
+                    document.getElementById('item-count').textContent = items.filter(i => i.collected).length;
+                }
+            });
+            if (player.r === GR && player.c === GC) triggerWin();
+        }
+
+        function triggerWin() {
+            if (married) return;
+            married = true; winAnim = 0;
+            getYoungjaeAudio.currentTime = 0;
+            getYoungjaeAudio.play().catch(
+                err => console.warn('get coin play failed', err)
+            );
+            setTimeout(() => {
+                const isLast = mazeIdx >= 9 || mazeIdx === 9;
+                const buttons = [
+                    {
+                        label: isLast ? 'MAIN LAGI' : 'MAZE BERIKUTNYA',
+                        cb: () => {
+                            if (isLast) mazeIdx = 0; else mazeIdx++;
+                            loadMaze(); married = false;
+                            getStart.currentTime = 0;
+                            getStart.play().catch(() => { });
+                        }
+                    }
+                ];
+                if (isLast) {
+                    buttons.push({
+                        label: 'PLAY GAME LAIN',
+                        cb: () => window.open('https://mmr-nidjae-puzzle.netlify.app/', '_blank', 'noopener,noreferrer')
+                    });
+                }
+                showOverlay(buttons);
+            }, 3200);
+        }
+        function showOverlay(buttons) {
+            const ov = document.getElementById('overlay');
+            const list = Array.isArray(buttons) ? buttons : [{ label: buttons, cb: null }];
+            window._overlayButtons = list.map(item => item.cb || (() => { }));
+            ov.innerHTML = `
+    <div style="font-family:'Press Start 2P',monospace;text-align:center;line-height:2.6;padding:0 12px">
+      <div style="color:#FFD700;font-size:11px">Nyu &amp; Nje</div>
+      <div style="color:#FFD700;font-size:11px">menikah!</div>
+      <div style="color:#f9c0d0;font-size:8px;margin-top:4px">&hearts; Musim Mekarnya Rasa &hearts;</div>
+    </div>
+    <p style="font-family:'Press Start 2P',monospace;font-size:7px;color:#ffd6e0;text-align:center;line-height:2">WM:${collected.wm} CUP:${collected.cp}</p>
+    <div style="display:flex;flex-direction:column;align-items:center;gap:8px">
+        ${list.map((item, idx) => `<button type="button" style="font-family:'Press Start 2P',monospace;font-size:8px;background:#ffd6e0;color:#5a1a2a;border:none;padding:8px 16px;cursor:pointer;touch-action:manipulation" onclick="overlayAction(${idx})">${item.label}</button>`).join('')}
+    </div>`;
+            ov.style.display = 'flex';
+        }
+        window.overlayAction = function (idx = 0) {
+            document.getElementById('overlay').style.display = 'none';
+            if (window._overlayButtons && window._overlayButtons[idx]) window._overlayButtons[idx]();
+        };
+
+        function drawCherryTree() {
+            const tx = GC * CELL - 14, ty = GR * CELL - 34;
+            ctx.fillStyle = '#6b3a2a'; ctx.fillRect(tx + 12, ty + 18, 4, 16);
+            ctx.fillStyle = '#5a2d1a'; ctx.fillRect(tx + 8, ty + 24, 4, 4); ctx.fillRect(tx + 16, ty + 22, 5, 4);
+            [[tx - 2, ty + 6, 14, 10, '#f4a0b5'], [tx + 10, ty + 2, 14, 10, '#f9c0d0'],
+            [tx + 2, ty + 0, 14, 10, '#ffd6e0'], [tx + 14, ty + 8, 14, 10, '#f4a0b5'],
+            [tx + 0, ty + 10, 12, 9, '#f9c0d0'], [tx + 12, ty + 12, 12, 9, '#ffd6e0'],
+            [tx + 4, ty - 2, 14, 11, '#f4a0b5'], [tx + 8, ty + 6, 12, 10, '#fce4ec'],
+            [tx - 2, ty + 12, 10, 8, '#f9c0d0'], [tx + 18, ty + 10, 10, 8, '#f4a0b5']
+            ].forEach(([x, y, w, h, c]) => { ctx.fillStyle = c; ctx.fillRect(x, y, w, h); });
+            for (let i = 0; i < 10; i++) { ctx.fillStyle = '#ffd6e0'; ctx.fillRect(tx + Math.floor(i * 3.2) % 28, ty + 18 + Math.floor(i * 1.6) % 10, 3, 3); }
+        }
+
+        function drawBg() {
+            for (let r = 0; r < ROWS; r++) {
+                for (let c = 0; c < COLS; c++) {
+                    if (grid[r][c] === 1) {
+                        ctx.fillStyle = '#5a2d1a'; ctx.fillRect(c * CELL, r * CELL, CELL, CELL);
+                        ctx.fillStyle = '#7a4d3a'; ctx.fillRect(c * CELL, r * CELL, 2, CELL); ctx.fillRect(c * CELL, r * CELL, CELL, 2);
+                        ctx.fillStyle = '#3a1d0a'; ctx.fillRect(c * CELL + CELL - 2, r * CELL, 2, CELL); ctx.fillRect(c * CELL, r * CELL + CELL - 2, CELL, 2);
+                    } else {
+                        ctx.fillStyle = (r === GR && c === GC) ? '#fce4ec' : '#f5d5c0';
+                        ctx.fillRect(c * CELL, r * CELL, CELL, CELL);
+                        ctx.fillStyle = 'rgba(0,0,0,0.03)';
+                        ctx.fillRect(c * CELL, r * CELL, CELL, 1); ctx.fillRect(c * CELL, r * CELL, 1, CELL);
+                    }
+                }
+            }
+            drawCherryTree();
+            ctx.fillStyle = 'rgba(255,192,203,0.4)'; ctx.fillRect(GC * CELL, GR * CELL, CELL, CELL);
+        }
+
+        function drawWatermelon(x, y, sz) {
+            ctx.fillStyle = '#1a7a1a'; ctx.fillRect(x, y, sz, sz);
+            ctx.fillStyle = '#25a025'; ctx.fillRect(x + 1, y + 1, sz - 2, sz - 2);
+            ctx.fillStyle = '#fff'; ctx.fillRect(x + 2, y + 2, sz - 4, 3);
+            ctx.fillStyle = '#e83030'; ctx.fillRect(x + 2, y + 5, sz - 4, sz - 7);
+            ctx.fillStyle = '#111';[[4, 8], [8, 7], [6, 11], [3, 12], [10, 11]].forEach(([dx, dy]) => ctx.fillRect(x + dx, y + dy, 2, 2));
+        }
+        function drawCup(x, y, sz) {
+            ctx.fillStyle = '#e8e8e8'; ctx.fillRect(x + 2, y + 1, sz - 4, sz - 2);
+            ctx.fillStyle = '#fff'; ctx.fillRect(x + 3, y + 2, sz - 6, sz - 4);
+            ctx.fillStyle = '#d0d0d0'; ctx.fillRect(x + 2, y + 1, sz - 4, 3);
+            ctx.fillStyle = '#c0c0c0'; ctx.fillRect(x + 2, y + sz - 3, sz - 4, 3);
+            ctx.fillStyle = '#f0f0f0'; ctx.fillRect(x + 3, y + 4, 3, sz - 6);
+            ctx.fillStyle = '#f4a0b5'; ctx.fillRect(x + sz / 2 - 1, y - 3, 2, 5);
+        }
+
+        const S = 2, SKIN = '#FFDAB9', BK = '#111', JEANS = '#3a6ea5', JEANSD = '#2a5080', JEANSL = '#6aaed5';
+        function drawChar(cx, cy, hairCol, topCol, bob, holdCup) {
+            const ox = cx - 11, oy = cy - 20 + bob;
+            [[0, 2, hairCol], [0, 3, hairCol], [0, 4, hairCol], [0, 5, hairCol], [0, 6, hairCol],
+            [1, 1, hairCol], [1, 2, hairCol], [1, 3, hairCol], [1, 4, hairCol], [1, 5, hairCol], [1, 6, hairCol], [1, 7, hairCol],
+            [2, 2, SKIN], [2, 3, SKIN], [2, 4, SKIN], [2, 5, SKIN], [2, 6, SKIN],
+            [3, 2, SKIN], [3, 3, BK], [3, 4, SKIN], [3, 5, BK], [3, 6, SKIN],
+            [4, 2, SKIN], [4, 3, SKIN], [4, 4, SKIN], [4, 5, SKIN], [4, 6, SKIN],
+            [5, 2, SKIN], [5, 3, SKIN], [5, 4, SKIN], [5, 5, SKIN], [5, 6, SKIN],
+            [6, 0, topCol], [6, 1, topCol], [6, 2, topCol], [6, 3, topCol], [6, 4, topCol], [6, 5, topCol], [6, 6, topCol], [6, 7, topCol], [6, 8, topCol],
+            [7, 0, topCol], [7, 1, topCol], [7, 2, topCol], [7, 3, topCol], [7, 4, topCol], [7, 5, topCol], [7, 6, topCol], [7, 7, topCol], [7, 8, topCol],
+            [8, 1, topCol], [8, 2, topCol], [8, 3, topCol], [8, 4, topCol], [8, 5, topCol], [8, 6, topCol], [8, 7, topCol],
+            [9, 0, SKIN], [9, 1, topCol], [9, 2, topCol], [9, 3, topCol], [9, 4, topCol], [9, 5, topCol], [9, 6, topCol], [9, 7, topCol], [9, 8, SKIN],
+            [10, 0, SKIN], [10, 8, SKIN],
+            [11, 1, JEANS], [11, 2, JEANS], [11, 3, JEANS], [11, 4, JEANSD], [11, 5, JEANS], [11, 6, JEANS], [11, 7, JEANS],
+            [12, 1, JEANS], [12, 2, JEANSL], [12, 3, JEANS], [12, 4, JEANSD], [12, 5, JEANS], [12, 6, JEANSL], [12, 7, JEANS],
+            [13, 1, JEANS], [13, 2, JEANS], [13, 3, JEANS], [13, 5, JEANS], [13, 6, JEANS], [13, 7, JEANS],
+            [14, 2, BK], [14, 3, BK], [14, 5, BK], [14, 6, BK], [15, 2, BK], [15, 3, BK], [15, 5, BK], [15, 6, BK]
+            ].forEach(([pr, pc, c]) => { ctx.fillStyle = c; ctx.fillRect(ox + pc * S, oy + pr * S, S, S); });
+            if (holdCup) {
+                const cx2 = ox + 9 * S, cy2 = oy + 8 * S;
+                ctx.fillStyle = '#e8e8e8'; ctx.fillRect(cx2, cy2, 4, 7);
+                ctx.fillStyle = '#fff'; ctx.fillRect(cx2 + 1, cy2 + 1, 2, 5);
+                ctx.fillStyle = '#d0d0d0'; ctx.fillRect(cx2, cy2, 4, 2);
+                ctx.fillStyle = '#f4a0b5'; ctx.fillRect(cx2 + 1, cy2 - 2, 2, 3);
+            }
+        }
+        function drawSuitChar(cx, cy, hairCol) {
+            const ox = cx - 11, oy = cy - 20, suit = '#1a1a2e', white = '#fff', red = '#cc3333';
+            [[0, 2, hairCol], [0, 3, hairCol], [0, 4, hairCol], [0, 5, hairCol], [0, 6, hairCol],
+            [1, 1, hairCol], [1, 2, hairCol], [1, 3, hairCol], [1, 4, hairCol], [1, 5, hairCol], [1, 6, hairCol], [1, 7, hairCol],
+            [2, 2, SKIN], [2, 3, SKIN], [2, 4, SKIN], [2, 5, SKIN], [2, 6, SKIN],
+            [3, 2, SKIN], [3, 3, BK], [3, 4, SKIN], [3, 5, BK], [3, 6, SKIN],
+            [4, 2, SKIN], [4, 3, SKIN], [4, 4, SKIN], [4, 5, SKIN], [4, 6, SKIN],
+            [5, 2, SKIN], [5, 3, SKIN], [5, 4, SKIN], [5, 5, SKIN], [5, 6, SKIN],
+            [6, 0, suit], [6, 1, suit], [6, 2, white], [6, 3, white], [6, 4, white], [6, 5, white], [6, 6, white], [6, 7, suit], [6, 8, suit],
+            [7, 0, suit], [7, 1, suit], [7, 2, suit], [7, 3, red], [7, 4, red], [7, 5, suit], [7, 6, suit], [7, 7, suit], [7, 8, suit],
+            [8, 1, suit], [8, 2, suit], [8, 3, red], [8, 4, suit], [8, 5, suit], [8, 6, suit], [8, 7, suit],
+            [9, 0, SKIN], [9, 1, suit], [9, 2, suit], [9, 3, suit], [9, 4, suit], [9, 5, suit], [9, 6, suit], [9, 7, suit], [9, 8, SKIN],
+            [10, 0, SKIN], [10, 8, SKIN],
+            [11, 1, suit], [11, 2, suit], [11, 3, suit], [11, 4, BK], [11, 5, suit], [11, 6, suit], [11, 7, suit],
+            [12, 1, suit], [12, 2, suit], [12, 3, suit], [12, 4, BK], [12, 5, suit], [12, 6, suit], [12, 7, suit],
+            [13, 1, suit], [13, 2, suit], [13, 3, suit], [13, 5, suit], [13, 6, suit], [13, 7, suit],
+            [14, 2, BK], [14, 3, BK], [14, 5, BK], [14, 6, BK], [15, 2, BK], [15, 3, BK], [15, 5, BK], [15, 6, BK]
+            ].forEach(([pr, pc, c]) => { ctx.fillStyle = c; ctx.fillRect(ox + pc * S, oy + pr * S, S, S); });
+        }
+        function drawRings(cx, cy, alpha) {
+            ctx.globalAlpha = Math.min(alpha, 1);
+            ctx.strokeStyle = '#FFD700'; ctx.lineWidth = 3;
+            ctx.beginPath(); ctx.arc(cx - 10, cy - 36, 8, 0, Math.PI * 2); ctx.stroke();
+            ctx.beginPath(); ctx.arc(cx + 10, cy - 36, 8, 0, Math.PI * 2); ctx.stroke();
+            ctx.fillStyle = '#FFD700'; ctx.font = '14px sans-serif'; ctx.fillText('♡', cx - 5, cy - 26);
+            ctx.globalAlpha = 1;
+        }
+        function drawFallingPetals() {
+            for (let i = 0; i < 16; i++) {
+                const t = (frameCount * 0.4 + i * 23) % 120;
+                const x = GC * CELL + (i % 5 - 2) * 22 + Math.sin(frameCount * 0.03 + i) * 14;
+                const y = GR * CELL - 30 + t * 1.8;
+                if (y < 0 || y > H) continue;
+                ctx.fillStyle = i % 2 === 0 ? '#f9c0d0' : '#ffd6e0'; ctx.fillRect(Math.floor(x), Math.floor(y), 4, 4);
+                ctx.fillStyle = '#f4a0b5'; ctx.fillRect(Math.floor(x) + 1, Math.floor(y) + 1, 2, 2);
+            }
+        }
+
+        function loop() {
+            if (!running) return;
+            frameCount++;
+            ctx.clearRect(0, 0, W, H);
+            drawBg(); drawFallingPetals();
+            items.forEach(it => {
+                if (!it.collected) { const x = it.c * CELL + 1, y = it.r * CELL + 1, sz = CELL - 2; it.type === 'wm' ? drawWatermelon(x, y, sz) : drawCup(x, y, sz); }
+            });
+            const ycx = GC * CELL + CELL / 2, ycy = GR * CELL + CELL / 2;
+            const pcx = player.c * CELL + CELL / 2, pcy = player.r * CELL + CELL / 2;
+            if (married) {
+                winAnim++;
+                drawSuitChar(ycx + 14, ycy, '#8B6347'); drawSuitChar(pcx - 14, pcy, '#F4A7B9');
+                drawRings((pcx + ycx) / 2, (pcy + ycy) / 2 - 6, winAnim / 40);
+            } else {
+                drawChar(ycx, ycy, '#8B6347', '#222', Math.floor(frameCount / 14) % 2, false);
+                drawChar(pcx, pcy, '#F4A7B9', '#222', Math.floor(frameCount / 10) % 2, true);
+            }
+            requestAnimationFrame(loop);
+        }
+
+        document.addEventListener('keydown', e => {
+            if (!running) return; e.preventDefault();
+            if (e.key === 'ArrowUp' || e.key === 'w') {
+                tryMove(-1, 0);
+                moving.currentTime = 0;
+                moving.play().catch(() => { });
+            }
+            else if (e.key === 'ArrowDown' || e.key === 's') {
+                tryMove(1, 0);
+                moving.currentTime = 0;
+                moving.play().catch(() => { });
+            }
+            else if (e.key === 'ArrowLeft' || e.key === 'a') {
+                tryMove(0, -1);
+                moving.currentTime = 0;
+                moving.play().catch(() => { });
+            }
+            else if (e.key === 'ArrowRight' || e.key === 'd') {
+                tryMove(0, 1);
+                moving.currentTime = 0;
+                moving.play().catch(() => { });
+            }
+        });
+
+        // ── D-PAD ────────────────────────────────────────────────
+        const dc = document.getElementById('dpad-canvas');
+        const dctx = dc.getContext('2d');
+        dctx.imageSmoothingEnabled = false;
+        const PX = 50, BTN_NORM = '#c47a8a', BTN_PRESS = '#f9c0d0', BTN_BORDER = '#3a1a0a';
+        const ARMS = { up: { gx: 1, gy: 0 }, left: { gx: 0, gy: 1 }, center: { gx: 1, gy: 1 }, right: { gx: 2, gy: 1 }, down: { gx: 1, gy: 2 } };
+        let dpPressed = null, dpRepeat = null;
+
+        function drawDpad(pressed) {
+            dctx.clearRect(0, 0, 150, 150);
+            Object.entries(ARMS).forEach(([dir, { gx, gy }]) => {
+                const x = gx * PX, y = gy * PX, isP = pressed === dir;
+                dctx.fillStyle = BTN_BORDER; dctx.fillRect(x, y, PX, PX);
+                dctx.fillStyle = isP ? BTN_PRESS : BTN_NORM; dctx.fillRect(x + 3, y + 3, PX - 6, PX - 6);
+            });
+            const B = 5;
+            [{ dir: 'up', cx: 75, cy: 25, pts: [[0, -1], [0, 0], [-1, 1], [0, 1], [1, 1], [-2, 2], [-1, 2], [0, 2], [1, 2], [2, 2]] },
+            { dir: 'down', cx: 75, cy: 125, pts: [[0, 1], [0, 0], [-1, -1], [0, -1], [1, -1], [-2, -2], [-1, -2], [0, -2], [1, -2], [2, -2]] },
+            { dir: 'left', cx: 25, cy: 75, pts: [[-1, 0], [0, 0], [1, -1], [1, 0], [1, 1], [2, -2], [2, -1], [2, 0], [2, 1], [2, 2]] },
+            { dir: 'right', cx: 125, cy: 75, pts: [[1, 0], [0, 0], [-1, -1], [-1, 0], [-1, 1], [-2, -2], [-2, -1], [-2, 0], [-2, 1], [-2, 2]] },
+            ].forEach(({ dir, cx, cy, pts }) => {
+                dctx.fillStyle = pressed === dir ? BTN_BORDER : '#fff';
+                pts.forEach(([px2, py2]) => dctx.fillRect(cx + px2 * B - B / 2, cy + py2 * B - B / 2, B, B));
+            });
+        }
+
+        function getArm(ex, ey) {
+            const gx = Math.floor(ex / PX), gy = Math.floor(ey / PX);
+            return Object.entries(ARMS).find(([, v]) => v.gx === gx && v.gy === gy)?.[0] || null;
+        }
+        const DDIR = { up: [-1, 0], down: [1, 0], left: [0, -1], right: [0, 1] };
+
+        function pressArm(dir) {
+            if (!dir || dir === 'center') return;
+            const [dr, dc2] = DDIR[dir]; tryMove(dr, dc2); dpPressed = dir; drawDpad(dir);
+            moving.currentTime = 0;
+            moving.play().catch(() => { });
+        }
+        function releaseDP() { dpPressed = null; clearInterval(dpRepeat); dpRepeat = null; drawDpad(null); }
+
+        // Use pointer events only — no touch events, avoids ALL browser touch defaults
+        dc.addEventListener('pointerdown', e => {
+            e.preventDefault();
+            const r = dc.getBoundingClientRect(), sc = dc.width / r.width;
+            const dir = getArm((e.clientX - r.left) * sc, (e.clientY - r.top) * sc);
+            if (!dir || dir === 'center') return;
+            pressArm(dir);
+            clearInterval(dpRepeat);
+            dpRepeat = setInterval(() => { if (dpPressed) pressArm(dpPressed); }, 140);
+            dc.setPointerCapture(e.pointerId);
+        }, { passive: false });
+
+        dc.addEventListener('pointermove', e => {
+            e.preventDefault();
+            if (!dpPressed) return;
+            const r = dc.getBoundingClientRect(), sc = dc.width / r.width;
+            const dir = getArm((e.clientX - r.left) * sc, (e.clientY - r.top) * sc);
+            if (dir && dir !== 'center' && dir !== dpPressed) {
+                clearInterval(dpRepeat); pressArm(dir);
+                dpRepeat = setInterval(() => { if (dpPressed) pressArm(dpPressed); }, 140);
+            }
+        }, { passive: false });
+
+        dc.addEventListener('pointerup', e => { e.preventDefault(); releaseDP(); }, { passive: false });
+        dc.addEventListener('pointercancel', e => { e.preventDefault(); releaseDP(); }, { passive: false });
+
+        drawDpad(null);
+    </script>
+</body>
+
+</html>
