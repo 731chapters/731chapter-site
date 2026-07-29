@@ -1,4 +1,4 @@
-﻿<html lang="id">
+<html lang="id">
 
 <head>
     <meta charset="UTF-8">
@@ -14,7 +14,6 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <style>
-
     :root {
         --warm-white: #FDFAF4;
         --isabeline: #f1c8cb;
@@ -45,7 +44,7 @@
         --text-ch-: #3A2C20;
         --muted-ch: #9A8070;
     }
-    
+
     *,
     *::before,
     *::after {
@@ -66,6 +65,8 @@
         font-family: 'EB Garamond', serif;
         font-size: 16px;
         line-height: 1.8;
+    }
+
     /* ── NAVBAR ── */
     .site-nav {
         position: fixed;
@@ -398,7 +399,8 @@
         text-align: justify;
     }
 
-    .promoted-content {
+    .promoted-content,
+    #cafe .promoted-content {
         position: relative;
         z-index: 200;
         width: 100%;
@@ -412,7 +414,8 @@
         box-shadow: 0 8px 32px rgba(74, 55, 40, 0.14);
     }
 
-    .apply-text {
+    .apply-text,
+    #cafe .apply-text {
         font-family: 'DM Sans', sans-serif;
         font-size: 18px;
         font-weight: 800;
@@ -985,6 +988,10 @@
         display: grid;
     }
 
+    .glist i {
+        color: var(--text);
+    }
+
     .prompts {
         gap: 6px;
     }
@@ -1446,6 +1453,57 @@
         margin-bottom: 24px;
     }
 
+    #cafe .masthead {
+        background: linear-gradient(180deg, var(--isabeline) 0%, var(--isabeline) 38%, transparent 75%);
+    }
+
+    #cafe .mast-logo-wrap {
+        max-width: min(80vw, 400px);
+
+    }
+
+    .cafe-detail {
+        max-width: 680px;
+        margin: 0 auto;
+        padding: 0 40px 100px;
+    }
+
+    #cafe .mast-eyebrow,
+    #cafe .mast-meta {
+        color: var(--muted);
+    }
+
+    #cafe .gl-sub {
+        background: var(--brown-mid);
+        color: var(--warm-white);
+    }
+
+    #cafe .glist li {
+        color: var(--text);
+    }
+
+    #cafe .glist li::before {
+        color: var(--sage-light);
+    }
+
+    #cafe .glist li a {
+        color: var(--text);
+    }
+
+    #cafe .notice {
+        border: 1px solid var(--mauve-light);
+        border-left: 3px solid var(--mauve);
+        background: var(--mauve-bg);
+    }
+
+    #cafe .notice p {
+        color: var(--brown);
+    }
+
+    #cafe .promoted-content {
+        text-align: center;
+    }
+
     /* ── MEDIA QUERIES ── */
     @media (max-width: 1503px) {
         body {
@@ -1620,17 +1678,20 @@
             height: auto;
         }
 
-        .promoted-content {
+        .promoted-content,
+        #cafe .promoted-content {
             width: calc(100% - 24px);
             max-width: 350px;
             padding: 16px;
         }
 
-        .btn-row {
+        .btn-row,
+        #cafe .btn-row {
             grid-template-columns: 1fr;
         }
 
-        .btn-row a {
+        .btn-row a,
+        #cafe .btn-row a {
             display: inline-block;
             font-size: 12px;
             color: var(--warm-white);
@@ -1660,6 +1721,9 @@
             font-size: 14px;
         }
 
+        .cafe-detail {
+            padding: 0 16px 100px;
+        }
 
         .footer-title,
         .footer-title a {
@@ -1697,6 +1761,16 @@
         .nav-dropdown-menu .nav-submenu a:last-child {
             margin-bottom: 0;
         }
+
+        .fanzine-doc,
+        #cafe .fanzine-doc,
+        #cafe .btn-row a,
+        .btn-row a,
+        #cafe .cta-btn,
+        .cta-btn {
+            font-size: 8px;
+        }
+
     }
 
     @media (max-width: 360px) {
@@ -1715,11 +1789,13 @@
             letter-spacing: 0.12em;
         }
 
-        .promoted-content {
+        .promoted-content,
+        #cafe .promoted-content {
             padding: 14px;
         }
 
-        .apply-text {
+        .apply-text,
+        #cafe .apply-text {
             font-size: 15px;
         }
 
@@ -1764,6 +1840,10 @@
         .comp-card,
         .cta-block {
             padding: 18px 16px;
+        }
+
+        .cafe-detail {
+            padding: 0 16px 100px;
         }
 
         .fab {
@@ -1993,11 +2073,11 @@
                         </div>
                     </div>
                     <div>
-                        <a class="nav-coming-soon" href="#about-731chapters">CAFE EVENT</a>         
+                        <a class="nav-coming-soon" href="#cafe">CAFE EVENT</a>
                     </div>
                     <div>
-                        <!-- <a class="nav-coming-soon" href="photobooth.html">PHOTOBOOTH</a> -->               
-                        <a class="nav-coming-soon" href="#about-731chapters">PHOTOBOOTH</a>                        
+                        <!-- <a class="nav-coming-soon" href="photobooth.html">PHOTOBOOTH</a> -->
+                        <a class="nav-coming-soon" href="#about-731chapters">PHOTOBOOTH</a>
                     </div>
                     <div class="nav-dropdown-group">
                         <a class="nav-submenu-title" href="#">GAMES</a>
@@ -2005,7 +2085,7 @@
                             <!-- <a href="maze.html">MAZE GAMES</a> -->
                             <a href="#about-731chapters">MAZE GAMES</a>
                             <!-- <a href="puzzle.html">PUZZLE GAMES</a>  -->
-                            <a href="#about-731chapters">PUZZLE GAMES</a> 
+                            <a href="#about-731chapters">PUZZLE GAMES</a>
                         </div>
                     </div>
                 </div>
@@ -2031,11 +2111,12 @@
             </div>
             <div class="promoted-content">
                 <div class="apply-text">
-                    <p>CAFE EVENT RSVP</p>
+                    <p>Musim Mekarnya Rasa<br>Cafe Event</p>
                     <p class="apply-subtext">REGIST OPEN: 2 AGUSTUS 2026</p>
                 </div>
                 <div class="btn-row">
                     <a href="https://forms.gle/CMse3PFBDF8JCaMu6" class="btn btn-writer">RSVP</a>
+                    <a href="#cafe" class="btn btn-artist">CAFE EVENT DETAILS</a>
                 </div>
             </div>
             <p class="about-731chapters-meta">Terakhir diperbarui: 28 Juli 2026 &nbsp;·&nbsp; Situs ini dapat
@@ -2449,6 +2530,32 @@
                 </div>
             </section>
 
+            <section class="section" id="kompensasi">
+                <div class="sec-head">
+                    <div class="sec-rule-left"></div>
+                    <span class="sec-title">Kompensasi</span>
+                    <div class="sec-rule"></div>
+                </div>
+                <div class="comp-card">
+                    <p style="font-family:'EB Garamond',serif;font-size:15.5px;color:var(--text);line-height:1.85;">
+                        MUSIM
+                        MEKARNYA RASA fanzine adalah proyek nirlaba sepenuhnya. Semua dana yang terkumpul akan digunakan
+                        terlebih dahulu untuk menutup biaya produksi. Jika anggaran memungkinkan, tujuan utama kami
+                        adalah
+                        memberikan kompensasi kepada setiap kontributor berupa:</p>
+                    <ul class="clist">
+                        <li>Satu salinan fisik zine</li>
+                        <li>Bundel merchandise lengkap acara MUSIM MEKARNYA RASA</li>
+                        <li>Tiket diskon untuk menghadiri acara MUSIM MEKARNYA RASA apabila berlaku</li>
+                    </ul>
+                    <p style="font-family:'EB Garamond',serif;font-size:15px;color:var(--text);line-height:1.85;">Sisa
+                        dana
+                        setelah produksi akan didonasikan ke charity organization yang dipilih oleh para kontributor.
+                        Tidak
+                        ada keuntungan yang akan disimpan oleh staf.</p>
+                </div>
+            </section>
+
             <div class="cta-block" style="margin-top: 24px;">
                 <p class="cta-text">Siap berbagi karyamu?</p>
                 <div class="cta-btn-row">
@@ -2614,28 +2721,76 @@
 
             </section>
         </div>
+    </div>
 
-        <!-- FLOATING APPLY BUTTON -->
-        <div class="fab">
-            <button class="fab-btn" id="fab-open" onclick="openFab()">
-                <span class="fab-btn-main">Apply sebagai kontributor</span>
-                <span class="fab-btn-sub">Deadline 27 Juni</span>
-            </button>
+    <div class="page hidden" id="cafe">
+        <div class="masthead">
+            <p class="mast-eyebrow">INFO DETAIL CAFE EVENT</p>
+            <div class="mast-logo-wrap">
+                <img class="mast-logo" src="MMR-LOGO.png" alt="MMR logo">
+            </div>
+            <p class="mast-meta">Terakhir diperbarui: 30 Juli 2026 &nbsp;·&nbsp; Dokumen ini dapat diperbarui
+                sewaktu-waktu.</p>
         </div>
 
-        <div class="fab-card" id="fab-card">
-            <div class="fab-card-header">
-                <p class="fab-card-title">Apply sebagai<br>Kontributor</p>
-                <button class="fab-close" onclick="closeFab()">×</button>
+        <div class="cafe-detail">
+            <div class="sec-head">
+                <div class="sec-rule-left"></div>
+                <span class="sec-title">CAFE EVENT</span>
+                <div class="sec-rule"></div>
             </div>
-            <p class="fab-deadline">Deadline: <strong>27 Juni 2026</strong></p>
-            <div class="fab-btns">
-                <a href="https://docs.google.com/forms/d/e/1FAIpQLScn3hR7xUH9U7i56pcKAs7q9G3BEKMqYuHNay9WI6u-16UrPQ/viewform?usp=publish-editor"
-                    target="_blank" class="fab-apply-btn fab-writer">Writer</a>
-                <a href="https://docs.google.com/forms/d/e/1FAIpQLScHw2CUBk5r_SUqsOFHZCfiJBWD4Rt3UZSoFV-3OZekzSKPfg/viewform?usp=header"
-                    target="_blank" class="fab-apply-btn fab-artist">Artist</a>
+            <div class="gl-block">
+                <div class="gl-sub">KETENTUAN REGISTRASI CAFE EVENT</div>
+                <ul class="glist">
+                    <li>Acara Musim Mekarnya Rasa <b>memiliki susunan acara</b> dan <b>BUKAN merupakan Grab and Go
+                            Event.</b></li>
+                    <li>Jika kamu <b>mendapatkan slot, info pembayaran akan dikirim ke email kamu.</b> Harap periksa
+                        inbox (termasuk spam) <b>segera dan selesaikan pembayaran dalam waktu 1 jam</b> untuk
+                        mempertahankan slot kamu.</li>
+                    <li><b>Tidak ada email = slot tidak didapatkan.</b></li>
+                    <li>HTM yang nantinya dibayarkan sudah termasuk akses seluruh kegiatan <b><i>Musim Mekarnya
+                                Rasa</i></b>, Event
+                        Kit,
+                        Kesempatan Lucky Draw, Makanan Berat, dan Minuman.</li>
+                    <li>Apabila ada pertanyaan, silahkan hubungi X <a href="https://x.com/731chapters">@731chapters</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="promoted-content">
+                <div class="apply-text">
+                    <p>Musim Mekarnya Rasa<br>Cafe Event</p>
+                    <p class="apply-subtext">REGIST OPEN: 2 AGUSTUS 2026</p>
+                </div>
+                <div class="btn-row">
+                    <a href="https://forms.gle/CMse3PFBDF8JCaMu6" class="btn btn-writer">RSVP</a>
+                </div>
+            </div>
+
+            <div class="sec-head">
+                <div class="sec-rule-left"></div>
+                <span class="sec-title">DETAIL LAINNYA MENYUSUL</span>
+                <div class="sec-rule"></div>
             </div>
         </div>
+    </div>
+    <!-- FLOATING APPLY BUTTON -->
+    <div class="fab">
+        <button class="fab-btn" id="fab-open" onclick="openFab()">
+            <span class="fab-btn-main">RESGISTRASI CAFE EVENT</span>
+            <span class="fab-btn-sub">Open 2 Agustus</span>
+        </button>
+    </div>
+
+    <div class="fab-card" id="fab-card">
+        <div class="fab-card-header">
+            <p class="fab-card-title">REGISTRASI CAFE EVENT</p>
+            <button class="fab-close" onclick="closeFab()">×</button>
+        </div>
+        <p class="fab-deadline">Open: <strong>2 Agustus 2026</strong></p>
+        <a href="https://forms.gle/CMse3PFBDF8JCaMu6" target="_blank" class="fab-apply-btn fab-writer">REGISTRASI</a>
+
+    </div>
     </div>
 
     <footer class="footer">
@@ -2677,7 +2832,7 @@
 
 
     function updateActiveNav(targetId) {
-        const topLinks = document.querySelectorAll('.nav-links > a, .nav-dropdown > a');
+        const topLinks = document.querySelectorAll('.nav-links > a, .nav-dropdown > a, .nav-coming-soon');
         topLinks.forEach(link => {
             link.classList.remove('active');
         });
@@ -2685,48 +2840,44 @@
         if (targetId === '#about-731chapters') {
             const aboutLink = document.querySelector('.nav-links > a[href="#about-731chapters"]');
             if (aboutLink) aboutLink.classList.add('active');
-        } else if (targetId === '#musim' || targetId.startsWith('#')) {
+        } else if (targetId === '#musim') {
             const musimLink = document.querySelector('.nav-drop-toggle');
             if (musimLink) musimLink.classList.add('active');
+        } else if (targetId === '#cafe') {
+            const cafeLink = document.querySelector('.nav-coming-soon[href="#cafe"]');
+            if (cafeLink) cafeLink.classList.add('active');
+        }
+    }
+
+    function showPage(pageId) {
+        const pages = document.querySelectorAll('.page');
+        pages.forEach(page => page.classList.add('hidden'));
+
+        const page = document.querySelector(`.page${pageId}`);
+        if (page) page.classList.remove('hidden');
+
+        updateActiveNav(pageId);
+        window.history.replaceState(null, '', pageId);
+
+        const target = document.querySelector(pageId);
+        if (target) {
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
     }
 
     function showFanzineDocumentation(event) {
         if (event) event.preventDefault();
-        const page = document.querySelector('.page[id="musim"]');
-        const about = document.querySelector('.page[id="about-731chapters"]');
-        if (page) {
-            page.classList.remove('hidden');
-        }
-        if (about) {
-            about.classList.add('hidden');
-        }
-
-        updateActiveNav('#musim');
-        window.history.replaceState(null, '', '#musim');
+        showPage('#musim');
     }
 
     function showAbout(event) {
         if (event) event.preventDefault();
+        showPage('#about-731chapters');
+    }
 
-        const page = document.querySelector('.page[id="musim"]');
-        const about = document.querySelector('.page[id="about-731chapters"]');
-
-        if (about) {
-            about.classList.remove('hidden');
-        }
-
-        if (page) {
-            page.classList.add('hidden');
-        }
-
-        updateActiveNav('#about-731chapters');
-        window.history.replaceState(null, '', '#about-731chapters');
-
-        const target = document.querySelector('#about-731chapters');
-        if (target) {
-            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
+    function showCafe(event) {
+        if (event) event.preventDefault();
+        showPage('#cafe');
     }
 
     document.addEventListener('DOMContentLoaded', function () {
@@ -2753,12 +2904,14 @@
         }
         const page = document.querySelector('.page[id="musim"]');
         const about = document.querySelector('.page[id="about-731chapters"]');
+        const cafe = document.querySelector('.page[id="cafe"]');
 
         const currentHash = window.location.hash;
 
         if (currentHash === '#musim' || (currentHash && document.querySelector(currentHash) && document.querySelector(currentHash).closest('.page[id="musim"]'))) {
             if (page) page.classList.remove('hidden');
             if (about) about.classList.add('hidden');
+            if (cafe) cafe.classList.add('hidden');
             updateActiveNav('#musim');
 
             setTimeout(() => {
@@ -2767,11 +2920,17 @@
                     targetSec.scrollIntoView({ behavior: 'smooth', block: 'start' });
                 }
             }, 100);
+        } else if (currentHash === '#cafe' || (currentHash && document.querySelector(currentHash) && document.querySelector(currentHash).closest('.page[id="cafe"]'))) {
+            if (cafe) cafe.classList.remove('hidden');
+            if (about) about.classList.add('hidden');
+            if (page) page.classList.add('hidden');
+            updateActiveNav('#cafe');
         } else {
             if (page && about) {
                 page.classList.add('hidden');
                 about.classList.remove('hidden');
             }
+            if (cafe) cafe.classList.add('hidden');
             updateActiveNav('#about-731chapters');
         }
 
@@ -2779,6 +2938,11 @@
         if (aboutLink) {
             aboutLink.addEventListener('click', showAbout);
         }
+
+        const cafeLinks = document.querySelectorAll('a[href="#cafe"]');
+        cafeLinks.forEach(link => {
+            link.addEventListener('click', showCafe);
+        });
 
         const navDropdown = document.querySelector('.nav-dropdown');
         let dropdownCloseTimeout = null;
@@ -2802,6 +2966,8 @@
 
                     if (href === '#about-731chapters') {
                         showAbout(event);
+                    } else if (href === '#cafe') {
+                        showCafe(event);
                     } else {
                         if (page) page.classList.remove('hidden');
                         if (about) about.classList.add('hidden');
