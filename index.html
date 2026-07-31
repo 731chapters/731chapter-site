@@ -1735,9 +1735,16 @@
             letter-spacing: 0.12em;
         }
 
+        #musim .mast-meta,
+        #cafe .mast-meta,
+        .about-731chapters-meta {
+            display: inline-flex;
+            max-width: 250px;
+        }
     }
 
-    @media (max-width: 390px) {
+
+    @media (max-width: 420px) {
         .nav-dropdown-group {
             padding: 0;
         }
@@ -1895,10 +1902,24 @@
             font-size: 13px;
         }
 
-        .fab {
-            bottom: 16px;
-            right: 16px;
+        .fab-card {
+            width: calc(100% - 28px);
+            right: 14px;
+            bottom: 14px;
         }
+
+        .fab-card-title {
+            font-size: 14px;
+        }
+
+        .fab-btn-main {
+            font-size: 10px;
+        }
+
+        .fab-btn-sub {
+            font-size: 8px;
+        }
+
     }
 
     @media (max-width: 300px) {
@@ -1929,6 +1950,13 @@
         .about-731chapters,
         .masthead {
             padding: 54px 10px 32px;
+        }
+
+        #musim .mast-meta,
+        #cafe .mast-meta,
+        .about-731chapters-meta {
+            max-width: 150px;
+            font-size: 8px;
         }
 
         .fanzine-doc {
@@ -1965,11 +1993,6 @@
             padding: 16px 14px;
         }
 
-        .fab-card {
-            width: calc(100% - 28px);
-            right: 14px;
-            bottom: 14px;
-        }
     }
 
     @media (width <=390px) and (width >=300px) {
@@ -2029,11 +2052,6 @@
             box-sizing: border-box;
         }
 
-        .mast-eyebrow,
-        .mast-meta {
-            font-size: 8px;
-        }
-
         .mast-tagline {
             font-size: 14px;
         }
@@ -2056,10 +2074,10 @@
         <div class="nav-links">
             <a href="#about-731chapters">About 731chapters</a>
             <div class="nav-dropdown">
-                <a class="nav-drop-toggle" href="#musim">Musim Mekarnya Rasa</a>
+                <a class="nav-drop-toggle" href="#">Musim Mekarnya Rasa</a>
                 <div class="nav-dropdown-menu">
                     <div class="nav-dropdown-group">
-                        <a class="nav-submenu-title" href="#musim">Fanzine Documentation</a>
+                        <a class="nav-submenu-title" href="#">Fanzine Documentation</a>
                         <div class="nav-submenu">
                             <a href="#musim">About</a>
                             <a href="#schedule">Schedule</a>
@@ -2076,11 +2094,10 @@
                         <a class="nav-coming-soon" href="#cafe">CAFE EVENT</a>
                     </div>
                     <div>
-                        <!-- <a class="nav-coming-soon" href="photobooth.html">PHOTOBOOTH</a> -->
                         <a class="nav-coming-soon" href="#about-731chapters">PHOTOBOOTH</a>
                     </div>
                     <div class="nav-dropdown-group">
-                        <a class="nav-submenu-title" href="#">GAMES</a>
+                        <a class="nav-submenu-title" href="#about-731chapters">GAMES</a>
                         <div class="nav-submenu">
                             <!-- <a href="maze.html">MAZE GAMES</a> -->
                             <a href="#about-731chapters">MAZE GAMES</a>
@@ -2112,25 +2129,23 @@
             <div class="promoted-content">
                 <div class="apply-text">
                     <p>Musim Mekarnya Rasa<br>Cafe Event</p>
-                    <p class="apply-subtext">REGIST OPEN: 2 AGUSTUS 2026</p>
+                    <p class="apply-subtext">OPEN: 2 AGUSTUS 2026</p>
                 </div>
                 <div class="btn-row">
-                    <a href="https://forms.gle/CMse3PFBDF8JCaMu6" class="btn btn-writer">RSVP</a>
+                    <a href="https://forms.gle/CMse3PFBDF8JCaMu6" class="btn btn-writer">REGISTRASI</a>
                     <a href="#cafe" class="btn btn-artist">CAFE EVENT DETAILS</a>
                 </div>
             </div>
             <p class="about-731chapters-meta">Terakhir diperbarui: 28 Juli 2026 &nbsp;·&nbsp; Situs ini dapat
                 diperbarui sewaktu-waktu.</p>
         </div>
+
     </div>
     <div class="page hidden" id="musim">
         <div class="masthead">
             <p class="mast-eyebrow">Info Dokumen Fanzine</p>
             <div class="mast-logo-wrap">
-                <a href="https://musim-mekarnya-rasa-fanzine.netlify.app/">
-                    <img class="mast-logo" src="MMR-LOGO.png" alt="MMR logo">
-                </a>
-
+                <img class="mast-logo" src="MMR-LOGO.png" alt="MMR logo">
             </div>
             <p class="mast-tagline">Untuk memilihmu, dalam ketenangan setiap hari.<br>Kemarin, hari ini, dan semua
                 hari esok.</p>
@@ -2759,11 +2774,11 @@
 
             <div class="promoted-content">
                 <div class="apply-text">
-                    <p>Musim Mekarnya Rasa<br>Cafe Event</p>
-                    <p class="apply-subtext">REGIST OPEN: 2 AGUSTUS 2026</p>
+                    <p>Musim Mekarnya Rasa<br>Registrasi Cafe Event</p>
+                    <p class="apply-subtext">OPEN: 2 AUG 2026</p>
                 </div>
                 <div class="btn-row">
-                    <a href="https://forms.gle/CMse3PFBDF8JCaMu6" class="btn btn-writer">RSVP</a>
+                    <a href="https://forms.gle/CMse3PFBDF8JCaMu6" class="btn btn-writer">REGISTRASI</a>
                 </div>
             </div>
 
@@ -2777,8 +2792,8 @@
     <!-- FLOATING APPLY BUTTON -->
     <div class="fab">
         <button class="fab-btn" id="fab-open" onclick="openFab()">
-            <span class="fab-btn-main">RESGISTRASI CAFE EVENT</span>
-            <span class="fab-btn-sub">Open 2 Agustus</span>
+            <span class="fab-btn-main">REGISTRASI CAFE EVENT</span>
+            <span class="fab-btn-sub">Open 2 Aug</span>
         </button>
     </div>
 
