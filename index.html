@@ -14,7 +14,6 @@
     <link rel="stylesheet" href="styles.css">
     <!-- 
         © 731chapters
-        Developer: tofumandu_
     -->
 
 </head>
@@ -2133,8 +2132,9 @@
             </div>
             <div class="promoted-content">
                 <div class="apply-text">
-                    <p>Musim Mekarnya Rasa<br>Cafe Event</p>
-                    <p class="apply-subtext">OPEN: 2 AGUSTUS 2026</p>
+                    <p>Musim Mekarnya Rasa<br>Registrasi Cafe Event</p>
+                    <p class="apply-subtext">OPEN: 2 AGUSTUS | 08 PM</p>
+                    <p class=" rsvp-countdown" style="margin-top: 10px;"></p>
                 </div>
                 <div class="btn-row">
                     <a href="https://forms.gle/CMse3PFBDF8JCaMu6" target="_blank" rel="noopener noreferrer"
@@ -2142,7 +2142,7 @@
                     <a href="#cafe" class="btn btn-artist">CAFE EVENT DETAILS</a>
                 </div>
             </div>
-            <p class="about-731chapters-meta">Terakhir diperbarui: 28 Juli 2026 &nbsp;·&nbsp; Situs ini dapat
+            <p class="about-731chapters-meta">Terakhir diperbarui: 1 Agustus 2026 &nbsp;·&nbsp; Situs ini dapat
                 diperbarui sewaktu-waktu.</p>
         </div>
 
@@ -2752,7 +2752,7 @@
             <div class="mast-logo-wrap">
                 <img class="mast-logo" src="MMR-LOGO.png" alt="MMR logo">
             </div>
-            <p class="mast-meta">Terakhir diperbarui: 30 Juli 2026 &nbsp;·&nbsp; Dokumen ini dapat diperbarui
+            <p class="mast-meta">Terakhir diperbarui: 1 Agustus 2026 &nbsp;·&nbsp; Dokumen ini dapat diperbarui
                 sewaktu-waktu.</p>
         </div>
 
@@ -2790,7 +2790,8 @@
             <div class="promoted-content">
                 <div class="apply-text">
                     <p>Musim Mekarnya Rasa<br>Registrasi Cafe Event</p>
-                    <p class="apply-subtext">OPEN: 2 AUG 2026</p>
+                    <p class="apply-subtext">OPEN: 2 AGUSTUS | 08 PM</p>
+                    <p class=" rsvp-countdown" style="margin-top: 10px;"></p>
                 </div>
                 <div class="btn-row">
                     <a href="https://forms.gle/CMse3PFBDF8JCaMu6" target="_blank" rel="noopener noreferrer"
@@ -2818,7 +2819,7 @@
             <p class="fab-card-title">REGISTRASI CAFE EVENT</p>
             <button class="fab-close" onclick="closeFab()">×</button>
         </div>
-        <p class="fab-deadline">Open: <strong>2 Agustus 2026</strong></p>
+        <p class="fab-deadline">Open: <strong>2 Aug 2026</strong></p>
         <a href="https://forms.gle/CMse3PFBDF8JCaMu6" target="_blank" rel="noopener noreferrer"
             class="fab-apply-btn fab-writer">REGISTRASI</a>
 
@@ -3017,7 +3018,37 @@
                 siteNav.classList.toggle('open');
             });
         }
-    });
-</script>
+    }); var countDownDate = new Date("Aug 2, 2026 20:00:00").getTime();
+
+    var rsvp_countdowns = document.querySelectorAll(".rsvp-countdown");
+
+    var x = setInterval(function () {
+
+        var now = new Date().getTime();
+        var distance = countDownDate - now;
+
+        var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        var countdown =
+            String(hours).padStart(2, '0') + " : " +
+            String(minutes).padStart(2, '0') + " : " +
+            String(seconds).padStart(2, '0');
+
+        rsvp_countdowns.forEach(function (rsvp_countdowns) {
+            rsvp_countdowns.innerHTML = countdown;
+        });
+
+        if (distance < 0) {
+            clearInterval(x);
+
+            rsvp_countdowns.forEach(function (rsvp_countdowns) {
+                rsvp_countdowns.innerHTML = "EXPIRED";
+            });
+        }
+
+    }, 1000);</script>
 
 </html>
