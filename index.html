@@ -12,6 +12,11 @@
         href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500&family=EB+Garamond:ital,wght@0,400;1,400&family=DM+Sans:wght@300;400&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
+    <!-- 
+        © 731chapters
+        Developer: tofumandu_
+    -->
+
 </head>
 <style>
     :root {
@@ -2100,9 +2105,9 @@
                         <a class="nav-submenu-title" href="#about-731chapters">GAMES</a>
                         <div class="nav-submenu">
                             <!-- <a href="maze.html">MAZE GAMES</a> -->
-                            <a href="#about-731chapters">MAZE GAMES</a>
+                            <a href="#about-731chapters">BANTU NYU BERTEMU DENGAN NJE!</a>
                             <!-- <a href="puzzle.html">PUZZLE GAMES</a>  -->
-                            <a href="#about-731chapters">PUZZLE GAMES</a>
+                            <a href="#about-731chapters">ARRANGE NIDJAE MEMORIES</a>
                         </div>
                     </div>
                 </div>
@@ -2132,7 +2137,8 @@
                     <p class="apply-subtext">OPEN: 2 AGUSTUS 2026</p>
                 </div>
                 <div class="btn-row">
-                    <a href="https://forms.gle/CMse3PFBDF8JCaMu6" class="btn btn-writer">REGISTRASI</a>
+                    <a href="https://forms.gle/CMse3PFBDF8JCaMu6" target="_blank" rel="noopener noreferrer"
+                        class="btn btn-writer">REGISTRASI</a>
                     <a href="#cafe" class="btn btn-artist">CAFE EVENT DETAILS</a>
                 </div>
             </div>
@@ -2575,9 +2581,11 @@
                 <p class="cta-text">Siap berbagi karyamu?</p>
                 <div class="cta-btn-row">
                     <a href="https://docs.google.com/forms/d/e/1FAIpQLScn3hR7xUH9U7i56pcKAs7q9G3BEKMqYuHNay9WI6u-16UrPQ/viewform?usp=publish-editor"
-                        class="cta-btn cta-btn-writer">Apply sebagai Writer</a>
+                        target="_blank" rel="noopener noreferrer" class="cta-btn cta-btn-writer">Apply sebagai
+                        Writer</a>
                     <a href="https://docs.google.com/forms/d/e/1FAIpQLScHw2CUBk5r_SUqsOFHZCfiJBWD4Rt3UZSoFV-3OZekzSKPfg/viewform?usp=header"
-                        class="cta-btn cta-btn-artist">Apply sebagai Artist</a>
+                        target="_blank" rel="noopener noreferrer" class="cta-btn cta-btn-artist">Apply sebagai
+                        Artist</a>
                 </div>
                 <p class="cta-deadline">Deadline untuk apply: <strong>27 Juni 2026</strong></p>
             </div>
@@ -2767,9 +2775,16 @@
                                 Rasa</i></b>, Event
                         Kit,
                         Kesempatan Lucky Draw, Makanan Berat, dan Minuman.</li>
-                    <li>Apabila ada pertanyaan, silahkan hubungi X <a href="https://x.com/731chapters">@731chapters</a>
+                    <li>Apabila ada pertanyaan, silahkan hubungi X <a href="https://x.com/731chapters" target="_blank"
+                            rel="noopener noreferrer">@731chapters</a>
                     </li>
                 </ul>
+                <div class="notice">
+                    <p><b>CATATAN:</b><br>1 email hanya berlaku untuk 1 kali pendaftaran. Pastikan data diri dan alamat
+                        email
+                        yang dimasukkan sudah benar</p>
+
+                </div>
             </div>
 
             <div class="promoted-content">
@@ -2778,7 +2793,8 @@
                     <p class="apply-subtext">OPEN: 2 AUG 2026</p>
                 </div>
                 <div class="btn-row">
-                    <a href="https://forms.gle/CMse3PFBDF8JCaMu6" class="btn btn-writer">REGISTRASI</a>
+                    <a href="https://forms.gle/CMse3PFBDF8JCaMu6" target="_blank" rel="noopener noreferrer"
+                        class="btn btn-writer">REGISTRASI</a>
                 </div>
             </div>
 
@@ -2803,19 +2819,19 @@
             <button class="fab-close" onclick="closeFab()">×</button>
         </div>
         <p class="fab-deadline">Open: <strong>2 Agustus 2026</strong></p>
-        <a href="https://forms.gle/CMse3PFBDF8JCaMu6" target="_blank" class="fab-apply-btn fab-writer">REGISTRASI</a>
+        <a href="https://forms.gle/CMse3PFBDF8JCaMu6" target="_blank" rel="noopener noreferrer"
+            class="fab-apply-btn fab-writer">REGISTRASI</a>
 
     </div>
     </div>
 
     <footer class="footer">
         <p class="footer-title">
-            <a href="https://x.com/731chapters">731chapters</a>
+            <a href="https://x.com/731chapters" target="_blank" rel="noopener noreferrer">731chapters</a>
             &nbsp;·&nbsp;
-            <a href="https://731chapters.straw.page/">Our Strawpage</a>
+            <a href="https://731chapters.straw.page/" target="_blank" rel="noopener noreferrer">Our Strawpage</a>
         </p>
     </footer>
-    <script src="script.js"></script>
 </body>
 <script>
     function toggleCh(header) {
@@ -2825,81 +2841,82 @@
         body.classList.toggle('open', !isOpen);
         tog.textContent = isOpen ? '+' : '−';
     }
+
     function toggleFaq(header) {
         const body = header.nextElementSibling;
         const tog = header.querySelector('.faq-tog');
-
         const isOpen = body.classList.contains('open');
-
-        body.classList.toggle('open');
+        body.classList.toggle('open', !isOpen);
         tog.textContent = isOpen ? '+' : '−';
     }
 
     function openFab() {
-        document.getElementById('fab-open').parentElement.style.display = 'none';
-        document.getElementById('fab-card').classList.add('open');
+        const fabBtnParent = document.getElementById('fab-open')?.parentElement;
+        if (fabBtnParent) fabBtnParent.style.display = 'none';
+        document.getElementById('fab-card')?.classList.add('open');
     }
 
     function closeFab() {
-        document.getElementById('fab-card').classList.remove('open');
-        document.getElementById('fab-open').parentElement.style.display = 'block';
+        document.getElementById('fab-card')?.classList.remove('open');
+        const fabBtnParent = document.getElementById('fab-open')?.parentElement;
+        if (fabBtnParent) fabBtnParent.style.display = 'block';
     }
 
+    function updateActiveNav(activePageId) {
+        const topAboutLink = document.querySelector('.nav-links > a[href="#about-731chapters"]');
+        const topMusimToggle = document.querySelector('.nav-drop-toggle');
 
-    function updateActiveNav(targetId) {
-        const topLinks = document.querySelectorAll('.nav-links > a, .nav-dropdown > a, .nav-coming-soon');
-        topLinks.forEach(link => {
-            link.classList.remove('active');
+        if (topAboutLink) topAboutLink.classList.remove('active');
+        if (topMusimToggle) topMusimToggle.classList.remove('active');
+
+        if (activePageId === 'about-731chapters') {
+            if (topAboutLink) topAboutLink.classList.add('active');
+        } else if (activePageId === 'musim' || activePageId === 'cafe') {
+            if (topMusimToggle) topMusimToggle.classList.add('active');
+        }
+    }
+
+    function navigateTo(hash, isSmooth = true) {
+        if (!hash || hash === '#') hash = '#about-731chapters';
+
+        let targetEl = document.querySelector(hash);
+        if (!targetEl) {
+            hash = '#about-731chapters';
+            targetEl = document.querySelector(hash);
+        }
+
+        let pageContainer = targetEl ? (targetEl.classList.contains('page') ? targetEl : targetEl.closest('.page')) : null;
+        if (!pageContainer) {
+            pageContainer = document.getElementById('about-731chapters');
+        }
+
+        const pages = document.querySelectorAll('.page');
+        pages.forEach(p => {
+            if (p === pageContainer) {
+                p.classList.remove('hidden');
+            } else {
+                p.classList.add('hidden');
+            }
         });
 
-        if (targetId === '#about-731chapters') {
-            const aboutLink = document.querySelector('.nav-links > a[href="#about-731chapters"]');
-            if (aboutLink) aboutLink.classList.add('active');
-        } else if (targetId === '#musim') {
-            const musimLink = document.querySelector('.nav-drop-toggle');
-            if (musimLink) musimLink.classList.add('active');
-        } else if (targetId === '#cafe') {
-            const cafeLink = document.querySelector('.nav-coming-soon[href="#cafe"]');
-            if (cafeLink) cafeLink.classList.add('active');
+        updateActiveNav(pageContainer.id);
 
-            const musimLink = document.querySelector('.nav-drop-toggle');
-            if (musimLink) musimLink.classList.add('active');
+        if (window.location.hash !== hash) {
+            window.history.pushState(null, '', hash);
         }
-    }
 
-    function showPage(pageId) {
-        const pages = document.querySelectorAll('.page');
-        pages.forEach(page => page.classList.add('hidden'));
-
-        const page = document.querySelector(`.page${pageId}`);
-        if (page) page.classList.remove('hidden');
-
-        updateActiveNav(pageId);
-        window.history.replaceState(null, '', pageId);
-
-        const target = document.querySelector(pageId);
-        if (target) {
-            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        if (targetEl) {
+            if (targetEl.classList.contains('page')) {
+                window.scrollTo({ top: 0, behavior: isSmooth ? 'smooth' : 'auto' });
+            } else {
+                setTimeout(() => {
+                    targetEl.scrollIntoView({ behavior: isSmooth ? 'smooth' : 'auto', block: 'start' });
+                }, 50);
+            }
         }
-    }
-
-    function showFanzineDocumentation(event) {
-        if (event) event.preventDefault();
-        showPage('#musim');
-    }
-
-    function showAbout(event) {
-        if (event) event.preventDefault();
-        showPage('#about-731chapters');
-    }
-
-    function showCafe(event) {
-        if (event) event.preventDefault();
-        showPage('#cafe');
     }
 
     document.addEventListener('DOMContentLoaded', function () {
-        // ── Hide FAB when footer is visible ──
         const fabEl = document.querySelector('.fab');
         const fabCardEl = document.getElementById('fab-card');
         const footerEl = document.querySelector('.footer');
@@ -2920,53 +2937,20 @@
             );
             observer.observe(footerEl);
         }
-        const page = document.querySelector('.page[id="musim"]');
-        const about = document.querySelector('.page[id="about-731chapters"]');
-        const cafe = document.querySelector('.page[id="cafe"]');
 
-        const currentHash = window.location.hash;
+        const initialHash = window.location.hash || '#about-731chapters';
+        navigateTo(initialHash, false);
 
-        if (currentHash === '#musim' || (currentHash && document.querySelector(currentHash) && document.querySelector(currentHash).closest('.page[id="musim"]'))) {
-            if (page) page.classList.remove('hidden');
-            if (about) about.classList.add('hidden');
-            if (cafe) cafe.classList.add('hidden');
-            updateActiveNav('#musim');
-
-            setTimeout(() => {
-                const targetSec = document.querySelector(currentHash);
-                if (targetSec) {
-                    targetSec.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }
-            }, 100);
-        } else if (currentHash === '#cafe' || (currentHash && document.querySelector(currentHash) && document.querySelector(currentHash).closest('.page[id="cafe"]'))) {
-            if (cafe) cafe.classList.remove('hidden');
-            if (about) about.classList.add('hidden');
-            if (page) page.classList.add('hidden');
-            updateActiveNav('#cafe');
-        } else {
-            if (page && about) {
-                page.classList.add('hidden');
-                about.classList.remove('hidden');
-            }
-            if (cafe) cafe.classList.add('hidden');
-            updateActiveNav('#about-731chapters');
-        }
-
-        const aboutLink = document.querySelector('a[href="#about-731chapters"]');
-        if (aboutLink) {
-            aboutLink.addEventListener('click', showAbout);
-        }
-
-        const cafeLinks = document.querySelectorAll('a[href="#cafe"]');
-        cafeLinks.forEach(link => {
-            link.addEventListener('click', showCafe);
+        window.addEventListener('popstate', function () {
+            navigateTo(window.location.hash || '#about-731chapters', false);
         });
 
+        const siteNav = document.querySelector('.site-nav');
+        const navToggle = document.querySelector('.nav-toggle');
         const navDropdown = document.querySelector('.nav-dropdown');
-        let dropdownCloseTimeout = null;
 
-        const navLinks = document.querySelectorAll('.nav-links a');
-        navLinks.forEach(link => {
+        const allHashLinks = document.querySelectorAll('a[href^="#"]');
+        allHashLinks.forEach(link => {
             link.addEventListener('click', function (event) {
                 const href = link.getAttribute('href');
 
@@ -2979,29 +2963,36 @@
                     return;
                 }
 
-                if (href && href.startsWith('#')) {
-                    event.preventDefault();
-
-                    if (href === '#about-731chapters') {
-                        showAbout(event);
-                    } else if (href === '#cafe') {
-                        showCafe(event);
-                    } else {
-                        if (page) page.classList.remove('hidden');
-                        if (about) about.classList.add('hidden');
-
-                        updateActiveNav('#musim');
-                        window.history.replaceState(null, '', href);
-
-                        const targetElement = document.querySelector(href);
-                        if (targetElement) {
-                            targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                if (link.classList.contains('nav-submenu-title')) {
+                    if (window.innerWidth <= 700) {
+                        event.preventDefault();
+                        const group = link.parentElement;
+                        if (group) {
+                            group.classList.toggle('open');
                         }
+                        return;
                     }
+                }
+
+                if (href === '#' || !href) {
+                    event.preventDefault();
+                    return;
+                }
+
+                event.preventDefault();
+                navigateTo(href, true);
+
+                if (window.innerWidth <= 700 && siteNav && siteNav.classList.contains('open')) {
+                    siteNav.classList.remove('open');
+                    if (navToggle) navToggle.setAttribute('aria-expanded', 'false');
+                    if (navDropdown) navDropdown.classList.remove('open');
+                    const openSubmenuGroup = document.querySelector('.nav-dropdown-group.open');
+                    if (openSubmenuGroup) openSubmenuGroup.classList.remove('open');
                 }
             });
         });
 
+        let dropdownCloseTimeout = null;
         if (navDropdown) {
             navDropdown.addEventListener('mouseenter', () => {
                 clearTimeout(dropdownCloseTimeout);
@@ -3019,9 +3010,6 @@
             });
         }
 
-        const navToggle = document.querySelector('.nav-toggle');
-        const siteNav = document.querySelector('.site-nav');
-
         if (navToggle && siteNav) {
             navToggle.addEventListener('click', () => {
                 const expanded = navToggle.getAttribute('aria-expanded') === 'true';
@@ -3029,59 +3017,6 @@
                 siteNav.classList.toggle('open');
             });
         }
-
-        const submenuTitles = document.querySelectorAll('.nav-submenu-title');
-        submenuTitles.forEach((title) => {
-            title.addEventListener('click', (event) => {
-                if (window.innerWidth <= 700) {
-                    event.preventDefault();
-                    const group = title.parentElement;
-                    if (group) {
-                        group.classList.toggle('open');
-                    }
-                }
-            });
-        });
-
-        const submenuLinks = document.querySelectorAll('.nav-submenu a');
-        submenuLinks.forEach((link) => {
-            link.addEventListener('click', () => {
-                if (window.innerWidth <= 700 && siteNav && siteNav.classList.contains('open')) {
-                    siteNav.classList.remove('open');
-                    if (navToggle) navToggle.setAttribute('aria-expanded', 'false');
-                    if (navDropdown) {
-                        navDropdown.classList.remove('open');
-                    }
-
-                    const openSubmenuGroup = document.querySelector('.nav-dropdown-group.open');
-                    if (openSubmenuGroup) {
-                        openSubmenuGroup.classList.remove('open');
-                    }
-                }
-            });
-        });
-
-        const responsiveLinks = document.querySelectorAll('.nav-links a');
-        responsiveLinks.forEach(link => {
-            link.addEventListener('click', () => {
-                if (window.innerWidth <= 700 && siteNav && siteNav.classList.contains('open')) {
-                    if (link.classList.contains('nav-drop-toggle') || link.classList.contains('nav-submenu-title')) {
-                        return;
-                    }
-
-                    siteNav.classList.remove('open');
-                    if (navToggle) navToggle.setAttribute('aria-expanded', 'false');
-                    if (navDropdown) {
-                        navDropdown.classList.remove('open');
-                    }
-
-                    const openSubmenuGroup = document.querySelector('.nav-dropdown-group.open');
-                    if (openSubmenuGroup) {
-                        openSubmenuGroup.classList.remove('open');
-                    }
-                }
-            });
-        });
     });
 </script>
 
