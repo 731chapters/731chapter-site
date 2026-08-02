@@ -2134,7 +2134,7 @@
                 <div class="apply-text">
                     <p>Musim Mekarnya Rasa<br>Registrasi Cafe Event</p>
                     <p class="apply-subtext">OPEN: 2 AGUSTUS | 08PM WIB</p>
-                    <p class=" rsvp-countdown" style="margin-top: 10px;"></p>
+                    <p class=" rsvp-countdown" style="margin-top: 10px;">SLOT PENUH</p>
                 </div>
                 <div class="btn-row">
                     <a href="https://forms.gle/CMse3PFBDF8JCaMu6" target="_blank" rel="noopener noreferrer"
@@ -2791,7 +2791,7 @@
                 <div class="apply-text">
                     <p>Musim Mekarnya Rasa<br>Registrasi Cafe Event</p>
                     <p class="apply-subtext">OPEN: 2 AGUSTUS | 08PM WIB</p>
-                    <p class=" rsvp-countdown" style="margin-top: 10px;"></p>
+                    <p class=" rsvp-countdown" style="margin-top: 10px;">SLOT PENUH</p>
                 </div>
                 <div class="btn-row">
                     <a href="https://forms.gle/CMse3PFBDF8JCaMu6" target="_blank" rel="noopener noreferrer"
@@ -3019,36 +3019,36 @@
             });
         }
     }); 
-    var countDownDate = Date.UTC(2026, 7, 2, 13, 0, 0);
-    var rsvp_countdowns = document.querySelectorAll(".rsvp-countdown");
+    // var countDownDate = Date.UTC(2026, 7, 2, 13, 0, 0);
+    // var rsvp_countdowns = document.querySelectorAll(".rsvp-countdown");
 
-    var x = setInterval(function () {
+    // var x = setInterval(function () {
 
-        var now = new Date().getTime();
-        var distance = countDownDate - now;
+    //     var now = new Date().getTime();
+    //     var distance = countDownDate - now;
 
-        var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-        var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+    //     var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    //     var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    //     var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    //     var seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-        var countdown =
-            String(hours).padStart(2, '0') + " : " +
-            String(minutes).padStart(2, '0') + " : " +
-            String(seconds).padStart(2, '0');
+    //     var countdown =
+    //         String(hours).padStart(2, '0') + " : " +
+    //         String(minutes).padStart(2, '0') + " : " +
+    //         String(seconds).padStart(2, '0');
 
-        rsvp_countdowns.forEach(function (rsvp_countdowns) {
-            rsvp_countdowns.innerHTML = countdown;
-        });
+    //     rsvp_countdowns.forEach(function (rsvp_countdowns) {
+    //         rsvp_countdowns.innerHTML = countdown;
+    //     });
 
-        if (distance < 0) {
-            clearInterval(x);
+    //     if (distance < 0) {
+    //         clearInterval(x);
 
-            rsvp_countdowns.forEach(function (rsvp_countdowns) {
-                rsvp_countdowns.innerHTML = "FORM DIBUKA";
-            });
-        }
+    //         rsvp_countdowns.forEach(function (rsvp_countdowns) {
+    //             rsvp_countdowns.innerHTML = "FORM DIBUKA";
+    //         });
+    //     }
 
-    }, 1000);</script>
+    // }, 1000);</script>
 
 </html>
