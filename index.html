@@ -12,8 +12,12 @@
         href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500&family=EB+Garamond:ital,wght@0,400;1,400&family=DM+Sans:wght@300;400&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="photobooth/frameData.js"></script>
     <!-- 
         © 731chapters
+        Developer: tofumandu_
     -->
 
 </head>
@@ -61,11 +65,12 @@
     body {
         width: 100%;
         max-width: 100%;
-        overflow-x: hidden;
+        overflow-x: clip;
         padding-top: 20px;
         color: var(--text);
         background: url('https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExejgxanU3M2Z4NHU4a2ZjeWJoMzRzODFkb2FzanhiZTFlaGhkY3Q3MSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/xThtawJ5higNRr1pq8/giphy.gif') center/cover no-repeat fixed,
             linear-gradient(180deg, var(--isabeline) 0%, var(--warm-white) 48%, var(--warm-white) 75%);
+
         font-family: 'EB Garamond', serif;
         font-size: 16px;
         line-height: 1.8;
@@ -419,7 +424,9 @@
     }
 
     .apply-text,
-    #cafe .apply-text {
+    #cafe .apply-text,
+    .rsvp-countdown,
+    #cafe .rsvp-countdown {
         font-family: 'DM Sans', sans-serif;
         font-size: 18px;
         font-weight: 800;
@@ -464,13 +471,19 @@
         background: var(--brown-light);
     }
 
-    .btn-row {
+    .btn-row,
+    #cafe .btn-row {
         margin: 6px;
         padding: 10px 0 0;
         display: grid;
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr 1fr;
         align-items: center;
         gap: 8px;
+    }
+
+    .single-btn,
+    #cafe .single-btn {
+        grid-template-columns: 1fr;
     }
 
     .btn-writer {
@@ -613,6 +626,11 @@
     /* ── SECTION ── */
     .section {
         margin-bottom: 60px;
+    }
+
+    .twitter-tweet {
+        align-self: center;
+        justify-self: center;
     }
 
     .sec-head {
@@ -1457,6 +1475,12 @@
         margin-bottom: 24px;
     }
 
+    .cafe-detail {
+        max-width: 680px;
+        margin: 0 auto;
+        padding: 0 40px 100px;
+    }
+
     #cafe .masthead {
         background: linear-gradient(180deg, var(--isabeline) 0%, var(--isabeline) 38%, transparent 75%);
     }
@@ -1508,6 +1532,508 @@
         text-align: center;
     }
 
+    /* PHOTOBOOTHS */
+
+
+    .photobooth-page {
+        max-width: 72rem;
+        width: 100%;
+        margin: 0 auto;
+        padding: 1.5rem 1rem;
+        flex: 1;
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        align-items: start;
+    }
+
+    .photobooth-page section {
+        grid-column: span 1 / span 1;
+        display: flex;
+        flex-direction: column;
+        gap: 1.25rem;
+    }
+
+    .card {
+        position: relative;
+        margin-top: 20px;
+        background-color: var(--warm-white);
+        padding: 1.25rem;
+        border: 1px solid var(--parchment);
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .preview-area {
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+        /* gap-3 = 12px */
+    }
+
+    .title-preview h2 {
+        text-transform: uppercase;
+        font-size: 1.125rem;
+        font-weight: 700;
+        color: var(--brown);
+        font-family: 'DM Sans', sans-serif;
+    }
+
+    .status {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+
+    }
+
+    #status-badge {
+        padding: 0.25rem 0.625rem;
+        background-color: var(--sage-bg);
+        color: var(--sage);
+        font-size: 0.75rem;
+        font-weight: 600;
+        font-family: 'DM Sans', sans-serif;
+    }
+
+
+
+    .shutter-bar {
+        position: sticky;
+        top: 72px;
+        display: grid;
+        grid-template-columns: auto minmax(120px, 1fr) auto;
+        width: 100%;
+        align-items: center;
+        gap: 16px;
+        background: rgba(253, 250, 244, 0.97);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        padding: 12px 16px;
+        border-bottom: 1px solid var(--parchment);
+        z-index: 25;
+        box-sizing: border-box;
+    }
+
+    .frame-layout-selector {
+        position: relative;
+        z-index: 3;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.75rem;
+        width: 100%;
+        min-width: 0;
+        margin: 0;
+        padding: 0;
+        border: none;
+        background: transparent;
+        border-radius: 0;
+        box-shadow: none;
+        pointer-events: auto;
+    }
+
+    .frame-layout-selector h1 {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-family: 'DM Sans', sans-serif;
+        color: var(--brown);
+        font-size: clamp(0.62rem, 1.3vw, 0.75rem);
+        font-weight: 600;
+        text-transform: uppercase;
+        white-space: nowrap;
+        text-align: center;
+    }
+
+    .frame-layout-label {
+        opacity: 0.8;
+    }
+
+    .frame-nav-btn {
+        width: 38px;
+        height: 38px;
+        border-radius: 50%;
+        border: 1px solid rgba(122, 92, 72, 0.18);
+        background: rgba(253, 250, 244, 0.95);
+        color: var(--brown);
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+        pointer-events: auto;
+    }
+
+    .frame-nav-btn:hover {
+        background: var(--mauve-bg);
+    }
+
+    .timer-group {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        flex-shrink: 0;
+    }
+
+    .timer-group label {
+        display: flex;
+        align-items: center;
+        gap: 0.375rem;
+        font-size: 0.75rem;
+        font-weight: 600;
+        color: var(--brown);
+        font-family: 'DM Sans', sans-serif;
+    }
+
+    .timer-group label i {
+        color: var(--text);
+    }
+
+    .timer-select {
+        background-color: var(--mauve-bg);
+        border: 1px solid var(--mauve-light);
+        border-radius: 5px;
+        color: var(--text);
+        font-size: 0.75rem;
+        font-weight: 700;
+        padding: 0.375rem 0.625rem;
+        font-family: 'DM Sans', sans-serif;
+        outline: none;
+    }
+
+    #shutter-btn {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+        flex-shrink: 0;
+    }
+
+    .retake-btn {
+        display: flex;
+        align-items: center;
+        gap: 0.375rem;
+        min-width: 0;
+        padding: 0.375rem 0.75rem;
+        border-radius: 10px;
+        background-color: var(--parchment);
+        color: var(--brown);
+        font-family: 'DM Sans', sans-serif;
+        font-size: 0.75rem;
+        font-weight: 500;
+        transition: all 0.2s ease;
+    }
+
+    .retake-btn:hover {
+        background-color: var(--mauve-light);
+    }
+
+    .action-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        padding: 6px 12px;
+        min-width: 0;
+        border: none;
+        border-radius: 10px;
+        color: var(--brown);
+        font-family: 'DM Sans', sans-serif;
+        font-size: 12px;
+        font-weight: 700;
+        cursor: pointer;
+        transition: background-color .2s ease, opacity .2s ease;
+        box-shadow: 0 1px 2px rgba(0, 0, 0, .05);
+    }
+
+    .action-btn:disabled {
+        opacity: .45;
+        cursor: not-allowed;
+    }
+
+    .retake-btn {
+        background: #e7d5d5;
+    }
+
+    .retake-btn:hover {
+        background: #e2d2c4;
+    }
+
+    .download-btn {
+        background: #e7d5d5;
+    }
+
+    .download-btn:hover:not(:disabled) {
+        background: #dcc5c5;
+    }
+
+    .capture-btn {
+        background: var(--mauve);
+        padding: 8px 16px;
+        font-size: 14px;
+        font-weight: 700;
+        transform: scale(1.05);
+    }
+
+    .capture-btn i {
+        font-size: 18px;
+    }
+
+    .capture-btn:hover {
+        background: var(--mauve-light);
+    }
+
+    .photobooth-preview-container {
+        position: relative;
+        margin-top: 0.5rem;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        min-height: 420px;
+        overflow: auto;
+        padding: 0.75rem;
+        background-color: var(--sage-bg);
+        border: 1px solid var(--parchment);
+    }
+
+    .canvas-wrap {
+        position: relative;
+        display: inline-block;
+        line-height: 0;
+        padding-top: 0.2rem;
+    }
+
+    #photobooth-canvas {
+        display: block;
+        width: min(100%, 768px);
+        height: auto;
+        margin: 0 auto;
+        background: #fff9f0;
+        border: 3px solid rgba(122, 92, 72, 0.25);
+        box-shadow:
+            0 10px 15px rgba(0, 0, 0, 0.1),
+            inset 0 0 0 1px rgba(255, 255, 255, 0.4);
+        transition: all 0.3s ease;
+    }
+
+    .countdown-overlay {
+        position: absolute;
+        inset: 0;
+        z-index: 30;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: rgba(0, 0, 0, 0.5);
+        color: #fff;
+    }
+
+    .countdown-overlay.hidden {
+        display: none;
+    }
+
+    .countdown-num {
+        padding: 1.5rem 2rem;
+        font-size: 2rem;
+        font-weight: 700;
+        letter-spacing: 0.04em;
+        background: rgba(255, 255, 255, 0.15);
+        backdrop-filter: blur(4px);
+        -webkit-backdrop-filter: blur(4px);
+        box-shadow: 0 10px 15px rgba(0, 0, 0, 0.15);
+    }
+
+    .flash-effect {
+        position: absolute;
+        inset: 0;
+        z-index: 40;
+
+        background: #fff;
+        opacity: 0.2;
+    }
+
+    .flash-effect.hidden {
+        display: none;
+    }
+
+    .font-serif-custom {
+        font-family: 'EB Garamond', serif;
+    }
+
+    .footer {
+        display: flex;
+        align-items: center;
+        margin-top: 20px;
+        margin-bottom: 12px;
+    }
+
+    .footer a {
+        text-decoration: none;
+        color: var(--text);
+        font-size: 10px;
+        font-weight: 600;
+        letter-spacing: 0.26em;
+        text-transform: uppercase;
+        flex-shrink: 0;
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+
+    .footer a:hover {
+        color: var(--brown-mid);
+    }
+
+    .sec-rule {
+        width: 150px;
+        flex: 1;
+        height: 1px;
+        background: linear-gradient(to right, var(--text), transparent);
+    }
+
+    .sec-rule-left {
+        width: 150px;
+        flex: 1;
+        height: 1px;
+        background: linear-gradient(to left, var(--text), transparent);
+    }
+
+    #toast {
+        position: fixed;
+        bottom: 1.5rem;
+        /* bottom-6 */
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 50;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.625rem 1.25rem;
+        background: var(--brown);
+        color: var(--warm-white);
+        font-family: 'DM Sans', sans-serif;
+        font-size: 0.75rem;
+        font-weight: 600;
+        box-shadow: 0 10px 15px rgba(0, 0, 0, 0.15);
+        opacity: 0;
+        pointer-events: none;
+        transition: all 0.3s ease;
+    }
+
+    #toast i {
+        color: var(--mauve-light);
+    }
+
+    #toast.show {
+        opacity: 1;
+    }
+
+    #webcam-elements {
+        position: absolute;
+        left: -9999px;
+        top: -9999px;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+    }
+
+    #webcam {
+        width: 1px;
+        height: 1px;
+        opacity: 0;
+    }
+
+    .hidden {
+        display: none;
+    }
+
+    .page-fade-in {
+        animation: pageFadeIn 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+    }
+
+    .frame-swipe-left,
+    .frame-swipe-right {
+        animation-duration: 0.8s;
+        animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+        animation-fill-mode: both;
+        will-change: transform, opacity;
+    }
+
+    .frame-swipe-left {
+        animation-name: frameSwipeLeft;
+    }
+
+    .frame-swipe-right {
+        animation-name: frameSwipeRight;
+    }
+
+    @keyframes pageFadeIn {
+        0% {
+            opacity: 0;
+            transform: translateY(5px);
+            filter: blur(2px);
+        }
+
+        100% {
+            opacity: 1;
+            transform: translateY(0);
+            filter: blur(0);
+        }
+    }
+
+    @keyframes frameSwipeLeft {
+        0% {
+            opacity: 0;
+            transform: translateX(-100px) scale(0.9);
+        }
+
+        100% {
+            opacity: 1;
+            transform: translateX(0) scale(1);
+        }
+    }
+
+    @keyframes frameSwipeRight {
+        0% {
+            opacity: 0;
+            transform: translateX(100px) scale(0.9);
+        }
+
+        100% {
+            opacity: 1;
+            transform: translateX(0) scale(1);
+        }
+    }
+
+    ::-webkit-scrollbar {
+        width: 6px;
+        height: 6px;
+    }
+
+    ::-webkit-scrollbar-track {
+        background: var(--warm-white);
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: var(--brown-light);
+        border-radius: 999px;
+    }
+
+    @keyframes flash-anim {
+        0% {
+            opacity: 0.95;
+        }
+
+        100% {
+            opacity: 0;
+        }
+    }
+
+    .flash-active {
+        animation: flash-anim 0.4s ease-out forwards;
+    }
+
     /* ── MEDIA QUERIES ── */
     @media (max-width: 1503px) {
         body {
@@ -1525,6 +2051,115 @@
         }
     }
 
+    @media (max-width: 780px) {
+        .action-btn .hidden {
+            display: none;
+        }
+
+        .frame-nav-btn {
+            width: 30px;
+            height: 30px;
+        }
+
+    }
+
+    @media (max-width: 710px) {
+
+
+        #preview-area {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+        }
+
+        .title-preview h2 {
+            margin: 0;
+            padding: 0;
+            font-size: 14px;
+        }
+
+        #status-badge {
+            padding: 4px 8px;
+            font-size: 10px;
+        }
+
+        .shutter-bar {
+            display: grid;
+            grid-template-columns: auto minmax(110px, 1fr) auto;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .frame-layout-selector {
+            gap: 0.45rem;
+            min-width: 0;
+        }
+
+        .frame-layout-selector h1 {
+            font-size: clamp(0.52rem, 2vw, 0.72rem);
+            letter-spacing: 0.04em;
+        }
+
+        .frame-nav-btn {
+            width: 32px;
+            height: 32px;
+        }
+
+        .timer-group {
+            flex: 1 1 auto;
+            min-width: 0;
+        }
+
+        .timer-label {
+            font-size: 11px;
+        }
+
+        .timer-select {
+            width: 55px;
+            padding: 4px 6px;
+            font-size: 10px;
+        }
+
+        .timer-select:focus {
+            outline: none;
+        }
+
+        #shutter-btn {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            flex: 1 1 auto;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-left: auto;
+            min-width: 0;
+        }
+
+        .action-btn {
+            padding: 6px 10px;
+            font-size: 10px;
+            white-space: nowrap;
+        }
+
+        .action-btn i {
+            font-size: 14px;
+        }
+
+        #photobooth-canvas {
+            max-width: 500px;
+        }
+
+        .frame-nav-btn {
+            width: 28px;
+            height: 28px;
+        }
+
+        #countdown-num {
+            font-size: 1rem;
+        }
+    }
 
     @media (max-width: 700px) {
         .site-nav {
@@ -1747,8 +2382,73 @@
         }
     }
 
+    @media (max-width: 570px) {
+        .shutter-bar {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 8px;
+            font-size: 9px;
+            border-radius: 8px;
+        }
 
-    @media (max-width: 420px) {
+        .frame-layout-selector {
+            order: 1;
+            width: 100%;
+        }
+
+        .timer-group {
+            order: 2;
+            justify-self: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #shutter-btn {
+            order: 3;
+            justify-self: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn-text {
+            display: none;
+        }
+
+        .action-btn {
+            padding: 8px;
+            min-width: 40px;
+            justify-content: center;
+        }
+
+        .action-btn i {
+            font-size: 14px;
+        }
+
+        .capture-btn {
+            padding: 10px 12px;
+            transform: none;
+        }
+
+        .frame-nav-btn {
+            width: 20px;
+            height: 20px;
+        }
+
+        #photobooth-canvas {
+            max-width: 350px;
+        }
+
+        .capture-btn i {
+            font-size: 16px;
+        }
+    }
+
+    @media (max-width: 500px) {
         .nav-dropdown-group {
             padding: 0;
         }
@@ -1782,6 +2482,187 @@
             font-size: 8px;
         }
 
+        .shutter-bar {
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 10px;
+            padding-inline: 8px;
+        }
+
+        .timer-text {
+            display: none;
+        }
+
+        .timer-label {
+            gap: 0;
+        }
+
+        .timer-group {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        #shutter-btn {
+            gap: 6px;
+        }
+
+        .action-btn {
+            padding: 6px 8px;
+            font-size: 10px;
+        }
+
+        .action-btn i {
+            font-size: 12px;
+        }
+
+        #photobooth-canvas {
+            max-width: 300px;
+        }
+
+        .photobooth-preview-container {
+            min-height: 260px;
+        }
+
+    }
+
+    @media (max-width: 430px) {
+
+
+        .shutter-bar {
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 3px;
+            padding-inline: 8px;
+        }
+
+        .title-preview h2 {
+            font-size: 12px;
+        }
+
+        .timer-text {
+            display: none;
+        }
+
+        .timer-label {
+            gap: 0;
+        }
+
+        .timer-group {
+            display: flex;
+            align-items: center;
+            gap: 3px;
+        }
+
+        #shutter-btn {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 3px;
+            margin-left: 0;
+            padding: 0 4px;
+        }
+
+        .action-btn {
+            padding: 6px 8px;
+            font-size: 5px;
+        }
+
+        .action-btn i {
+            font-size: 12px;
+        }
+
+        .btn-text {
+            display: none;
+        }
+
+        .timer-select {
+            width: 56px;
+            padding: 4px 6px;
+            font-size: 12px;
+        }
+
+        #photobooth-canvas {
+            max-width: 250px;
+        }
+
+        .photobooth-preview-container {
+            min-height: 240px;
+        }
+    }
+
+    @media (max-width: 390px) {
+        .nav-dropdown-group {
+            padding: 0;
+        }
+
+        .nav-dropdown-group a.nav-submenu-title,
+        .nav-coming-soon,
+        .nav-cafe {
+            background: var(--warm-white);
+        }
+
+        .nav-dropdown-group a.nav-submenu-title::after {
+            right: 16px;
+        }
+
+        .nav-dropdown-menu .nav-submenu {
+            background: transparent;
+            border: none;
+            box-shadow: none;
+            padding: 0;
+        }
+
+        .nav-dropdown-menu .nav-submenu a:last-child {
+            margin-bottom: 0;
+        }
+
+        .shutter-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: nowrap;
+            /* Jangan turun ke bawah */
+            gap: 4px;
+        }
+
+        .timer-group {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            flex: 0 0 auto;
+        }
+
+        .timer-select {
+            width: 48px;
+            padding: 3px 5px;
+            font-size: 10px;
+        }
+
+        #shutter-btn {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            flex-wrap: nowrap;
+            /* Tombol tetap sejajar */
+            gap: 4px;
+            flex: 1;
+            min-width: 0;
+        }
+
+        .action-btn {
+            padding: 6px;
+            min-width: 34px;
+        }
+
+        .action-btn i {
+            font-size: 12px;
+        }
+
+        .btn-text {
+            display: none;
+        }
     }
 
     @media (max-width: 360px) {
@@ -1806,7 +2687,9 @@
         }
 
         .apply-text,
-        #cafe .apply-text {
+        #cafe .apply-text,
+        .rsvp-countdown,
+        #cafe .rsvp-countdown {
             font-size: 15px;
         }
 
@@ -1924,6 +2807,25 @@
             font-size: 8px;
         }
 
+        .site-nav {
+            padding: 8px 12px;
+            gap: 6px;
+        }
+
+        .nav-brand img {
+            height: 34px;
+        }
+
+        .nav-toggle {
+            padding: 7px 10px;
+            font-size: 9.5px;
+            letter-spacing: 0.12em;
+        }
+
+        #photobooth-canvas {
+            max-width: 200px;
+        }
+
     }
 
     @media (max-width: 300px) {
@@ -2039,7 +2941,10 @@
             padding: 18px 16px;
         }
 
-        .apply-text {
+        .apply-text,
+        #cafe .apply-text,
+        .rsvp-countdown,
+        #cafe .rsvp-countdown {
             font-size: 14px;
         }
 
@@ -2080,7 +2985,7 @@
             <div class="nav-dropdown">
                 <a class="nav-drop-toggle" href="#">Musim Mekarnya Rasa</a>
                 <div class="nav-dropdown-menu">
-                    <div class="nav-dropdown-group">
+                    <!-- <div class="nav-dropdown-group">
                         <a class="nav-submenu-title" href="#">Fanzine Documentation</a>
                         <div class="nav-submenu">
                             <a href="#musim">About</a>
@@ -2093,20 +2998,21 @@
                             <a href="#kompensasi">Kompensasi</a>
                             <a href="#faq">FAQ</a>
                         </div>
+                    </div> -->
+                    <div>
+                        <a class="nav-coming-soon" href="#about-731chapters">ONLINE FANZINE</a>
                     </div>
                     <div>
                         <a class="nav-coming-soon" href="#cafe">CAFE EVENT</a>
                     </div>
                     <div>
-                        <a class="nav-coming-soon" href="#about-731chapters">PHOTOBOOTH</a>
+                        <a class="nav-coming-soon photobooth-link" href="">PHOTOBOOTH</a>
                     </div>
                     <div class="nav-dropdown-group">
-                        <a class="nav-submenu-title" href="#about-731chapters">GAMES</a>
+                        <a class="nav-submenu-title" href="">GAMES</a>
                         <div class="nav-submenu">
-                            <!-- <a href="maze.html">MAZE GAMES</a> -->
-                            <a href="#about-731chapters">BANTU NYU BERTEMU DENGAN NJE!</a>
-                            <!-- <a href="puzzle.html">PUZZLE GAMES</a>  -->
-                            <a href="#about-731chapters">ARRANGE NIDJAE MEMORIES</a>
+                            <a href="" class="maze-link">BANTU NYU BERTEMU DENGAN NJE!</a>
+                            <a href="" class="puzzle-link">ARRANGE NIDJAE MEMORIES</a>
                         </div>
                     </div>
                 </div>
@@ -2132,16 +3038,32 @@
             </div>
             <div class="promoted-content">
                 <div class="apply-text">
-                    <p>Musim Mekarnya Rasa<br>Make a Playlist for Nidjae</p>
-                    <p class="apply-subtext">START: 5 AGUSTUS 2026</p>
+                    <p>Musim Mekarnya Rasa</p>
+                    <p class="apply-subtext">
+                        6 SEPTEMBER 2026
+                    </p>
+                    <p class="rsvp-countdown" style="margin-top: 10px;"></p>
+                </div>
+
+                <div class="apply-text">
+                    <p class="apply-subtext">
+                        ONLINE PHOTOBOOTH
+                    </p>
+                </div>
+                <div class="btn-row single-btn">
+                    <a href="" class="btn btn-writer photobooth-link">PHOTOBOOTH</a>
+                </div>
+                <div class="apply-text">
+                    <p class="apply-subtext">
+                        ONLINE GAMES
+                    </p>
                 </div>
                 <div class="btn-row">
-                    <a href="https://forms.gle/bX6KVQCo3oEzd8Uu6" target="_blank" rel="noopener noreferrer"
-                        class="btn btn-writer">FORM</a>
-                    <!-- <a href="#cafe" class="btn btn-artist">CAFE EVENT DETAILS</a> -->
+                    <a href="" class="btn btn-writer maze-link">MAZE</a>
+                    <a href="" class="btn btn-artist puzzle-link">PUZZLE</a>
                 </div>
             </div>
-            <p class="about-731chapters-meta">Terakhir diperbarui: 4 Agustus 2026 &nbsp;·&nbsp; Situs ini dapat
+            <p class="about-731chapters-meta">Terakhir diperbarui: 30 Agustus 2026 &nbsp;·&nbsp; Situs ini dapat
                 diperbarui sewaktu-waktu.</p>
         </div>
 
@@ -2159,7 +3081,6 @@
         </div>
         <div class="fanzine-docs-content">
             <section class="section" id="about">
-
                 <p class="about-body"><strong style="font-weight:700;color:var(--brown)">MUSIM MEKARNYA RASA</strong>
                     adalah
                     tentang cinta yang bersembunyi dalam hal-hal sehari-hari. Bukan hanya tentang jatuh cinta, tetapi
@@ -2550,32 +3471,6 @@
                 </div>
             </section>
 
-            <section class="section" id="kompensasi">
-                <div class="sec-head">
-                    <div class="sec-rule-left"></div>
-                    <span class="sec-title">Kompensasi</span>
-                    <div class="sec-rule"></div>
-                </div>
-                <div class="comp-card">
-                    <p style="font-family:'EB Garamond',serif;font-size:15.5px;color:var(--text);line-height:1.85;">
-                        MUSIM
-                        MEKARNYA RASA fanzine adalah proyek nirlaba sepenuhnya. Semua dana yang terkumpul akan digunakan
-                        terlebih dahulu untuk menutup biaya produksi. Jika anggaran memungkinkan, tujuan utama kami
-                        adalah
-                        memberikan kompensasi kepada setiap kontributor berupa:</p>
-                    <ul class="clist">
-                        <li>Satu salinan fisik zine</li>
-                        <li>Bundel merchandise lengkap acara MUSIM MEKARNYA RASA</li>
-                        <li>Tiket diskon untuk menghadiri acara MUSIM MEKARNYA RASA apabila berlaku</li>
-                    </ul>
-                    <p style="font-family:'EB Garamond',serif;font-size:15px;color:var(--text);line-height:1.85;">Sisa
-                        dana
-                        setelah produksi akan didonasikan ke charity organization yang dipilih oleh para kontributor.
-                        Tidak
-                        ada keuntungan yang akan disimpan oleh staf.</p>
-                </div>
-            </section>
-
             <div class="cta-block" style="margin-top: 24px;">
                 <p class="cta-text">Siap berbagi karyamu?</p>
                 <div class="cta-btn-row">
@@ -2751,78 +3646,165 @@
             <div class="mast-logo-wrap">
                 <img class="mast-logo" src="MMR-LOGO.png" alt="MMR logo">
             </div>
-            <p class="mast-meta">Terakhir diperbarui: 1 Agustus 2026 &nbsp;·&nbsp; Dokumen ini dapat diperbarui
+            <p class="mast-meta">Terakhir diperbarui: 30 Agustus 2026 &nbsp;·&nbsp; Dokumen ini dapat diperbarui
                 sewaktu-waktu.</p>
         </div>
 
         <div class="cafe-detail">
-            <div class="sec-head">
-                <div class="sec-rule-left"></div>
-                <span class="sec-title">CAFE EVENT</span>
-                <div class="sec-rule"></div>
-            </div>
-            <div class="gl-block">
-                <div class="gl-sub">KETENTUAN REGISTRASI CAFE EVENT</div>
-                <ul class="glist">
-                    <li>Acara Musim Mekarnya Rasa <b>memiliki susunan acara</b> dan <b>BUKAN merupakan Grab and Go
-                            Event.</b></li>
-                    <li>Jika kamu <b>mendapatkan slot, info pembayaran akan dikirim ke email kamu.</b> Harap periksa
-                        inbox (termasuk spam) <b>segera dan selesaikan pembayaran dalam waktu 1 jam</b> untuk
-                        mempertahankan slot kamu.</li>
-                    <li><b>Tidak ada email = slot tidak didapatkan.</b></li>
-                    <li>HTM yang nantinya dibayarkan sudah termasuk akses seluruh kegiatan <b><i>Musim Mekarnya
-                                Rasa</i></b>, Event
-                        Kit,
-                        Kesempatan Lucky Draw, Makanan Berat, dan Minuman.</li>
-                    <li>Apabila ada pertanyaan, silahkan hubungi X <a href="https://x.com/731chapters" target="_blank"
-                            rel="noopener noreferrer">@731chapters</a>
-                    </li>
-                </ul>
-                <div class="notice">
-                    <p><b>CATATAN:</b><br>1 email hanya berlaku untuk 1 kali pendaftaran. Pastikan data diri dan alamat
-                        email
-                        yang dimasukkan sudah benar</p>
-
+            <section class="section" id="schedule">
+                <div class="sec-head">
+                    <div class="sec-rule-left"></div>
+                    <span class="sec-title">RUNDOWN</span>
+                    <div class="sec-rule"></div>
                 </div>
-            </div>
-
-            <div class="promoted-content">
-                <div class="apply-text">
-                    <p>Musim Mekarnya Rasa<br>Registrasi Cafe Event</p>
-                    <p class="apply-subtext">OPEN: 2 AGUSTUS | 08 PM</p>
-                    <p class=" rsvp-countdown" style="margin-top: 10px;">FORM DITUTUP</p>
+                <table class="sched-table">
+                    <tbody>
+                        <tr class="s-key">
+                            <td class="s-event">OPEN REGISTRATION 7 GAMES 1.0: Sambung Kata</td>
+                            <td class="s-date">11:00</td>
+                        </tr>
+                        <tr class="s-key">
+                            <td class="s-event">OPENING & GAMES 2.0: Cerdas Cermat Nidjae</td>
+                            <td class="s-date">11:20</td>
+                        </tr>
+                        <tr class="s-key">
+                            <td class="s-event">NOBAR 1.0</td>
+                            <td class="s-date">11:30</td>
+                        </tr>
+                        <tr class="s-key">
+                            <td class="s-event">CRAFT SESSION 1.0: Hias Kue Anniversary Nidjae</td>
+                            <td class="s-date">11:40</td>
+                        </tr>
+                        <tr class="s-checkin">
+                            <td class="s-event">LUNCH & FREE TIME</td>
+                            <td class="s-date">12:10</td>
+                        </tr>
+                        <tr class="s-key">
+                            <td class="s-event">SHARING SESSION 1.0: Kupas Tuntas Fanzine</td>
+                            <td class="s-date">13:10</td>
+                        </tr>
+                        <tr class="s-key">
+                            <td class="s-event">NOBAR 2.0</td>
+                            <td class="s-date">13:50</td>
+                        </tr>
+                        <tr class="s-key">
+                            <td class="s-event">SHARING SESSION 2.0: Lore Nidjae Terfavorit</td>
+                            <td class="s-date">14:00</td>
+                        </tr>
+                        <tr class="s-key">
+                            <td class="s-event">WINNER ANNOUNCEMENT: Lucky Draw & Cake Decor</td>
+                            <td class="s-date">14:30</td>
+                        </tr>
+                        <tr class="s-key">
+                            <td class="s-event">CLOSING: Foto Bersama & Free Time</td>
+                            <td class="s-date">14:40</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+            <section class="outfit">
+                <div class="sec-head">
+                    <div class="sec-rule-left"></div>
+                    <span class="sec-title">OUTFIT IDEAS</span>
+                    <div class="sec-rule"></div>
                 </div>
-                <div class="btn-row">
-                    <a href="#cafe" target="_blank" rel="noopener noreferrer"
-                        class="btn btn-writer">CLOSE REGIST</a>
-                </div>
-            </div>
+                <blockquote class="twitter-tweet">
+                    <p lang="und" dir="ltr">𝙈𝙪𝙨𝙞𝙢 𝙈𝙚𝙠𝙖𝙧𝙣𝙮𝙖 𝙍𝙖𝙨𝙖 ❀𓂃 ࣪˖<br><br>ᴄᴀꜰᴇ ᴇᴠᴇɴᴛ: ᴏᴜᴛꜰɪᴛ ɪᴅᴇᴀꜱ
+                        𓏧<a
+                            href="https://x.com/hashtag/MusimMekarnyaRasa?src=hash&amp;ref_src=twsrc%5Etfw">#MusimMekarnyaRasa</a>
+                        <a href="https://x.com/hashtag/%EB%8B%8F%EC%9E%AC?src=hash&amp;ref_src=twsrc%5Etfw">#닏재</a> <a
+                            href="https://x.com/hashtag/nidjae?src=hash&amp;ref_src=twsrc%5Etfw">#nidjae</a> <a
+                            href="https://t.co/d7x0EXfxpF">pic.twitter.com/d7x0EXfxpF</a>
+                    </p>&mdash; 𝑴𝒖𝒔𝒊𝒎
+                    𝑴𝒆𝒌𝒂𝒓𝒏𝒚𝒂 𝑹𝒂𝒔𝒂 (@731chapters) <a
+                        href="https://x.com/731chapters/status/2093307615124050214?ref_src=twsrc%5Etfw">August 28,
+                        2026</a>
+                </blockquote>
+                <script async src="https://platform.x.com/widgets.js" charset="utf-8"></script>
 
-            <div class="sec-head">
-                <div class="sec-rule-left"></div>
-                <span class="sec-title">DETAIL LAINNYA MENYUSUL</span>
-                <div class="sec-rule"></div>
-            </div>
+            </section>
+
         </div>
     </div>
+    <!-- PHOTOBOOTH -->
+    <section id="photobooth" class="page hidden photobooth-page">
+        <section>
+            <div class="card">
+                <div id="preview-area" class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+                    <div class="title-preview">
+                        <h2>Musim Mekarnya Rasa Booth</h2>
+                    </div>
+                    <div class="status">
+                        <span id="status-badge">
+                            0/4 PHOTOS
+                        </span>
+                    </div>
+                </div>
+                <div class="shutter-bar">
+                    <div class="timer-group">
+                        <label class="timer-label">
+                            <i class="fa-solid fa-stopwatch"></i>
+                            <span class="timer-text">Timer:</span>
+                        </label>
+                        <select class="timer-select">
+                            <option value="1">1 s</option>
+                            <option value="3">3 s</option>
+                            <option value="5">5 s</option>
+                        </select>
+                        <div class="frame-layout-selector" aria-label="Frame layout selector">
+                            <button type="button" class="frame-nav-btn" id="frame-prev-btn" aria-label="Previous frame">
+                                <i class="fa-solid fa-chevron-left"></i>
+                            </button>
+                            <h1>CHOOSE FRAME</h1>
+                            <button type="button" class="frame-nav-btn" id="frame-next-btn" aria-label="Next frame">
+                                <i class="fa-solid fa-chevron-right"></i>
+                            </button>
+                        </div>
+
+                    </div>
+                    <div id="shutter-btn">
+                        <button id="retake-btn" class="action-btn retake-btn" onclick="resetWholeBooth()">
+                            <i class="fa-solid fa-rotate-left"></i>
+                            <span class="hidden sm:inline">RETAKE</span>
+                        </button>
+                        <button id="btn-download" class="action-btn download-btn" onclick="downloadResult()">
+                            <i class="fa-solid fa-download"></i>
+                            <span class="hidden sm:inline">DOWNLOAD</span>
+                        </button>
+                        <button id="btn-take-single" class="action-btn capture-btn" onclick="captureSinglePhoto()"
+                            title="SINGLE PHOTO">
+                            <i class="fa-solid fa-camera"></i>
+                            <span class="hidden sm:inline">CAPTURE</span>
+                        </button>
+                    </div>
+                </div>
+                <div id="photobooth-preview-container" class="photobooth-preview-container">
+                    <div class="canvas-wrap">
+                        <canvas id="photobooth-canvas"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </section>
+
     <!-- FLOATING APPLY BUTTON -->
-    <div class="fab">
+    <!-- <div class="fab">
         <button class="fab-btn" id="fab-open" onclick="openFab()">
-            <span class="fab-btn-main">Make a Playlist for Nidjae</span>
-            <!-- <span class="fab-btn-sub">Open 2 Aug</span> -->
+            <span class="fab-btn-main">REGISTRASI CAFE EVENT</span>
+            <span class="fab-btn-sub">Open 2 Aug</span>
         </button>
     </div>
 
     <div class="fab-card" id="fab-card">
         <div class="fab-card-header">
-            <p class="fab-card-title">Make a Playlist for Nidjae</p>
+            <p class="fab-card-title">REGISTRASI CAFE EVENT</p>
             <button class="fab-close" onclick="closeFab()">×</button>
         </div>
-        <!-- <p class="fab-deadline">START: <strong>2 Aug 2026</strong></p> -->
-        <a href="https://forms.gle/bX6KVQCo3oEzd8Uu6" target="_blank" rel="noopener noreferrer"
-            class="fab-apply-btn fab-writer">FORM</a>
+        <p class="fab-deadline">Open: <strong>2 Aug 2026</strong></p>
+        <a href="https://forms.gle/CMse3PFBDF8JCaMu6" target="_blank" rel="noopener noreferrer"
+            class="fab-apply-btn fab-writer">REGISTRASI</a>
 
-    </div>
+    </div> -->
     </div>
 
     <footer class="footer">
@@ -2832,8 +3814,22 @@
             <a href="https://731chapters.straw.page/" target="_blank" rel="noopener noreferrer">Our Strawpage</a>
         </p>
     </footer>
+
+    <div id="toast">
+        <i class="fa-solid fa-circle-info"></i>
+        <span id="toast-msg">Notification</span>
+    </div>
+
+    <div id="webcam-elements">
+        <video id="webcam" autoplay playsinline muted></video>
+    </div>
+
+    <div id="camera-fallback" class="hidden"></div>
+
+    <canvas id="hidden-capture-canvas" class="hidden"></canvas>
 </body>
 <script>
+
     function toggleCh(header) {
         const body = header.nextElementSibling;
         const tog = header.querySelector('.ch-tog');
@@ -2871,9 +3867,17 @@
 
         if (activePageId === 'about-731chapters') {
             if (topAboutLink) topAboutLink.classList.add('active');
-        } else if (activePageId === 'musim' || activePageId === 'cafe') {
+        } else if (activePageId === 'musim' || activePageId === 'cafe' || activePageId === 'photobooth') {
             if (topMusimToggle) topMusimToggle.classList.add('active');
         }
+    }
+
+    function triggerPageFade(pageEl) {
+        if (!pageEl) return;
+        pageEl.classList.remove('page-fade-in');
+        void pageEl.offsetWidth;
+        pageEl.classList.add('page-fade-in');
+        window.setTimeout(() => pageEl.classList.remove('page-fade-in'), 420);
     }
 
     function navigateTo(hash, isSmooth = true) {
@@ -2894,6 +3898,7 @@
         pages.forEach(p => {
             if (p === pageContainer) {
                 p.classList.remove('hidden');
+                triggerPageFade(p);
             } else {
                 p.classList.add('hidden');
             }
@@ -2953,8 +3958,9 @@
         allHashLinks.forEach(link => {
             link.addEventListener('click', function (event) {
                 const href = link.getAttribute('href');
+                const isDropdownToggle = link.classList.contains('nav-drop-toggle') || (link.closest('.nav-dropdown') && (href === '#' || !href));
 
-                if (link.classList.contains('nav-drop-toggle')) {
+                if (isDropdownToggle) {
                     event.preventDefault();
                     if (navDropdown) {
                         const isOpen = navDropdown.classList.toggle('open');
@@ -3018,36 +4024,849 @@
             });
         }
     });
-    // var countDownDate = Date.UTC(2026, 7, 2, 13, 0, 0);
-    // var rsvp_countdowns = document.querySelectorAll(".rsvp-countdown");
 
-    // var x = setInterval(function () {
+    let photos = [];
+    let photoImageCache = [];
+    let activeSlotIndex = 0;
+    let currentFacingMode = 'user';
+    let isMirrored = true;
+    let isSessionRunning = false;
+    let audioEnabled = true;
 
-    //     var now = new Date().getTime();
-    //     var distance = countDownDate - now;
+    const FRAME_CONFIGS = {
+        frame1: {
+            src: 'photobooth/FRAMES/FRAME1_4x2.png',
+            width: 1365,
+            height: 2048,
+            slots: [
+                { x: 117, y: 86, w: 482, h: 309, shape: 'ellipse' },
+                { x: 732, y: 61, w: 576, h: 369, shape: 'rect' },
+                { x: 47, y: 515, w: 576, h: 369, shape: 'rect' },
+                { x: 764, y: 519, w: 536, h: 332, shape: 'rect' },
+                { x: 98, y: 1001, w: 483, h: 308, shape: 'ellipse' },
+                { x: 753, y: 1437, w: 545, h: 353, shape: 'rect' }
+            ]
+        },
 
-    //     var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-    //     var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    //     var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-    //     var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+        frame2: {
+            src: 'photobooth/FRAMES/FRAME2_4x2.png',
+            width: 1365,
+            height: 2048,
+            slots: [
+                { x: 58, y: 182, w: 586, h: 379, shape: 'rect' },
+                { x: 721, y: 182, w: 586, h: 379, shape: 'rect' },
+                { x: 58, y: 1052, w: 586, h: 377, shape: 'rect' },
+                { x: 721, y: 617, w: 586, h: 378, shape: 'rect' },
+                { x: 58, y: 1488, w: 586, h: 377, shape: 'rect' },
+                { x: 721, y: 1052, w: 586, h: 378, shape: 'rect' }
+            ]
+        },
 
-    //     var countdown =
-    //         String(hours).padStart(2, '0') + " : " +
-    //         String(minutes).padStart(2, '0') + " : " +
-    //         String(seconds).padStart(2, '0');
+        frame4: {
+            src: 'photobooth/FRAMES/FRAME4_2x2.png',
+            width: 1365,
+            height: 2048,
+            slots: [
+                { x: 91, y: 168, w: 516, h: 749, shape: 'ellipse' },
+                { x: 744, y: 148, w: 546, h: 765, shape: 'rect' },
+                { x: 84, y: 1035, w: 540, h: 771, shape: 'rect' },
+                { x: 755, y: 1050, w: 515, h: 731, shape: 'ellipse' }
+            ]
+        },
 
-    //     rsvp_countdowns.forEach(function (rsvp_countdowns) {
-    //         rsvp_countdowns.innerHTML = countdown;
-    //     });
+        frame5: {
+            src: 'photobooth/FRAMES/FRAME5_1x4.png',
+            width: 768,
+            height: 2048,
+            slots: [
+                { x: 139, y: 91, w: 490, h: 314, shape: 'ellipse' },
+                { x: 57, y: 489, w: 656, h: 400, shape: 'rect' },
+                { x: 139, y: 971, w: 490, h: 314, shape: 'ellipse' },
+                { x: 56, y: 1369, w: 656, h: 394, shape: 'rect' }
+            ]
+        }
+    };
+    let currentFrameLayoutIndex = 0;
+    let currentFrameAspectRatio = 0.62;
 
-    //     if (distance < 0) {
-    //         clearInterval(x);
+    function getCurrentFrameLayout() {
+        return frameLayouts[currentFrameLayoutIndex] || frameLayouts[0];
+    }
 
-    //         rsvp_countdowns.forEach(function (rsvp_countdowns) {
-    //             rsvp_countdowns.innerHTML = "FORM DIBUKA";
-    //         });
-    //     }
+    function getCanvasDimensionsByFrame() {
+        const layout = getCurrentFrameLayout();
 
-    // }, 1000);</script>
+        // Ambil frame berdasarkan index yang sedang aktif
+        const frameKey = layout.frameKey;
+
+        const frame = FRAME_CONFIGS[frameKey];
+
+        if (frame) {
+            return {
+                width: frame.width,
+                height: frame.height
+            };
+        }
+
+        return {
+            width: 768,
+            height: 2048
+        };
+    }
+
+    const countdownState = { active: false, slotIndex: -1, value: 0 };
+    const flashState = { active: false, slotIndex: -1, startTime: 0 };
+    const FLASH_DURATION = 400;
+
+    const video = document.getElementById('webcam');
+    const mainCanvas = document.getElementById('photobooth-canvas');
+    const hiddenCanvas = document.getElementById('hidden-capture-canvas');
+    const slotIndicator = document.getElementById('slot-indicator');
+    const statusBadge = document.getElementById('status-badge');
+    const btnDownload = document.getElementById('btn-download');
+    const cameraFallback = document.getElementById('camera-fallback');
+    const frameLayoutName = document.getElementById('frame-layout-name');
+    const framePrevBtn = document.getElementById('frame-prev-btn');
+    const frameNextBtn = document.getElementById('frame-next-btn');
+
+    video.addEventListener('playing', startLivePreviewLoop);
+    video.addEventListener('loadeddata', startLivePreviewLoop);
+
+    const colorPalette = {
+        'warm-white': '#FDFAF4',
+        'parchment': '#e8d6ca',
+        'isabeline': '#f2d8e2',
+        'sage-bg': '#E8EBDC',
+        'mauve-bg': '#FAEFF1',
+        'brown': '#4A3728'
+    };
+    const frameLayouts = [
+        {
+            label: 'FRAME 1X4',
+            file: 'FRAME5_1x4.png',
+            frameKey: 'frame5',
+            slotCount: 4,
+            cols: 1,
+            rows: 4
+        },
+
+        {
+            label: 'FRAME 2X4',
+            file: 'FRAME2_4x2.png',
+            frameKey: 'frame2',
+            slotCount: 6,
+            cols: 2,
+            rows: 3
+        },
+
+        {
+            label: 'FRAME 4X4',
+            file: 'FRAME4_2x2.png',
+            frameKey: 'frame4',
+            slotCount: 4,
+            cols: 2,
+            rows: 2
+        }
+    ];
+    const templateFrameImage = new Image();
+    let templateFrameLoaded = false;
+    let isRenderingFinalCanvas = false;
+    let renderFinalCanvasQueued = false;
+    let previewRenderRequested = false;
+
+    function resizePhotoStores(slotCount) {
+        photos = Array(slotCount).fill(null);
+        photoImageCache = Array(slotCount).fill(null);
+    }
+
+    function triggerFrameSwipe(direction = 1) {
+        const target = document.querySelector('.canvas-wrap');
+        if (!target) return;
+
+        const className = direction < 0 ? 'frame-swipe-left' : 'frame-swipe-right';
+        target.classList.remove('frame-swipe-left', 'frame-swipe-right');
+        void target.offsetWidth;
+        target.classList.add(className);
+        window.setTimeout(() => target.classList.remove(className), 500);
+    }
+
+    function applyFrameLayout(index, direction = 1) {
+        const safeIndex = (index + frameLayouts.length) % frameLayouts.length;
+        currentFrameLayoutIndex = safeIndex;
+        const layout = frameLayouts[safeIndex];
+
+        resizePhotoStores(layout.slotCount);
+        activeSlotIndex = 0;
+
+        triggerFrameSwipe(direction);
+
+        if (frameLayoutName) {
+            frameLayoutName.textContent = layout.label;
+        }
+
+        templateFrameLoaded = false;
+        templateFrameImage.onload = () => {
+            const ratio = templateFrameImage.naturalWidth && templateFrameImage.naturalHeight
+                ? templateFrameImage.naturalWidth / templateFrameImage.naturalHeight
+                : 0.62;
+            currentFrameAspectRatio = ratio;
+            templateFrameLoaded = true;
+            requestPreviewRender();
+        };
+        templateFrameImage.src = `photobooth/FRAMES/${layout.file}`;
+
+        if (statusBadge) {
+            statusBadge.textContent = `0/${layout.slotCount} PHOTOS`;
+        }
+
+        updateSlotIndicator();
+        renderFinalCanvas();
+        requestPreviewRender();
+    }
+
+    function cycleFrameLayout(direction) {
+        applyFrameLayout(currentFrameLayoutIndex + direction, direction);
+    }
+
+    if (framePrevBtn) {
+        framePrevBtn.addEventListener('click', () => cycleFrameLayout(-1));
+    }
+
+    if (frameNextBtn) {
+        frameNextBtn.addEventListener('click', () => cycleFrameLayout(1));
+    }
+
+    function requestPreviewRender() {
+        if (previewRenderRequested) return;
+        previewRenderRequested = true;
+        requestAnimationFrame(async () => {
+            previewRenderRequested = false;
+            await renderFinalCanvas();
+            const activeLayout = frameLayouts[currentFrameLayoutIndex];
+            if (video.readyState >= 2 && photos[activeSlotIndex] === null && activeLayout) {
+                requestPreviewRender();
+            }
+        });
+    }
+
+    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    applyFrameLayout(0);
+
+    function playBeepSound(frequency = 600, duration = 0.1) {
+        if (!audioEnabled) return;
+        try {
+            if (audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(frequency, audioCtx.currentTime);
+            gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.start();
+            osc.stop(audioCtx.currentTime + duration);
+        } catch (e) {
+            console.log('Audio play error:', e);
+        }
+    }
+
+    function playShutterSound() {
+        if (!audioEnabled) return;
+        try {
+            if (audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+            const bufferSize = audioCtx.sampleRate * 0.15;
+            const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+            const output = buffer.getChannelData(0);
+            for (let i = 0; i < bufferSize; i++) {
+                output[i] = Math.random() * 2 - 1;
+            }
+            const whiteNoise = audioCtx.createBufferSource();
+            whiteNoise.buffer = buffer;
+            const gain = audioCtx.createGain();
+            gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.15);
+
+            gain.connect(audioCtx.destination);
+
+            whiteNoise.start();
+        } catch (e) {
+            console.log('Shutter sound error:', e);
+        }
+    }
+
+    let currentStream = null;
+
+    async function initCamera() {
+        if (!isPhotoboothPageActive()) {
+            return;
+        }
+
+        if (currentStream) {
+            currentStream.getTracks().forEach(track => track.stop());
+        }
+
+        const constraints = {
+            video: {
+                facingMode: currentFacingMode,
+                width: { ideal: 1280 },
+                height: { ideal: 960 }
+            },
+            audio: false
+        };
+
+        try {
+            currentStream = await navigator.mediaDevices.getUserMedia(constraints);
+            video.srcObject = currentStream;
+            cameraFallback.classList.add('hidden');
+        } catch (err) {
+            console.error('Camera access error:', err);
+            cameraFallback.classList.remove('hidden');
+            showToast("Can't Access the Camera");
+        }
+    }
+
+    function switchCamera() {
+        currentFacingMode = (currentFacingMode === 'user') ? 'environment' : 'user';
+        isMirrored = (currentFacingMode === 'user');
+        if (isMirrored) {
+            video.classList.add('mirror');
+        } else {
+            video.classList.remove('mirror');
+        }
+        initCamera();
+        showToast('Camera changed');
+    }
+
+    function toggleMirror() {
+        isMirrored = !isMirrored;
+        if (isMirrored) {
+            video.classList.add('mirror');
+            showToast('Mirror Mode');
+        } else {
+            video.classList.remove('mirror');
+            showToast('Non-Mirror Mode');
+        }
+    }
+
+    async function captureSinglePhoto() {
+        if (isSessionRunning) return;
+        if (video.readyState < 2) {
+            showToast('The Camera is not ready yet, try to refresh your page.');
+            return;
+        }
+
+        isSessionRunning = true;
+        disableActionButtons(true);
+
+        const nextEmptySlot = photos.findIndex(p => p === null);
+        let targetSlot = activeSlotIndex;
+
+        if (targetSlot < 0 || targetSlot >= photos.length || photos[targetSlot] !== null) {
+            targetSlot = nextEmptySlot;
+        }
+        if (targetSlot === -1) {
+            targetSlot = activeSlotIndex;
+        }
+
+        activeSlotIndex = targetSlot;
+        updateSlotIndicator();
+        await renderFinalCanvas();
+
+        const capturedSlot = activeSlotIndex;
+        await runCountdown();
+        captureCurrentSlot();
+
+        isSessionRunning = false;
+        disableActionButtons(false);
+    }
+
+    function updateSlotIndicator() {
+        const slotCount = photos.length || frameLayouts[currentFrameLayoutIndex].slotCount;
+        if (slotIndicator) {
+            slotIndicator.innerText = `Foto ${activeSlotIndex + 1} dari ${slotCount}`;
+        }
+        const previewContainer = document.getElementById('photobooth-preview-container');
+        if (previewContainer) {
+            previewContainer.scrollTop = 0;
+        }
+    }
+
+    function runCountdown() {
+        return new Promise((resolve) => {
+            const timerSelect = document.querySelector('.timer-select');
+            const timerSecs = parseInt(timerSelect.value) || 3;
+            let count = timerSecs;
+
+            countdownState.active = true;
+            countdownState.slotIndex = activeSlotIndex;
+            countdownState.value = count;
+            renderFinalCanvas();
+            playBeepSound(500, 0.1);
+
+            const interval = setInterval(() => {
+                count--;
+                if (count > 0) {
+                    countdownState.value = count;
+                    renderFinalCanvas();
+                    playBeepSound(500, 0.1);
+                } else {
+                    clearInterval(interval);
+                    countdownState.active = false;
+                    renderFinalCanvas();
+                    playBeepSound(900, 0.2);
+                    resolve();
+                }
+            }, 1000);
+        });
+    }
+
+    function captureCurrentSlot() {
+        playShutterSound();
+
+        const capturedSlotIndex = activeSlotIndex;
+
+        const vWidth = video.videoWidth || 1280;
+        const vHeight = video.videoHeight || 960;
+
+        hiddenCanvas.width = vWidth;
+        hiddenCanvas.height = vHeight;
+        const ctx = hiddenCanvas.getContext('2d');
+
+        ctx.save();
+
+        if (isMirrored) {
+            ctx.translate(vWidth, 0);
+            ctx.scale(-1, 1);
+        }
+
+        ctx.drawImage(video, 0, 0, vWidth, vHeight);
+        ctx.restore();
+
+        photos[activeSlotIndex] = hiddenCanvas.toDataURL('image/jpeg', 0.95);
+
+        triggerSlotFlash(capturedSlotIndex);
+
+        const nextEmptySlot = photos.findIndex(p => p === null);
+        if (nextEmptySlot !== -1) {
+            activeSlotIndex = nextEmptySlot;
+        } else {
+            activeSlotIndex = (activeSlotIndex + 1) % photos.length;
+        }
+        updateSlotIndicator();
+
+        renderFinalCanvas();
+        startLivePreviewLoop();
+    }
+
+    function triggerSlotFlash(slotIndex) {
+        flashState.active = true;
+        flashState.slotIndex = slotIndex;
+        flashState.startTime = performance.now();
+        animateSlotFlash();
+    }
+
+    function animateSlotFlash() {
+        const elapsed = performance.now() - flashState.startTime;
+        if (elapsed >= FLASH_DURATION) {
+            flashState.active = false;
+            renderFinalCanvas();
+            return;
+        }
+        renderFinalCanvas();
+        requestAnimationFrame(animateSlotFlash);
+    }
+
+    function startLivePreviewLoop() {
+        if (video.readyState < 2 || photos[activeSlotIndex] !== null) {
+            return;
+        }
+        requestPreviewRender();
+    }
+    async function renderFinalCanvas() {
+        if (isRenderingFinalCanvas) {
+            renderFinalCanvasQueued = true;
+            return;
+        }
+
+        isRenderingFinalCanvas = true;
+
+        try {
+            await renderFinalCanvasInternal();
+        } finally {
+            isRenderingFinalCanvas = false;
+
+            if (renderFinalCanvasQueued) {
+                renderFinalCanvasQueued = false;
+                renderFinalCanvas();
+            }
+        }
+    }
+
+
+    async function renderFinalCanvasInternal() {
+
+        const layout = getCurrentFrameLayout();
+
+        const frame = FRAME_CONFIGS[layout.frameKey];
+
+        if (!frame) {
+            console.error('Frame configuration not found:', layout);
+            return;
+        }
+
+        const slotCount = frame.slots.length;
+
+        const filledCount = photos.filter(
+            p => p !== null
+        ).length;
+
+        // CANVAS SIZE
+        mainCanvas.width = frame.width;
+        mainCanvas.height = frame.height;
+
+
+        // STATUS
+        if (statusBadge) {
+            statusBadge.innerText =
+                `${filledCount}/${slotCount} PHOTOS`;
+        }
+        if (btnDownload) {
+            btnDownload.disabled = filledCount === 0;
+        }
+        const ctx = mainCanvas.getContext('2d');
+        ctx.clearRect(0, 0, mainCanvas.width, mainCanvas.height);
+
+        // DRAW PHOTOS
+        const drawPromises = [];
+        for (let i = 0; i < slotCount; i++) {
+            const slot = frame.slots[i];
+            drawPromises.push(drawSlotImage(ctx, photos[i], slot, i + 1));
+        }
+        await Promise.all(drawPromises);
+
+        // DRAW FRAME
+        if (templateFrameLoaded) {
+
+            ctx.drawImage(templateFrameImage, 0, 0, frame.width, frame.height);
+        }
+    }
+    function drawSlotOverlay(ctx, x, y, w, h, slotNum) {
+        const slotIdx = slotNum - 1;
+
+        if (countdownState.active && countdownState.slotIndex === slotIdx) {
+            ctx.save();
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.45)';
+            ctx.fillRect(x, y, w, h);
+            ctx.fillStyle = '#fff';
+            ctx.font = '700 ' + Math.round(h * 0.2) + 'px "DM Sans", sans-serif';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText(countdownState.value, x + w / 2, y + h / 2);
+            ctx.restore();
+        }
+
+        if (flashState.active && flashState.slotIndex === slotIdx) {
+            const elapsed = performance.now() - flashState.startTime;
+            const alpha = Math.max(0, 1 - elapsed / FLASH_DURATION) * 0.95;
+            ctx.save();
+            ctx.fillStyle = `rgba(255, 255, 255, ${alpha})`;
+            ctx.fillRect(x, y, w, h);
+            ctx.restore();
+        }
+    }
+    function drawSlotImage(ctx, dataUrl, slot, slotNum) {
+        const { x, y, w, h, shape } = slot;
+        return new Promise((resolve) => {
+            ctx.save();
+            // CLIP SLOT
+            if (shape === 'ellipse') {
+                ctx.beginPath();
+                ctx.ellipse(x + w / 2, y + h / 2, w / 2, h / 2, 0, 0, Math.PI * 2);
+                ctx.clip();
+
+            } else {
+                ctx.beginPath();
+                ctx.rect(x, y, w, h);
+                ctx.clip();
+            }
+
+            // EMPTY SLOT / LIVE CAMERA
+            if (!dataUrl) {
+                if (
+                    slotNum === activeSlotIndex + 1 &&
+                    video.readyState >= 2
+                ) { drawVideoIntoSlot(ctx, video, x, y, w, h, slotNum); }
+                ctx.restore();
+                drawSlotOverlay(ctx, x, y, w, h, slotNum);
+                resolve();
+                return;
+            }
+
+            // PHOTO
+            const cacheIndex = slotNum - 1;
+            const cachedImg =
+                photoImageCache[cacheIndex];
+            if (
+                cachedImg &&
+                cachedImg.src === dataUrl &&
+                cachedImg.complete &&
+                cachedImg.naturalWidth > 0
+            ) {
+                drawImageIntoSlotBox(ctx, cachedImg, x, y, w, h);
+                ctx.restore();
+                drawSlotOverlay(ctx, x, y, w, h, slotNum);
+                resolve();
+                return;
+            }
+
+            // LOAD IMAGE
+            const img = new Image();
+            img.onload = () => {
+                photoImageCache[cacheIndex] = img;
+                drawImageIntoSlotBox(ctx, img, x, y, w, h, slotNum);
+                ctx.restore();
+                drawSlotOverlay(ctx, x, y, w, h, slotNum);
+                resolve();
+            };
+            img.onerror = () => {
+                ctx.restore();
+                drawSlotOverlay(ctx, x, y, w, h, slotNum);
+                resolve();
+            };
+            img.src = dataUrl;
+        });
+    }
+    function drawImageIntoSlotBox(ctx, img, x, y, w, h) {
+        const aspectImg = img.width / img.height;
+        const aspectBox = w / h;
+        let sx;
+        let sy;
+        let sWidth;
+        let sHeight;
+        if (aspectImg > aspectBox) {
+            sHeight = img.height;
+            sWidth = img.height * aspectBox;
+            sx = (img.width - sWidth) / 2;
+            sy = 0;
+        } else {
+            sWidth = img.width;
+            sHeight = img.width / aspectBox;
+            sx = 0;
+            sy = (img.height - sHeight) / 2;
+        }
+        ctx.drawImage(img, sx, sy, sWidth, sHeight, x, y, w, h);
+    }
+    function drawVideoIntoSlot(ctx, video, x, y, w, h) {
+
+        const vw = video.videoWidth || 1280;
+        const vh = video.videoHeight || 960;
+
+        const aspectVideo = vw / vh;
+        const aspectBox = w / h;
+
+        let sx;
+        let sy;
+        let sWidth;
+        let sHeight;
+
+
+        if (aspectVideo > aspectBox) {
+            sHeight = vh;
+            sWidth = vh * aspectBox;
+            sx = (vw - sWidth) / 2;
+            sy = 0;
+        } else {
+            sWidth = vw;
+            sHeight = vw / aspectBox;
+            sx = 0;
+            sy = (vh - sHeight) / 2;
+        }
+
+
+        ctx.save();
+
+        if (isMirrored) {
+            ctx.translate(x + w, y);
+            ctx.scale(-1, 1);
+            ctx.drawImage(video, sx, sy, sWidth, sHeight, 0, 0, w, h);
+
+        } else {
+            ctx.drawImage(video, sx, sy, sWidth, sHeight, x, y, w, h);
+        }
+
+        ctx.restore();
+    }
+    function downloadResult() {
+        const filledCount = photos.filter(p => p !== null).length;
+        if (filledCount === 0) {
+            return;
+        }
+
+        mainCanvas.toBlob((blob) => {
+            if (!blob) {
+                showToast('Failed to prepare the download');
+                return;
+            }
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
+            link.href = url;
+            link.download = `musim-mekarnya-rasa-nidjaebooth.png`;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            URL.revokeObjectURL(url);
+        }, 'image/png', 1);
+    }
+
+    function resetWholeBooth() {
+        const layout = frameLayouts[currentFrameLayoutIndex] || frameLayouts[0];
+        resizePhotoStores(layout.slotCount);
+        activeSlotIndex = 0;
+        isSessionRunning = false;
+        updateSlotIndicator();
+        renderFinalCanvas();
+        requestPreviewRender();
+    }
+    function disableActionButtons(disabled) {
+        const autoBtn = document.getElementById('btn-take-auto');
+        const singleBtn = document.getElementById('btn-take-single');
+
+        if (autoBtn) {
+            autoBtn.disabled = disabled;
+        }
+        if (singleBtn) {
+            singleBtn.disabled = disabled;
+        }
+    }
+    function showToast(message) {
+        const toast = document.getElementById('toast');
+        const toastMsg = document.getElementById('toast-msg');
+
+        toastMsg.textContent = message;
+
+        toast.classList.add('show');
+
+        clearTimeout(toast.hideTimer);
+
+        toast.hideTimer = setTimeout(() => {
+            toast.classList.remove('show');
+        }, 2500);
+    }
+    function isPhotoboothPageActive() {
+        return window.location.hash === '#photobooth';
+    }
+
+    async function handlePhotoboothNavigation() {
+        if (isPhotoboothPageActive()) {
+            await initCamera();
+            renderFinalCanvas();
+            startLivePreviewLoop();
+        } else {
+            stopCamera();
+        }
+    }
+    function openPhotobooth() {
+        window.location.hash = '#photobooth';
+
+        initCamera();
+
+        renderFinalCanvas();
+        startLivePreviewLoop();
+    }
+    function stopCamera() {
+        if (currentStream) {
+            currentStream.getTracks().forEach(track => track.stop());
+            currentStream = null;
+        }
+
+        video.srcObject = null;
+    }
+    window.addEventListener('load', handlePhotoboothNavigation);
+    window.addEventListener('hashchange', handlePhotoboothNavigation);
+
+
+    // COUNTDOWN FOR PROMOTED CONTENT
+    var countDownDate = Date.UTC(2026, 8, 6, 4, 0, 0);
+
+    var photobooth_links = document.querySelectorAll(".photobooth-link");
+    var maze_links = document.querySelectorAll(".maze-link");
+    var puzzle_links = document.querySelectorAll(".puzzle-link");
+    var rsvp_countdowns = document.querySelectorAll(".rsvp-countdown");
+
+    var x = setInterval(function () {
+
+        var now = new Date().getTime();
+        var distance = countDownDate - now;
+
+        var days = Math.floor(
+            distance / (1000 * 60 * 60 * 24)
+        );
+
+        var hours = Math.floor(
+            (distance % (1000 * 60 * 60 * 24)) /
+            (1000 * 60 * 60)
+        );
+
+        var minutes = Math.floor(
+            (distance % (1000 * 60 * 60)) /
+            (1000 * 60)
+        );
+
+        var seconds = Math.floor(
+            (distance % (1000 * 60)) / 1000
+        );
+
+        var countdown =
+            String(days).padStart(2, '0') + " : " +
+            String(hours).padStart(2, '0') + " : " +
+            String(minutes).padStart(2, '0') + " : " +
+            String(seconds).padStart(2, '0');
+
+        if (distance > 0) {
+            rsvp_countdowns.forEach(function (element) {
+                element.textContent = countdown;
+            });
+            photobooth_links.forEach(function (link) {
+                link.href = "#";
+            });
+            maze_links.forEach(function (link) {
+                link.href = "#";
+            });
+            puzzle_links.forEach(function (link) {
+                link.href = "#";
+            });
+
+
+        } else {
+            clearInterval(x);
+
+            rsvp_countdowns.forEach(function (element) {
+                element.textContent = "CAFE EVENT OPEN";
+            });
+            photobooth_links.forEach(function (link) {
+                link.href = "#photobooth";
+                link.onclick = function () {
+                    openPhotobooth();
+                };
+
+            });
+            maze_links.forEach(function (link) {
+                link.href = "maze.html";
+            });
+
+            puzzle_links.forEach(function (link) {
+                link.href = "puzzle.html";
+            });
+
+        }
+
+    }, 1000);
+</script>
 
 </html>
