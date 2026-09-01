@@ -254,6 +254,9 @@
 
     .nav-submenu {
         display: none;
+        opacity: 0;
+        max-height: 0;
+        overflow: hidden;
         position: static;
         top: auto;
         left: auto;
@@ -267,6 +270,8 @@
         flex-direction: column;
         gap: 0;
         z-index: auto;
+        transform: translateY(-6px);
+        transition: opacity 0.22s ease, max-height 0.28s ease, transform 0.22s ease;
     }
 
     .nav-submenu a {
@@ -291,11 +296,16 @@
         padding-left: 20px;
     }
 
-    .nav-dropdown-group:hover .nav-submenu {
+    .nav-dropdown-group:hover .nav-submenu,
+    .nav-dropdown-group.open .nav-submenu {
         display: flex;
+        opacity: 1;
+        max-height: 220px;
+        transform: translateY(0);
     }
 
-    .nav-dropdown-group:hover .nav-submenu-title::after {
+    .nav-dropdown-group:hover .nav-submenu-title::after,
+    .nav-dropdown-group.open .nav-submenu-title::after {
         transform: rotate(90deg);
     }
 
@@ -2985,20 +2995,6 @@
             <div class="nav-dropdown">
                 <a class="nav-drop-toggle" href="#">Musim Mekarnya Rasa</a>
                 <div class="nav-dropdown-menu">
-                    <!-- <div class="nav-dropdown-group">
-                        <a class="nav-submenu-title" href="#">Fanzine Documentation</a>
-                        <div class="nav-submenu">
-                            <a href="#musim">About</a>
-                            <a href="#schedule">Schedule</a>
-                            <a href="#zine-specs">Zine Specs</a>
-                            <a href="#tema">Tema</a>
-                            <a href="#penerbitan">Penerbitan</a>
-                            <a href="#panduan">Panduan Kontributor</a>
-                            <a href="#peran">Peran Kontributor</a>
-                            <a href="#kompensasi">Kompensasi</a>
-                            <a href="#faq">FAQ</a>
-                        </div>
-                    </div> -->
                     <div>
                         <a class="nav-coming-soon" href="#about-731chapters">ONLINE FANZINE</a>
                     </div>
@@ -3047,7 +3043,6 @@
                         ONLINE PHOTOBOOTH
                     </p>
                 </div>
-
                 <div class="btn-row single-btn">
                     <a href="" class="btn btn-writer photobooth-link">PHOTOBOOTH</a>
                 </div>
@@ -3951,11 +3946,27 @@
         const siteNav = document.querySelector('.site-nav');
         const navToggle = document.querySelector('.nav-toggle');
         const navDropdown = document.querySelector('.nav-dropdown');
+        const closeNavMenus = () => {
+            if (navDropdown) navDropdown.classList.remove('open');
+            document.querySelectorAll('.nav-dropdown-group').forEach(group => group.classList.remove('open'));
+        };
 
-        const allHashLinks = document.querySelectorAll('a[href^="#"]');
-        allHashLinks.forEach(link => {
+        const allNavLinks = document.querySelectorAll('.nav-drop-toggle, .nav-submenu-title, .nav-coming-soon, a[href^="#"], a[href=""]');
+        allNavLinks.forEach(link => {
             link.addEventListener('click', function (event) {
                 const href = link.getAttribute('href');
+
+                if (link.classList.contains('nav-submenu-title')) {
+                    event.preventDefault();
+                    const group = link.parentElement;
+                    if (group) {
+                        const isOpen = group.classList.toggle('open');
+                        link.setAttribute('aria-expanded', String(isOpen));
+                        if (navDropdown) navDropdown.classList.add('open');
+                    }
+                    return;
+                }
+
                 const isDropdownToggle = link.classList.contains('nav-drop-toggle') || (link.closest('.nav-dropdown') && (href === '#' || !href));
 
                 if (isDropdownToggle) {
@@ -3967,19 +3978,9 @@
                     return;
                 }
 
-                if (link.classList.contains('nav-submenu-title')) {
-                    if (window.innerWidth <= 700) {
-                        event.preventDefault();
-                        const group = link.parentElement;
-                        if (group) {
-                            group.classList.toggle('open');
-                        }
-                        return;
-                    }
-                }
-
                 if (href === '#' || !href) {
                     event.preventDefault();
+                    closeNavMenus();
                     return;
                 }
 
@@ -3989,11 +3990,21 @@
                 if (window.innerWidth <= 700 && siteNav && siteNav.classList.contains('open')) {
                     siteNav.classList.remove('open');
                     if (navToggle) navToggle.setAttribute('aria-expanded', 'false');
-                    if (navDropdown) navDropdown.classList.remove('open');
-                    const openSubmenuGroup = document.querySelector('.nav-dropdown-group.open');
-                    if (openSubmenuGroup) openSubmenuGroup.classList.remove('open');
                 }
+                closeNavMenus();
             });
+        });
+
+        document.querySelectorAll('.nav-submenu a').forEach(item => {
+            item.addEventListener('click', function () {
+                closeNavMenus();
+            });
+        });
+
+        document.addEventListener('click', function (event) {
+            if (!event.target.closest('.site-nav')) {
+                closeNavMenus();
+            }
         });
 
         let dropdownCloseTimeout = null;
