@@ -22,14 +22,14 @@
 
     <meta property="og:title" content="731chapters site">
     <meta property="og:description" content="Musim Mekarnya Rasa: nidjae event">
-    <meta property="og:image" content="https://pbs.twimg.com/profile_banners/2063832861858541568/1781934622/1500x500">
+    <meta property="og:image" content="MMR-LOGO.png">
     <meta property="og:url" content="https://731chapters-site.vercel.app/">
     <meta property="og:type" content="website">
+
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="731chapters site">
     <meta name="twitter:description" content="Musim Mekarnya Rasa: nidjae event">
-    <meta name="twitter:image" content="https://pbs.twimg.com/profile_banners/2063832861858541568/1781934622/1500x500">
-
+    <meta name="twitter:image" content="MMR-LOGO.png">
 </head>
 <style>
     :root {
@@ -3017,8 +3017,8 @@
                     <div class="nav-dropdown-group">
                         <a class="nav-submenu-title" href="">GAMES</a>
                         <div class="nav-submenu">
-                            <a href="" class="maze-link">BANTU NYU BERTEMU DENGAN NJE!</a>
-                            <a href="" class="puzzle-link">ARRANGE NIDJAE MEMORIES</a>
+                            <a href="maze.html" class="maze-link">BANTU NYU BERTEMU DENGAN NJE!</a>
+                            <a href="puzzle.html" class="puzzle-link">ARRANGE NIDJAE MEMORIES</a>
                         </div>
                     </div>
                 </div>
@@ -4101,7 +4101,6 @@
     function getCanvasDimensionsByFrame() {
         const layout = getCurrentFrameLayout();
 
-        // Ambil frame berdasarkan index yang sedang aktif
         const frameKey = layout.frameKey;
 
         const frame = FRAME_CONFIGS[frameKey];
@@ -4840,12 +4839,6 @@
             photobooth_links.forEach(function (link) {
                 link.href = "#";
             });
-            maze_links.forEach(function (link) {
-                link.href = "#";
-            });
-            puzzle_links.forEach(function (link) {
-                link.href = "#";
-            });
 
 
         } else {
@@ -4860,13 +4853,6 @@
                     openPhotobooth();
                 };
 
-            });
-            maze_links.forEach(function (link) {
-                link.href = "maze.html";
-            });
-
-            puzzle_links.forEach(function (link) {
-                link.href = "puzzle.html";
             });
 
         }
