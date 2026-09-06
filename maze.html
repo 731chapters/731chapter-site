@@ -236,7 +236,7 @@
 
         /* SUBMENU */
         .nav-submenu-title,
-        .nav-photobooth {
+        .nav-coming-soon {
             display: block;
             padding: 8px 18px;
         }
@@ -387,7 +387,7 @@
 
             .nav-links a,
             .nav-dropdown>a,
-            .nav-photobooth,
+            .nav-coming-soon,
             .nav-submenu-title,
             .nav-submenu a,
             .nav-dropdown-menu a {
@@ -421,7 +421,7 @@
                 overflow: hidden;
             }
 
-            .nav-dropdown-menu .nav-photobooth {
+            .nav-dropdown-menu .nav-coming-soon {
                 border-bottom: none;
             }
 
@@ -645,23 +645,29 @@
             <div class="nav-dropdown">
                 <a class="nav-drop-toggle" href="#musim">Musim Mekarnya Rasa</a>
                 <div class="nav-dropdown-menu">
-                    </div>
-                    <div>
-                        <a class="nav-photobooth" href="photobooth.html">PHOTOBOOTH</a>
-                    </div>
                     <div class="nav-dropdown-group">
-                        <a class="nav-submenu-title" href="#">GAMES</a>
-                        <div class="nav-submenu">
-                            <a href="maze.html">MAZE GAMES</a>
-                            <a class="active" href="puzzle.html ">PUZZLE GAMES</a>
+                        <div>
+                            <a class="nav-coming-soon" href="#about-731chapters">ONLINE FANZINE</a>
+                        </div>
+                        <div>
+                            <a class="nav-coming-soon" href="#cafe">CAFE EVENT</a>
+                        </div>
+                        <div>
+                            <a class="nav-coming-soon photobooth-link" href="">PHOTOBOOTH</a>
+                        </div>
+                        <div class="nav-dropdown-group">
+                            <a class="nav-submenu-title" href="#">GAMES</a>
+                            <div class="nav-submenu">
+                                <a id="maze" href="#app">BANTU NYU BERTEMU DENGAN NJE!</a>
+                                <a class="active" href="puzzle.html">ARRANGE NIDJAE MEMORIES</a>
+                            </div>
                         </div>
                     </div>
                 </div>
+                <a class="nav-twitter" href="https://x.com/731chapters" target="_blank" rel="noopener noreferrer">
+                    <p>Twitter</p>
+                </a>
             </div>
-            <a class="nav-twitter" href="https://x.com/731chapters" target="_blank" rel="noopener noreferrer">
-                <p>Twitter</p>
-            </a>
-        </div>
     </nav>
     <div id="app">
         <div id="title">Bantu Nyu bertemu dengan Nje!</div>
@@ -705,7 +711,10 @@
             if (targetId === '#about-731chapters' || targetId === 'index.html') {
                 const aboutLink = document.querySelector('.nav-links > a[href="#about-731chapters"]');
                 if (aboutLink) aboutLink.classList.add('active');
-            } else {
+            } else if (targetId === '#id') {
+                const cafeLink = document.querySelector('nav-submenu a[href="#app"]');
+                if (cafeLink) cafeLink.classList.add('active');
+
                 const musimLink = document.querySelector('.nav-drop-toggle');
                 if (musimLink) musimLink.classList.add('active');
             }
