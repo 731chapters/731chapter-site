@@ -3012,7 +3012,7 @@
                         <a class="nav-coming-soon" href="#cafe">CAFE EVENT</a>
                     </div>
                     <div>
-                        <a class="nav-coming-soon photobooth-link" href="">PHOTOBOOTH</a>
+                        <a class="nav-coming-soon photobooth-link" href="#photobooth">PHOTOBOOTH</a>
                     </div>
                     <div class="nav-dropdown-group">
                         <a class="nav-submenu-title" href="">GAMES</a>
@@ -3054,7 +3054,7 @@
                     </p>
                 </div>
                 <div class="btn-row single-btn">
-                    <a href="" class="btn btn-writer photobooth-link">PHOTOBOOTH</a>
+                    <a href="#photobooth" class="btn btn-writer photobooth-link">PHOTOBOOTH</a>
                 </div>
                 <div class="apply-text">
                     <p class="apply-subtext">
@@ -4795,69 +4795,7 @@
     window.addEventListener('hashchange', handlePhotoboothNavigation);
 
 
-    // COUNTDOWN FOR PROMOTED CONTENT
-    var countDownDate = Date.UTC(2026, 8, 6, 4, 0, 0);
 
-    var photobooth_links = document.querySelectorAll(".photobooth-link");
-    var maze_links = document.querySelectorAll(".maze-link");
-    var puzzle_links = document.querySelectorAll(".puzzle-link");
-    var rsvp_countdowns = document.querySelectorAll(".rsvp-countdown");
-
-    var x = setInterval(function () {
-
-        var now = new Date().getTime();
-        var distance = countDownDate - now;
-
-        var days = Math.floor(
-            distance / (1000 * 60 * 60 * 24)
-        );
-
-        var hours = Math.floor(
-            (distance % (1000 * 60 * 60 * 24)) /
-            (1000 * 60 * 60)
-        );
-
-        var minutes = Math.floor(
-            (distance % (1000 * 60 * 60)) /
-            (1000 * 60)
-        );
-
-        var seconds = Math.floor(
-            (distance % (1000 * 60)) / 1000
-        );
-
-        var countdown =
-            String(days).padStart(2, '0') + " : " +
-            String(hours).padStart(2, '0') + " : " +
-            String(minutes).padStart(2, '0') + " : " +
-            String(seconds).padStart(2, '0');
-
-        if (distance > 0) {
-            rsvp_countdowns.forEach(function (element) {
-                element.textContent = countdown;
-            });
-            photobooth_links.forEach(function (link) {
-                link.href = "#";
-            });
-
-
-        } else {
-            clearInterval(x);
-
-            rsvp_countdowns.forEach(function (element) {
-                element.textContent = "Musim Mekarnya Rasa";
-            });
-            photobooth_links.forEach(function (link) {
-                link.href = "#photobooth";
-                link.onclick = function () {
-                    openPhotobooth();
-                };
-
-            });
-
-        }
-
-    }, 1000);
 </script>
 
 </html>
